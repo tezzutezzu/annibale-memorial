@@ -96,6 +96,7 @@ video.html                ← la pagina dei video
 data/posts.jsonl          ← i testi dei messaggi
 data/media/               ← tutte le foto (una cartella per ricordo)
 data/posts.csv            ← la stessa roba in forma di foglio di calcolo
+data/excluded.json        ← i post tolti di proposito (non devono tornare)
 ```
 
 La cartella si può copiare dove vuoi (anche su una chiavetta), ma
@@ -103,8 +104,9 @@ La cartella si può copiare dove vuoi (anche su una chiavetta), ma
 se lo sposti da solo, le foto non si trovano più.
 
 Le altre cose (`console/`, `import_console_dump.py`, `fbstore.py`,
-`requirements.txt`) servono solo se un giorno si vogliono raccogliere altri
-ricordi da Facebook. Per guardare la presentazione non servono.
+`remove_posts.py`, `requirements.txt`) servono solo se un giorno si vogliono
+raccogliere altri ricordi da Facebook. Per guardare la presentazione non
+servono.
 
 ## 4. Se qualcosa non funziona
 
@@ -172,7 +174,23 @@ Istruzioni più dettagliate per la raccolta: `console/README.md`.
 > Le foto di Facebook sono collegate da indirizzi che scadono dopo pochi giorni:
 > se raccogli i messaggi, importali lo stesso giorno.
 
-## 6. Una nota
+## 6. Togliere un ricordo
+
+Se un post non c'entra (un augurio di compleanno, una pubblicità, un post che
+non è un ricordo), si toglie così, copiando l'identificativo dall'indirizzo
+(`...#fb_10237650532620953`):
+
+```
+python3 remove_posts.py fb_10237650532620953 --reason "auguri di compleanno"
+```
+
+Si possono togliere più post in una volta, elencandoli. Il post sparisce dalla
+presentazione, la sua cartella di foto viene cancellata e l'identificativo
+finisce in `data/excluded.json`: così, se un giorno si reimporta lo stesso file
+di Facebook, quel post **non torna**. `data/excluded.json` va tenuto insieme
+agli altri dati.
+
+## 7. Una nota
 
 I messaggi e le foto sono di chi li ha scritti: questa presentazione serve per
 ricordare Annibale tra noi, non per essere pubblicata altrove.

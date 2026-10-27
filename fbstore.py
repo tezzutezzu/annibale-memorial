@@ -30,6 +30,7 @@ DATA_DIR = ROOT / "data"
 JSONL_PATH = DATA_DIR / "posts.jsonl"
 CSV_PATH = DATA_DIR / "posts.csv"
 MEDIA_DIR = DATA_DIR / "media"
+EXCLUDED_PATH = DATA_DIR / "excluded.json"
 
 MEDIA_EXT = {
     "image/jpeg": ".jpg",
@@ -243,6 +244,11 @@ def _author_key(name: str | None) -> str:
     return (name or "").strip().casefold()
 
 
+def message_key(post: dict) -> tuple[str, str]:
+    """Who wrote it and how it opens: what makes two captures the same memory."""
+    return (_author_key(post.get("author")), message_signature(post.get("text") or ""))
+
+
 def _authors_compatible(a: str | None, b: str | None) -> bool:
     ka, kb = _author_key(a), _author_key(b)
     return not ka or not kb or ka == kb
@@ -275,9 +281,9 @@ class RowMatcher:
         pid = row.get("id")
         if pid:
             self.by_id.setdefault(pid, i)
-        signature = message_signature(row.get("text") or "")
-        if signature:
-            self.by_signature.setdefault((_author_key(row.get("author")), signature), i)
+        key = message_key(row)
+        if key[1]:
+            self.by_signature.setdefault(key, i)
         link = _permalink_key(row)
         if link:
             self.by_permalink.setdefault(link, i)
@@ -288,18 +294,16 @@ class RowMatcher:
         if pid and pid in self.by_id:
             return self.by_id[pid], "id"
 
-        signature = message_signature(post.get("text") or "")
-        if signature:
-            mine = (_author_key(post.get("author")), signature)
-            if mine in self.by_signature:
-                return self.by_signature[mine], "message"
+        key = message_key(post)
+        if key[1] and key in self.by_signature:
+            return self.by_signature[key], "message"
 
         link = _permalink_key(post)
         if link and link in self.by_permalink:
             return self.by_permalink[link], "permalink"
 
-        if signature:
-            close = self._closest_by_text(post, signature)
+        if key[1]:
+            close = self._closest_by_text(post, key[1])
             if close is not None:
                 return close, "similar"
         return None, "new"
@@ -405,9 +409,8 @@ def _collapse_batch(posts: list[dict]) -> list[dict]:
     out: list[dict] = []
     seen: dict[tuple[str, str], dict] = {}
     for post in posts:
-        signature = message_signature(post.get("text") or "")
-        key = (_author_key(post.get("author")), signature)
-        if not signature:
+        key = message_key(post)
+        if not key[1]:
             out.append(post)
             continue
         first = seen.get(key)
@@ -419,7 +422,65 @@ def _collapse_batch(posts: list[dict]) -> list[dict]:
     return out
 
 
-def merge_posts(rows: list[dict], incoming: list[dict]) -> dict:
+# --------------------------------------------------------------------------- #
+# the posts that were deliberately left out
+# --------------------------------------------------------------------------- #
+class Exclusions:
+    """Posts that were removed on purpose, so a re-import does not bring them back.
+
+    The id alone is not enough: a post collected without a permalink is keyed by
+    a hash of the image URL, which changes between collections. The author and
+    the opening words are stored alongside, and either one matching is enough.
+    """
+
+    def __init__(self, entries: list[dict]):
+        self.ids: set[str] = set()
+        self.signatures: set[tuple[str, str]] = set()
+        for entry in entries:
+            pid = (entry.get("id") or "").strip()
+            if pid:
+                self.ids.add(pid)
+            key = message_key({"author": entry.get("author"), "text": entry.get("message")})
+            if key[1]:
+                self.signatures.add(key)
+
+    def __len__(self) -> int:
+        return len(self.ids)
+
+    def __contains__(self, post: dict) -> bool:
+        pid = post.get("id")
+        if pid and pid in self.ids:
+            return True
+        key = message_key(post)
+        return bool(key[1]) and key in self.signatures
+
+
+def read_exclusions(path: Path | None = None) -> list[dict]:
+    """The exclusion list as written on disk."""
+    path = path or EXCLUDED_PATH
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"{path.name} is not valid JSON: {exc}") from exc
+    if isinstance(data, dict):  # tolerate {"posts": [...]}
+        data = data.get("posts", [])
+    return [e for e in data if isinstance(e, dict)]
+
+
+def load_exclusions(path: Path | None = None) -> Exclusions:
+    return Exclusions(read_exclusions(path))
+
+
+def write_exclusions(entries: list[dict], path: Path | None = None) -> int:
+    path = path or EXCLUDED_PATH
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return len(entries)
+
+
+def merge_posts(rows: list[dict], incoming: list[dict], excluded: Exclusions | None = None) -> dict:
     """Reconcile `incoming` posts into `rows` in place and report what happened."""
     matcher = RowMatcher(rows)
     report: dict = {
@@ -429,10 +490,15 @@ def merge_posts(rows: list[dict], incoming: list[dict]) -> dict:
         "unchanged": 0,
         "appended": 0,
         "duplicates": 0,
+        "skipped": 0,
     }
 
-    collapsed = _collapse_batch(incoming)
-    report["duplicates"] = len(incoming) - len(collapsed)
+    excluded = excluded or Exclusions([])
+    kept = [p for p in incoming if p not in excluded]
+    report["skipped"] = len(incoming) - len(kept)
+
+    collapsed = _collapse_batch(kept)
+    report["duplicates"] = len(kept) - len(collapsed)
 
     before: dict[int, dict] = {}
     for post in collapsed:

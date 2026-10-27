@@ -103,10 +103,13 @@ def main(argv: list[str] | None = None) -> int:
         rows.extend(normalise(load_dump(dump.expanduser())))
 
     existing = fbs.load_rows(target)
-    report = fbs.merge_posts(existing, rows)
+    excluded = fbs.load_exclusions()
+    report = fbs.merge_posts(existing, rows, excluded)
 
     print(f"dump      : {len(args.dump)} file(s), {len(rows)} posts")
     print(f"in store  : {len(existing) - report['appended']} rows before")
+    if report["skipped"]:
+        print(f"skipped   : {report['skipped']} posts removed on purpose (data/excluded.json)")
     if report["duplicates"]:
         print(f"repeats   : {report['duplicates']} posts captured twice in the dumps")
     if report["matched"]:
