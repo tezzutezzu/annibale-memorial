@@ -53,6 +53,8 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   decorazione. Se il sistema è impostato per ridurre le animazioni
   (*Impostazioni → Accessibilità → Movimento*), lo sfondo resta fermo; se il
   computer non sa disegnarlo, la pagina resta scura com'era prima.
+  Per spegnerlo del tutto, aggiungi `?aura=off` in fondo all'indirizzo
+  (`.../index.html?aura=off`): la pagina torna nera, senza sfondo colorato.
 
 ### Cercare un ricordo
 
