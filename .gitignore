@@ -2,6 +2,13 @@
 .venv/
 __pycache__/
 .DS_Store
+.backups/
 
 # transient
 data/*.tmp
+
+# Local capture exports and duplicate recovery/download working copies.
+instagram/ig_*.json
+instagram/recuperi/
+instagram/video/
+instagram/verifiche/

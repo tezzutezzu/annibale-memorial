@@ -51,8 +51,27 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+def instagram_code(post: dict) -> str | None:
+    """Only trust Instagram permalinks, never digits inside a shortcode."""
+    try:
+        link = urlsplit(post.get("permalink") or "")
+    except ValueError:
+        return None
+    if (link.hostname or "").lower() not in ("instagram.com", "www.instagram.com"):
+        return None
+    match = re.fullmatch(r"/(?:[\w.]+/)?(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)/?", link.path)
+    return match.group(1) if match else None
+
+
+def is_instagram(post: dict) -> bool:
+    return post.get("platform") == "instagram" or instagram_code(post) is not None
+
+
 def compute_id(post: dict) -> str:
     """Stable identity: the numeric post id when we have a permalink, else a hash."""
+    code = instagram_code(post)
+    if code:
+        return "ig_" + code
     m = re.search(r"(\d{6,})", post.get("permalink") or "")
     if m:
         return "fb_" + m.group(1)
@@ -118,6 +137,9 @@ def download_post_media(
         if kind == "video" and which != "all":
             continue  # feed videos are usually blob:/DASH, not fetchable
 
+        if _saved(item):
+            continue
+
         url = item.get("url") or ""
         if not url.startswith(("http://", "https://")):
             item.setdefault("download_error", "no direct url (blob or stream)")
@@ -134,7 +156,10 @@ def download_post_media(
 
         try:
             resp = http.get(
-                url, timeout=timeout_ms, headers={"Referer": "https://www.facebook.com/"}
+                url, timeout=timeout_ms, headers={
+                    "Referer": "https://www.instagram.com/" if is_instagram(post)
+                    else "https://www.facebook.com/"
+                }
             )
         except Exception as exc:  # network/DNS/timeout
             item["download_error"] = f"request failed ({type(exc).__name__})"
@@ -165,6 +190,7 @@ def download_post_media(
         path.write_bytes(body)
         item["local_path"] = _rel(path)
         item["bytes"] = len(body)
+        item.pop("download_error", None)
         files += 1
         written += len(body)
 
@@ -179,7 +205,7 @@ def row_needs_media(row: dict, which: str) -> bool:
             continue
         if kind == "video" and which != "all":
             continue
-        if item.get("local_path") or item.get("download_error"):
+        if _saved(item) or item.get("download_error"):
             continue
         if (item.get("url") or "").startswith(("http://", "https://")):
             return True
@@ -275,8 +301,10 @@ class RowMatcher:
         pid = row.get("id")
         if pid:
             self.by_id.setdefault(pid, i)
+        for alias in row.get('aliases') or []:
+            self.by_id.setdefault(alias, i)
         signature = message_signature(row.get("text") or "")
-        if signature:
+        if signature and not is_instagram(row):
             self.by_signature.setdefault((_author_key(row.get("author")), signature), i)
         link = _permalink_key(row)
         if link:
@@ -287,6 +315,14 @@ class RowMatcher:
         pid = post.get("id")
         if pid and pid in self.by_id:
             return self.by_id[pid], "id"
+
+        # Same words on different Instagram shortcodes are different posts.
+        # Cross-platform copies must also keep their original attribution.
+        if is_instagram(post):
+            link = _permalink_key(post)
+            if link and link in self.by_permalink:
+                return self.by_permalink[link], "permalink"
+            return None, "new"
 
         signature = message_signature(post.get("text") or "")
         if signature:
@@ -309,6 +345,8 @@ class RowMatcher:
         best: int | None = None
         best_ratio = 0.0
         for i, row in enumerate(self.rows):
+            if is_instagram(row):
+                continue
             if not _authors_compatible(post.get("author"), row.get("author")):
                 continue
             other = message_signature(row.get("text") or "")
@@ -385,9 +423,16 @@ def reconcile_row(row: dict, post: dict) -> None:
     for field in (
         "author", "author_url", "shared_author", "permalink", "time_text",
         "reactions", "reactions_summary", "comments", "shares",
+        "platform", "source", "collection_url", "collection_name", "published_at",
     ):
         if not row.get(field) and post.get(field):
             put(field, post[field])
+
+    if is_instagram(post):
+        # Diagnostics describe the latest capture, including resolved warnings.
+        for field in ("capture_warnings", "carousel_complete"):
+            if field in post:
+                put(field, post[field])
 
     put("relevant", _merge_relevance(row.get("relevant"), post.get("relevant")))
 
@@ -406,8 +451,9 @@ def _collapse_batch(posts: list[dict]) -> list[dict]:
     seen: dict[tuple[str, str], dict] = {}
     for post in posts:
         signature = message_signature(post.get("text") or "")
-        key = (_author_key(post.get("author")), signature)
-        if not signature:
+        key = (("instagram", compute_id(post)) if is_instagram(post)
+               else (_author_key(post.get("author")), signature))
+        if not signature and not is_instagram(post):
             out.append(post)
             continue
         first = seen.get(key)
@@ -539,6 +585,7 @@ def export_csv(jsonl_path: Path, csv_path: Path) -> int:
         "id", "collected_at", "author", "author_url", "time_text", "permalink",
         "reactions", "comments", "shares", "media_count", "media_local", "media_urls",
         "is_ad", "posinset", "shared_author", "text", "shared_text",
+        "platform", "aliases", "source_urls", "sources_json",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
@@ -551,6 +598,9 @@ def export_csv(jsonl_path: Path, csv_path: Path) -> int:
                     "media_count": len(media),
                     "media_local": " | ".join(m.get("local_path") or "" for m in media),
                     "media_urls": " | ".join(m.get("url") or m.get("poster") or "" for m in media),
+                    "aliases": " | ".join(r.get("aliases") or []),
+                    "source_urls": " | ".join(s.get("permalink") or "" for s in r.get("sources") or []),
+                    "sources_json": json.dumps(r.get("sources") or [], ensure_ascii=False),
                 }
             )
     return len(rows)

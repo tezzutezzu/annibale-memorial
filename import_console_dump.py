@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge a JSON dump produced by console/fb_scrape_console.js into the store.
+"""Merge Facebook or Instagram console JSON dumps into the store.
 
 The console snippet collects posts inside your logged-in tab but cannot write
 image files (Chrome blocks bulk automatic downloads). This importer merges the
@@ -47,6 +47,11 @@ def load_dump(path: Path) -> list[dict]:
 
     # Tolerate {posts: [...]} as well as a bare array.
     if isinstance(data, dict):
+        if isinstance(data.get("links"), list):
+            pending = sum(isinstance(link, dict) and link.get("status") != "captured"
+                          for link in data["links"])
+            if pending:
+                print(f"capture   : {path.name}: {pending} discovered links not yet captured (not imported)")
         data = data.get("posts", [])
     if not isinstance(data, list):
         raise SystemExit("expected a JSON array of posts (or {posts: [...]})")
@@ -62,6 +67,14 @@ def normalise(posts: list[dict]) -> list[dict]:
     out: list[dict] = []
     for raw in posts:
         post = dict(raw)
+        if fbs.is_instagram(post):
+            code = fbs.instagram_code(post)
+            if not code:
+                raise SystemExit("Instagram post without a valid permalink; import cancelled")
+            post["platform"] = "instagram"
+            post["permalink"] = "https://www.instagram.com/p/" + code + "/"
+            # A saved post was explicitly selected by the user.
+            post.setdefault("source", "collection")
         post["id"] = fbs.compute_id(post)
         post.setdefault("collected_at", fbs.now_iso())
         if not isinstance(post.get("media"), list):
@@ -78,7 +91,7 @@ def main(argv: list[str] | None = None) -> int:
         "dump",
         type=Path,
         nargs="+",
-        help="JSON file(s) downloaded by fbScrape.saveJSON()",
+        help="JSON file(s) downloaded by fbScrape.saveJSON() or igScrape.saveJSON()",
     )
     ap.add_argument(
         "--jsonl",
@@ -94,6 +107,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument("--media-timeout", type=int, default=30000, help="per-file download timeout in ms")
     ap.add_argument("--max-media-mb", type=int, default=50, help="skip individual files larger than this")
+    ap.add_argument("--dry-run", action="store_true", help="report the merge without writing or downloading")
     args = ap.parse_args(argv)
 
     target: Path = args.jsonl.expanduser()
@@ -117,6 +131,13 @@ def main(argv: list[str] | None = None) -> int:
             fields = ", ".join(f"{k} {n}" for k, n in report["fields"].most_common())
             print(f"  changed : {fields}")
     print(f"new       : {report['appended']} posts appended")
+
+    incomplete = sum(bool(p.get("capture_warnings")) for p in rows)
+    if incomplete:
+        print(f"capture   : {incomplete} posts have warnings; inspect capture_warnings in the JSON")
+    if args.dry_run:
+        print("dry run   : no files written or downloaded")
+        return 0
 
     written = fbs.write_jsonl(target, existing)
     csv_path = target.with_suffix(".csv")
@@ -146,6 +167,9 @@ def main(argv: list[str] | None = None) -> int:
             fbs.backfill_media(http, args, target)  # type: ignore[arg-type]
         finally:
             http.dispose()
+
+    # Include the downloaded media's local paths in the CSV too.
+    fbs.export_csv(target, csv_path)
 
     print(f"media dir : {fbs.MEDIA_DIR}")
     return 0

@@ -45,7 +45,15 @@
         #figure {
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
+
+        #photo-controls[hidden] { display: none; }
+
+        /* Handle horizontal photo swipes while keeping native vertical pans
+           and pinch zoom. This applies only to the image area, not the text. */
+        #photo-frame { touch-action: pan-y pinch-zoom; }
 
         .photo {
             position: absolute;
@@ -64,6 +72,8 @@
             -webkit-user-drag: none;
             pointer-events: none;
         }
+        #video { pointer-events: auto; }
+        .photo[hidden] { display: none; }
 
         /* Long posts scroll inside their column, never the page. */
         .quote {
@@ -175,7 +185,32 @@
 
                 <!-- Image, left -->
                 <figure id="figure" class="relative h-full min-h-[38vh] md:min-h-0">
-                    <img id="photo" class="photo" alt="">
+                    <div id="photo-frame" class="relative flex-1 min-h-0 w-full">
+                        <img id="photo" class="photo" alt="">
+                        <video id="video" class="photo" controls playsinline preload="metadata" hidden
+                               aria-label="Video di questo ricordo"></video>
+                    </div>
+                    <figcaption id="photo-controls" hidden
+                                class="shrink-0 flex items-center justify-center gap-4 pt-2"
+                                role="group" aria-label="Foto e video di questo ricordo">
+                        <button id="photo-prev" type="button" aria-label="Contenuto precedente" aria-controls="photo video"
+                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10
+                                       bg-white/5 text-stone-300 hover:bg-white/10 focus-visible:outline focus-visible:outline-2
+                                       focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <span id="photo-counter" class="text-sm text-stone-400 tabular-nums" aria-live="polite" aria-atomic="true"></span>
+                        <button id="photo-next" type="button" aria-label="Contenuto successivo" aria-controls="photo video"
+                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10
+                                       bg-white/5 text-stone-300 hover:bg-white/10 focus-visible:outline focus-visible:outline-2
+                                       focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+                            </svg>
+                        </button>
+                    </figcaption>
                 </figure>
 
                 <!-- Text, right -->
@@ -190,6 +225,7 @@
                                 <span id="author"></span>
                             </a>
                             <span id="date" class="block text-[0.7rem] text-stone-500 mt-1 uppercase tracking-wider"></span>
+                            <div id="source-links" class="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs text-stone-400"></div>
                         </div>
                         <div class="shrink-0 flex items-center gap-3">
                             <button id="share" type="button"
@@ -264,12 +300,19 @@
             grid: document.getElementById('grid'),
             figure: document.getElementById('figure'),
             photo: document.getElementById('photo'),
+            video: document.getElementById('video'),
+            photoFrame: document.getElementById('photo-frame'),
+            photoControls: document.getElementById('photo-controls'),
+            photoPrev: document.getElementById('photo-prev'),
+            photoNext: document.getElementById('photo-next'),
+            photoCounter: document.getElementById('photo-counter'),
             card: document.getElementById('card'),
             text: document.getElementById('text'),
             author: document.getElementById('author'),
             authorLink: document.getElementById('author-link'),
             date: document.getElementById('date'),
             permalink: document.getElementById('permalink'),
+            sourceLinks: document.getElementById('source-links'),
             counter: document.getElementById('counter'),
             hint: document.getElementById('hint'),
             prev: document.getElementById('prev'),
@@ -281,7 +324,7 @@
             toast: document.getElementById('toast'),
         };
 
-        const state = { posts: [], i: 0 };
+        const state = { posts: [], i: 0, photoIndex: 0 };
 
         function parsePosts(text) {
             const trimmed = text.trim();
@@ -308,6 +351,8 @@
 
         function dateLabel(post) {
             const raw = (post.time_text || '').trim();
+            const published = post.published_at || '';
+            if ((!raw || NOT_A_DATE_RE.test(raw)) && /^\d{4}-\d{2}-\d{2}/.test(published)) return published.slice(0, 10);
             if (!raw || raw.length > 40) return '';
             if (NOT_A_DATE_RE.test(raw)) return '';
             if (TIME_LABEL_RE.test(raw)) return raw;
@@ -322,7 +367,14 @@
                 // data and come back by clearing `relevant`.
                 .filter(post => post.relevant !== false)
                 .map(post => {
-                    const img = (post.media || []).find(m => m.type === 'image' && (m.local_path || m.url));
+                    const media = (post.media || [])
+                        .filter(m => (m.type === 'image' && (m.local_path || m.url))
+                            || (m.type === 'video' && (m.local_path || /^https?:/.test(m.url || ''))))
+                        .map(m => ({ type: m.type, src: m.local_path || m.url, alt: m.alt || '',
+                            poster: m.poster_local_path || m.poster || '' }));
+                    const images = (post.media || [])
+                        .filter(m => m.type === 'image' && (m.local_path || m.url))
+                        .map(m => ({ src: m.local_path || m.url, alt: m.alt || '' }));
                     // A share often names Annibale only in the quoted post; without
                     // this the slide loses the only mention.
                     const own = (post.text || '').trim();
@@ -332,23 +384,120 @@
                         : '';
                     return {
                         id: post.id,          // the slide's address: .../#<id>
+                        aliases: post.aliases || [],
                         text: own + quoted,
                         author: post.author || 'Anonimo',
                         authorUrl: post.author_url && post.author_url !== '#' ? post.author_url : null,
-                        permalink: post.permalink || null,
-                        image: img ? (img.local_path || img.url) : null,
-                        alt: (img && img.alt) || '',
+                        permalink: post.permalink || (post.sources || []).find(s => s.permalink)?.permalink || null,
+                        sources: post.sources || [{ platform: post.platform || 'facebook',
+                            author: post.author || '', permalink: post.permalink || '' }],
+                        sourceAuthors: (post.sources || []).map(s => s.author || '').join(' '),
+                        media,
+                        images,
+                        image: images.length ? images[0].src : (media.find(m => m.poster)?.poster || null),
                         // Only a real post date; empty means "show nothing".
                         // (collected_at is the day of the scrape, not the post.)
                         date: dateLabel(post),
                     };
                 })
-                .filter(p => p.text || p.image);
+                .filter(p => p.text || p.media.length);
         }
 
-        function preload(post) {
-            if (post && post.image) new Image().src = post.image;
+        function preload(post, photoIndex = 0) {
+            const item = post && post.media[photoIndex];
+            if (item?.type === 'image') new Image().src = item.src;
+            else if (item?.poster) new Image().src = item.poster;
         }
+
+        function renderPhoto() {
+            const post = state.posts[state.i];
+            if (!post) return;
+            const item = post.media[state.photoIndex];
+            const isVideo = item?.type === 'video';
+            els.grid.classList.toggle('no-image', !item);
+            els.photo.hidden = !item || isVideo;
+            els.video.hidden = !isVideo;
+            // Leaving a video must stop its audio and release the old resource.
+            if (!isVideo || els.video.getAttribute('src') !== item.src) {
+                els.video.pause();
+                els.video.removeAttribute('src');
+                els.video.removeAttribute('poster');
+                els.video.load();
+            }
+            if (isVideo) {
+                if (els.video.getAttribute('src') !== item.src) els.video.src = item.src;
+                if (item.poster) els.video.poster = item.poster;
+                els.video.setAttribute('aria-label', `Video del ricordo di ${post.author}`);
+                els.photo.removeAttribute('src');
+                els.photo.alt = '';
+            } else if (item) {
+                els.photo.src = item.src;
+                els.photo.alt = item.alt;
+            } else {
+                els.photo.removeAttribute('src');
+                els.photo.alt = '';
+            }
+
+            els.photoControls.hidden = post.media.length <= 1;
+            els.photoPrev.disabled = state.photoIndex <= 0;
+            els.photoNext.disabled = state.photoIndex >= post.media.length - 1;
+            els.photoCounter.textContent = post.media.length > 1
+                ? `${isVideo ? 'Video' : 'Foto'} ${state.photoIndex + 1} / ${post.media.length}` : '';
+            preload(post, state.photoIndex + 1);
+        }
+
+        function goPhoto(index) {
+            const post = state.posts[state.i];
+            if (!post || !post.media.length) return;
+            const next = Math.max(0, Math.min(index, post.media.length - 1));
+            if (next === state.photoIndex) return;
+            state.photoIndex = next;
+            renderPhoto();
+        }
+
+        els.photoPrev.addEventListener('click', () => goPhoto(state.photoIndex - 1));
+        els.photoNext.addEventListener('click', () => goPhoto(state.photoIndex + 1));
+
+        let photoSwipe = null;
+        els.photoFrame.addEventListener('pointerdown', (event) => {
+            if (event.pointerType !== 'touch') return;
+            photoSwipe = null;
+            if (event.target.closest('video')) return;
+            const post = state.posts[state.i];
+            if (!event.isPrimary || !post || post.media.length < 2) return;
+            photoSwipe = {
+                pointerId: event.pointerId,
+                x: event.clientX,
+                y: event.clientY,
+                post,
+                photoIndex: state.photoIndex,
+            };
+            els.photoFrame.setPointerCapture(event.pointerId);
+        });
+        els.photoFrame.addEventListener('pointerup', (event) => {
+            const swipe = photoSwipe;
+            photoSwipe = null;
+            if (!swipe || swipe.pointerId !== event.pointerId
+                || swipe.post !== state.posts[state.i]
+                || swipe.photoIndex !== state.photoIndex) return;
+            const dx = event.clientX - swipe.x;
+            const dy = event.clientY - swipe.y;
+            // Ignore taps, short movements and predominantly vertical gestures.
+            if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+            goPhoto(state.photoIndex + (dx < 0 ? 1 : -1));
+        });
+        const cancelPhotoSwipe = () => { photoSwipe = null; };
+        els.photoFrame.addEventListener('pointercancel', cancelPhotoSwipe);
+        els.photoFrame.addEventListener('lostpointercapture', cancelPhotoSwipe);
+
+        // Arrow keys on the gallery controls change photos; elsewhere they
+        // keep navigating memories. Enter/Space activate the focused button.
+        els.photoControls.addEventListener('keydown', (event) => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+            event.stopPropagation();
+            goPhoto(state.photoIndex + (event.key === 'ArrowRight' ? 1 : -1));
+        });
 
         function applyPostMeta(post) {
             // textContent, so nothing written on Facebook is treated as markup.
@@ -373,22 +522,29 @@
             } else {
                 els.permalink.classList.add('hidden');
             }
+            els.sourceLinks.replaceChildren();
+            const sources = post.sources.filter(s => /^https?:/.test(s.permalink || ''));
+            if (sources.length > 1) {
+                for (const source of sources) {
+                    const link = document.createElement('a');
+                    const platform = source.platform === 'instagram' ? 'Instagram' : 'Facebook';
+                    const samePlatform = sources.filter(s => s.platform === source.platform).length > 1;
+                    link.textContent = samePlatform ? `${platform} · ${source.author}` : platform;
+                    link.href = source.permalink;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.className = 'underline underline-offset-2 hover:text-stone-200';
+                    els.sourceLinks.appendChild(link);
+                }
+                els.permalink.classList.add('hidden');
+            }
         }
 
         function render() {
             const post = state.posts[state.i];
             if (!post) return;
 
-            els.grid.classList.toggle('no-image', !post.image);
-
-            if (post.image) {
-                els.photo.src = post.image;
-                els.photo.alt = post.alt || '';
-            } else {
-                els.photo.removeAttribute('src');
-                els.photo.alt = '';
-            }
-
+            renderPhoto();
             applyPostMeta(post);
 
             els.counter.textContent = `${state.i + 1} / ${state.posts.length}`;
@@ -410,6 +566,7 @@
             const next = Math.max(0, Math.min(index, state.posts.length - 1));
             if (next === state.i) return;
             state.i = next;
+            state.photoIndex = 0;
             render();
             syncHash();
         }
@@ -443,7 +600,7 @@
         function indexFromHash() {
             const id = hashId();
             if (!id) return -1;
-            return state.posts.findIndex(p => p.id === id);
+            return state.posts.findIndex(p => p.id === id || p.aliases.includes(id));
         }
 
         /** Follow a hash change. False when the id is unknown. */
@@ -452,8 +609,10 @@
             if (index < 0) return false;
             if (index !== state.i) {
                 state.i = index;
+                state.photoIndex = 0;
                 render();
             }
+            syncHash();
             return true;
         }
 
@@ -547,7 +706,7 @@
             searchIndex = state.posts.map((post, i) => ({
                 i,
                 text: norm(post.text),
-                author: norm(post.author),
+                author: norm(post.author + ' ' + post.sourceAuthors),
                 raw: post.text || '',
                 rawAuthor: post.author || '',
                 date: post.date || '',
@@ -777,6 +936,8 @@
 
         document.addEventListener('keydown', (event) => {
             const k = event.key;
+            // Native player shortcuts belong to the player, including seeking.
+            if (event.target?.closest?.('video, audio')) return;
 
             // Everything typed in the search box belongs to the search box.
             if (event.target && event.target.closest && event.target.closest('#search-wrap')) return;

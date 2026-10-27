@@ -1,7 +1,7 @@
 # Ricordi per Annibale — come si guarda
 
 Questa cartella contiene una presentazione a schermo intero con tutti i
-messaggi e le foto raccolti da Facebook.
+messaggi, le foto e i video raccolti da Facebook e Instagram.
 
 **La presentazione è online qui:** https://tezzutezzu.github.io/annibale-memorial/
 
@@ -47,8 +47,34 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
 
 - I messaggi lunghi si scorrono con la rotella del mouse, dentro la loro colonna:
   la pagina intera non si muove mai.
-- Se un ricordo non ha foto, il testo occupa tutto lo spazio.
+- Se un ricordo non ha foto o video disponibili, il testo occupa tutto lo spazio.
 - In alto a destra c'è il conteggio, ad esempio `12 / 248`.
+
+### Foto e video di un ricordo
+
+Se un ricordo contiene più foto o video, sotto l'immagine compaiono due frecce e il
+conteggio **Foto 1 / 3** oppure **Video 2 / 3**. Le frecce scorrono tutti i contenuti di quel ricordo;
+quelle in fondo alla pagina continuano a cambiare ricordo.
+
+Su smartphone e tablet puoi anche **scorrere il dito sulla foto**: verso sinistra
+per la foto successiva, verso destra per la precedente. Il testo continua a
+scorrere verticalmente nella propria area.
+
+Puoi usare anche la tastiera: premi <kbd>Tab</kbd> per raggiungere le frecce
+delle foto, poi <kbd>←</kbd> e <kbd>→</kbd> per sfogliarle. Fuori da questi
+comandi, le frecce della tastiera continuano a cambiare ricordo.
+Ogni volta che passi a un altro ricordo, viene mostrato il suo primo contenuto.
+Con un solo contenuto, i comandi della galleria non compaiono.
+
+I video si avviano con il pulsante Play del lettore. Cambiando contenuto o
+ricordo, la riproduzione si ferma. Quando il lettore ha il fuoco, Spazio e le
+frecce controllano il video. I due filmati nei caroselli di Pelizzaro e Fusacchia
+sono disponibili nel formato scaricato senza traccia audio.
+
+Quando lo stesso ricordo è stato pubblicato su Facebook e Instagram compare una
+sola volta, con il testo più completo e le foto e i video di entrambe le fonti.
+Sotto l'autore trovi i collegamenti alle pubblicazioni originali. I collegamenti
+già condivisi continuano ad aprire lo stesso ricordo anche dopo una fusione.
 
 ### Cercare un ricordo
 
@@ -167,7 +193,38 @@ Si fa in due passi.
    ./.venv/bin/python import_console_dump.py ~/Downloads/fb_posts_NOME_DEL_FILE.json
    ```
 
-Istruzioni più dettagliate per la raccolta: `console/README.md`.
+Istruzioni più dettagliate per la raccolta Facebook: `console/README.md`.
+
+### Aggiungere i post di una raccolta Instagram
+
+È disponibile anche `console/ig_scrape_console.js`, da incollare nella Console
+della raccolta aperta su Instagram. Prima prova tre post:
+
+```js
+await igScrape.run({ maxPosts: 3, collectionName: 'Annibale' })
+igScrape.saveJSON()
+```
+
+Il JSON si importa con lo stesso `import_console_dump.py` usato per Facebook.
+L'importatore distingue i post Instagram ed evita duplicati tra acquisizioni
+successive. Con `--dry-run` puoi vedere cosa cambierebbe senza scrivere file.
+
+Procedura completa, ripresa dopo un'interruzione e limiti su caroselli e reel:
+[Raccogliere da Instagram](console/INSTAGRAM.md). Il campione serve a verificare
+la compatibilità con la pagina Instagram reale prima di raccogliere tutto.
+
+La raccolta del 27 ottobre 2026 è stata integrata con `integrate_instagram.py`:
+83 post Instagram, 27 corrispondenze unite a Facebook, un comunicato duplicato
+tra due account Instagram e 55 nuovi ricordi. Foto e sei video sono salvati
+localmente in `data/media/`; le versioni originali dei testi e i riferimenti
+alle fonti sono conservati nei campi `sources` dei ricordi uniti.
+La copia portabile della raccolta e le corrispondenze verificate si trovano in
+`instagram/import/`; tutti i media referenziati sono inclusi in `data/media/`.
+
+Il comando senza opzioni mostra soltanto il piano. `--apply` richiede il file
+di corrispondenze già verificato, salva prima tutti i media, crea una copia di
+sicurezza in `.backups/` e aggiorna JSONL e CSV. Non pubblica il sito. Ripetere
+l'integrazione con gli stessi post non aggiunge altre copie.
 
 > Le foto di Facebook sono collegate da indirizzi che scadono dopo pochi giorni:
 > se raccogli i messaggi, importali lo stesso giorno.
