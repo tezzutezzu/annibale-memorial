@@ -120,6 +120,8 @@ def main(argv: list[str] | None = None) -> int:
             fields = ", ".join(f"{k} {n}" for k, n in report["fields"].most_common())
             print(f"  changed : {fields}")
     print(f"new       : {report['appended']} posts appended")
+    if report["renamed"]:
+        print(f"  renamed : {report['renamed']} of them share a photo with another author, given their own id")
 
     written = fbs.write_jsonl(target, existing)
     csv_path = target.with_suffix(".csv")

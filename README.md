@@ -159,6 +159,8 @@ Si fa in due passi.
    vengono aggiornati (un messaggio intero sostituisce l'anteprima tagliata da
    Facebook, un collegamento fresco sostituisce una foto scaduta) e solo quelli
    nuovi vengono aggiunti in fondo. Rilanciare lo stesso file non cambia niente.
+   Un messaggio già completo non viene mai riscritto: se correggi a mano una
+   parola in `data/posts.jsonl`, l'importazione la lascia com'è.
    Le foto vengono scaricate nella cartella giusta. Se compare il messaggio che
    manca `playwright`, si può importare solo il testo con `--media none`, oppure
    installarlo una volta sola:

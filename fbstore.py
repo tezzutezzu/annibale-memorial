@@ -52,11 +52,12 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def compute_id(post: dict) -> str:
-    """Stable identity: the numeric post id when we have a permalink, else a hash."""
-    m = re.search(r"(\d{6,})", post.get("permalink") or "")
-    if m:
-        return "fb_" + m.group(1)
+def content_id(post: dict) -> str:
+    """Hash of who wrote it and what it says, for a post we cannot key by permalink.
+
+    Used both for posts collected without a permalink and for a permalink that is
+    shared by two different people (the same photo posted by two accounts).
+    """
     first_media = (post.get("media") or [{}])[0]
     basis = "|".join(
         [
@@ -66,6 +67,14 @@ def compute_id(post: dict) -> str:
         ]
     )
     return "h_" + hashlib.sha1(basis.encode("utf-8")).hexdigest()[:16]
+
+
+def compute_id(post: dict) -> str:
+    """Stable identity: the numeric post id when we have a permalink, else a hash."""
+    m = re.search(r"(\d{6,})", post.get("permalink") or "")
+    if m:
+        return "fb_" + m.group(1)
+    return content_id(post)
 
 
 # --------------------------------------------------------------------------- #
@@ -232,6 +241,15 @@ TRUNCATION_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Once the button label is gone a cut message just ends in the ellipsis, which
+# is the signal that a later capture may have more of it.
+PREVIEW_END_RE = re.compile(r"(?:…|\.\.\.)\s*$")
+
+
+def looks_truncated(text: str | None) -> bool:
+    """True when the message stops at Facebook's cut, not at its end."""
+    return bool(PREVIEW_END_RE.search(text or ""))
+
 
 def message_signature(text: str, limit: int = 300) -> str:
     """Comparable head of a message: case, spacing and the "Altro..." cut removed."""
@@ -291,7 +309,7 @@ class RowMatcher:
     def find(self, post: dict) -> tuple[int | None, str]:
         """Return (row index, how) — `how` is 'id', 'message', 'permalink', 'similar' or 'new'."""
         pid = post.get("id")
-        if pid and pid in self.by_id:
+        if pid and pid in self.by_id and self._author_fits(self.by_id[pid], post):
             return self.by_id[pid], "id"
 
         key = message_key(post)
@@ -299,7 +317,7 @@ class RowMatcher:
             return self.by_signature[key], "message"
 
         link = _permalink_key(post)
-        if link and link in self.by_permalink:
+        if link and link in self.by_permalink and self._author_fits(self.by_permalink[link], post):
             return self.by_permalink[link], "permalink"
 
         if key[1]:
@@ -307,6 +325,10 @@ class RowMatcher:
             if close is not None:
                 return close, "similar"
         return None, "new"
+
+    def _author_fits(self, i: int, post: dict) -> bool:
+        """A permalink identifies a photo, not a person: two accounts can share it."""
+        return _authors_compatible(post.get("author"), self.rows[i].get("author"))
 
     def _closest_by_text(self, post: dict, signature: str, threshold: float = 0.9) -> int | None:
         """Same author, nearly the same words: a preview next to its full text."""
@@ -378,11 +400,16 @@ def reconcile_row(row: dict, post: dict) -> None:
         if row.get(field) != value:
             row[field] = value
 
-    # The longest capture wins: a full message is worth more than Facebook's
-    # "Altro..." preview, and re-importing the same dump changes nothing.
+    # A message is only replaced while the stored one is still a Facebook
+    # preview. Once it is complete the store wins, so a correction made by hand
+    # (a name fixed, a typo) is not undone the next time the dump is imported.
     for field in ("text", "shared_text"):
-        if len(post.get(field) or "") > len(row.get(field) or ""):
-            put(field, post[field])
+        stored = row.get(field) or ""
+        fresh = post.get(field) or ""
+        if not fresh.strip() or len(fresh) <= len(stored):
+            continue
+        if not stored.strip() or looks_truncated(stored):
+            put(field, fresh)
 
     # Everything else is only ever filled in: a capture that did not load a
     # field shows up as null and must not erase what the store already knows.
@@ -480,6 +507,19 @@ def write_exclusions(entries: list[dict], path: Path | None = None) -> int:
     return len(entries)
 
 
+def free_id(post: dict, taken: set[str]) -> str:
+    """An id no row uses yet, for a post whose permalink id belongs to someone else."""
+    pid = post.get("id") or content_id(post)
+    if pid not in taken:
+        return pid
+    candidate = content_id(post)
+    suffix = 2
+    while candidate in taken:
+        candidate = f"{content_id(post)}_{suffix}"
+        suffix += 1
+    return candidate
+
+
 def merge_posts(rows: list[dict], incoming: list[dict], excluded: Exclusions | None = None) -> dict:
     """Reconcile `incoming` posts into `rows` in place and report what happened."""
     matcher = RowMatcher(rows)
@@ -491,6 +531,7 @@ def merge_posts(rows: list[dict], incoming: list[dict], excluded: Exclusions | N
         "appended": 0,
         "duplicates": 0,
         "skipped": 0,
+        "renamed": 0,
     }
 
     excluded = excluded or Exclusions([])
@@ -501,12 +542,20 @@ def merge_posts(rows: list[dict], incoming: list[dict], excluded: Exclusions | N
     report["duplicates"] = len(kept) - len(collapsed)
 
     before: dict[int, dict] = {}
+    taken = set(matcher.by_id)
     for post in collapsed:
         idx, how = matcher.find(post)
         if idx is None:
-            rows.append(post)
+            row = dict(post)
+            # The permalink may already belong to a row written by someone
+            # else; keep both memories instead of overwriting one with the other.
+            row["id"] = free_id(row, taken)
+            taken.add(row["id"])
+            rows.append(row)
             matcher.index(len(rows) - 1)  # so a repeat inside the same batch matches
             report["appended"] += 1
+            if row["id"] != post.get("id"):
+                report["renamed"] += 1
             continue
 
         if idx not in before:
