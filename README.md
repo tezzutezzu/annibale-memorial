@@ -49,6 +49,10 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   la pagina intera non si muove mai.
 - Se un ricordo non ha foto, il testo occupa tutto lo spazio.
 - In alto a destra c'è il conteggio, ad esempio `12 / 248`.
+- Dietro le parole si muove uno sfondo di colore e polvere di luce: è solo
+  decorazione. Se il sistema è impostato per ridurre le animazioni
+  (*Impostazioni → Accessibilità → Movimento*), lo sfondo resta fermo; se il
+  computer non sa disegnarlo, la pagina resta scura com'era prima.
 
 ### Cercare un ricordo
 
