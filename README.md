@@ -81,8 +81,9 @@ resta lì.
 
 ### I video
 
-In alto a sinistra, sotto la scritta *PER ANNIBALE*, ci sono due pulsanti:
-**Ricordi** (la presentazione) e **Video**. La pagina dei video raccoglie gli
+Nei due pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
+**Ricordi** (la presentazione) e **Video**. Su uno schermo stretto finiscono su
+una riga tutta loro, sempre al centro. La pagina dei video raccoglie gli
 interventi pubblici di Annibale, divisi per periodo (Puglia / Bollenti Spiriti,
 Milano / Comune di Milano) e in ordine cronologico.
 

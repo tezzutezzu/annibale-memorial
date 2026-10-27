@@ -76,9 +76,14 @@
             max-height: 100%;
             object-fit: contain;
             border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
-            outline: 1px solid rgba(255, 255, 255, 0.08);
-            outline-offset: -1px;
+            /* Photos arrive with their own pale frame, so a heavy black drop
+               shadow read as a grubby smudge on the coloured ground. A hairline
+               and two soft, mostly downward shadows lift the picture without
+               darkening the space around it. */
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.55),
+                0 1px 3px rgba(0, 0, 0, 0.35),
+                0 18px 40px -22px rgba(0, 0, 0, 0.55);
             user-select: none;
             -webkit-user-drag: none;
             pointer-events: none;
@@ -144,38 +149,48 @@
 
     <div class="page h-full flex flex-col">
 
-        <!-- Header: one row on desktop, title+counter / search on phones -->
+        <!-- Header: on wide screens title left, section selector centred, search
+             and counter right. Narrower screens stack: title/counter, selector,
+             then the full-width search. -->
         <header class="shrink-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pt-5 md:pt-8 pb-2
-                       flex flex-wrap items-center gap-x-4 gap-y-2">
-            <div class="order-1 mr-auto min-w-0">
-                <p class="text-stone-500 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs mb-1">PER ANNIBALE</p>
-                <nav aria-label="Sezioni del sito" class="flex items-center gap-1.5 text-[0.72rem]">
-                    <a href="index.html" aria-current="page"
-                       class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Ricordi</a>
-                    <a href="video.html"
-                       class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
-                              hover:bg-white/5 hover:text-stone-200">Video</a>
-                </nav>
-            </div>
+                       grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
+                       gap-x-4 gap-y-2">
+            <p class="col-start-1 row-start-1 text-stone-500 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
+                PER ANNIBALE
+            </p>
 
-            <p id="counter" class="order-2 md:order-3 text-stone-500 text-sm tabular-nums whitespace-nowrap"></p>
+            <nav aria-label="Sezioni del sito"
+                 class="col-span-2 row-start-2 flex items-center justify-center gap-1.5 text-[0.72rem]
+                        lg:col-span-1 lg:col-start-2 lg:row-start-1">
+                <a href="index.html" aria-current="page"
+                   class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Ricordi</a>
+                <a href="video.html"
+                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
+                          hover:bg-white/5 hover:text-stone-200">Video</a>
+            </nav>
 
-            <!-- Fuzzy search over the posts -->
-            <div id="search-wrap" class="relative order-3 md:order-2 w-full md:w-auto shrink-0">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-500 pointer-events-none"
-                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
-                <input id="search" type="search" autocomplete="off" spellcheck="false"
-                       placeholder="Cerca un ricordo…"
-                       aria-label="Cerca tra i ricordi, per testo o autore"
-                       class="w-full md:w-72 bg-white/5 border border-white/10 rounded-full pl-9 pr-3 py-1.5
-                              text-sm text-stone-200 placeholder:text-stone-500 outline-none
-                              focus:border-white/25 focus:bg-white/10 transition-colors" />
-                <div id="results" role="listbox" aria-label="Risultati"
-                     class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-white/10
-                            shadow-2xl shadow-black/70"></div>
+            <!-- `contents` lets the counter join the narrow grid, while on a wide
+                 screen the two sit together in the right-hand column. -->
+            <div class="contents lg:col-start-3 lg:row-start-1 lg:flex lg:items-center lg:justify-self-end lg:gap-4">
+                <!-- Fuzzy search over the posts -->
+                <div id="search-wrap" class="relative col-span-2 row-start-3 w-full lg:w-auto shrink-0">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-500 pointer-events-none"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+                    </svg>
+                    <input id="search" type="search" autocomplete="off" spellcheck="false"
+                           placeholder="Cerca un ricordo…"
+                           aria-label="Cerca tra i ricordi, per testo o autore"
+                           class="w-full lg:w-72 bg-white/5 border border-white/10 rounded-full pl-9 pr-3 py-1.5
+                                  text-sm text-stone-200 placeholder:text-stone-500 outline-none
+                                  focus:border-white/25 focus:bg-white/10 transition-colors" />
+                    <div id="results" role="listbox" aria-label="Risultati"
+                         class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-white/10
+                                shadow-2xl shadow-black/70"></div>
+                </div>
+
+                <p id="counter" class="col-start-2 row-start-1 justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap"></p>
             </div>
         </header>
 
@@ -291,13 +306,23 @@
         `;
 
         const NEBULA_FS = `
+            #ifdef GL_FRAGMENT_PRECISION_HIGH
             precision highp float;
+            #else
+            precision mediump float;
+            #endif
 
             varying vec2 vUv;
             uniform vec2  uRes;
             uniform float uTime;
             uniform vec2  uFocus;      // centre of the words, in 0..1 screen space
             uniform vec2  uFocusSize;  // their half-extents, same space
+
+            mat2 rot(float a) {
+                float c = cos(a);
+                float s = sin(a);
+                return mat2(c, -s, s, c);
+            }
 
             float hash(vec2 p) {
                 p = fract(p * vec2(123.34, 456.21));
@@ -343,18 +368,26 @@
                 vec2 aspectVec = vec2(max(aspect, 1.0), max(1.0 / aspect, 1.0));
                 vec2 p = (vUv - 0.5) * aspectVec;
 
-                float t = uTime * 0.05;
+                /* Nothing below may grow with time. The noise used to be
+                   drifted through an ever-larger offset; after a while on a
+                   phone — where the fragment shader may only have 16-bit
+                   floats — the coordinates lost their fractional part and the
+                   field collapsed into flat, hard-edged slabs. A slow swirl
+                   plus a small sway keeps the motion and stays bounded. */
+                float t = uTime;
+                vec2 q = rot(0.011 * t) * p;
+                vec2 sway = 0.30 * vec2(sin(t * 0.045), cos(t * 0.037));
 
                 // Two slow noise fields bend the ones below: the colour never
                 // repeats in a way the eye can catch.
-                vec2 warp = vec2(fbm(p * 1.35 + vec2(0.0, t)),
-                                 fbm(p * 1.35 + vec2(4.7, -t * 0.9)));
-                float veil    = fbm(p * 2.0 + warp * 1.8 + vec2(t * 0.8, 0.3));
+                vec2 warp = vec2(fbm(q * 1.35 + sway),
+                                 fbm(q * 1.35 + vec2(4.7, 0.0) - sway.yx));
+                float veil = fbm(q * 2.0 + warp * 1.8 + sway * 0.6);
 
                 // How large the folds are: lower numbers give broader ridges.
                 float fold = 2.2;
-                float curtain = fbm(vec2(p.x * fold + 0.7 * warp.x, p.y * 1.05 - t * 1.2));
-                float thread  = fbm(p * (fold * 1.35) - warp * 1.1 + vec2(1.3, -t * 0.6));
+                float curtain = fbm(vec2(q.x * fold + 0.7 * warp.x, q.y * 1.05 + 0.5 * sway.y));
+                float thread  = fbm(q * (fold * 1.35) - warp * 1.1 + vec2(1.3, 0.0) + sway * 0.5);
 
                 // Ridged noise: the folds that read as ribbons of light. Keeping
                 // the exponents low leaves them broad instead of hairline-thin.
@@ -363,7 +396,8 @@
 
                 // Hue runs across the page and drifts with the noise, so
                 // neighbouring folds are different colours.
-                float hue = 0.55 + 0.24 * warp.y + 0.34 * p.x + 0.22 * p.y + 0.16 * veil + t * 0.06;
+                float hue = 0.55 + 0.24 * warp.y + 0.34 * p.x + 0.22 * p.y
+                          + 0.16 * veil + 0.05 * sin(t * 0.021);
                 vec3 col = mix(palette(hue), palette(hue + 0.26), wisp * 0.6);
                 col = mix(col, vec3(1.0), 0.04);
 
@@ -399,13 +433,22 @@
             varying float vTwinkle;
             varying float vHue;
 
+            // Everything repeats exactly every CYCLE seconds: the drift speed
+            // is a whole number of screens per cycle and the sway and twinkle
+            // run a whole number of turns. So the clock can be wrapped without
+            // a jump, and it never reaches a magnitude the GPU cannot hold.
+            const float CYCLE = 600.0;
+            const float TURN = 6.2831853 / CYCLE;
+
             void main() {
-                float speed = aMotion.x;
+                float knots = aMotion.x;              // 3..13 screens per cycle
+                float tt = mod(uTime, CYCLE);
 
                 // Drift up and wrap; a slow sway keeps the column from looking
                 // like it is on rails.
-                float y = fract(aSeed.y + uTime * speed * 0.012);
-                float x = fract(aSeed.x + 0.035 * sin(uTime * (0.10 + speed * 0.09) + aPhase * 6.28318));
+                float y = fract(aSeed.y + knots * tt / CYCLE);
+                float sway = TURN * (20.0 + knots * 2.0) * tt + aPhase * 6.2831853;
+                float x = fract(aSeed.x + 0.035 * sin(sway));
 
                 vec2 pos = vec2(x * 2.0 - 1.0, y * 2.0 - 1.0);
                 pos.x *= uRes.x / uRes.y;
@@ -413,8 +456,9 @@
 
                 gl_Position = vec4(pos, 0.0, 1.0);
 
-                vTwinkle = 0.30 + 0.70 * (0.5 + 0.5 * sin(uTime * (0.35 + speed * 0.5) + aPhase * 6.28318));
-                vHue = fract(aPhase * 1.7 + aSeed.x * 0.6 + uTime * 0.012);
+                float beat = TURN * (30.0 + knots * 3.0) * tt + aPhase * 6.2831853;
+                vTwinkle = 0.30 + 0.70 * (0.5 + 0.5 * sin(beat));
+                vHue = fract(aPhase * 1.7 + aSeed.x * 0.6 + 0.04 * sin(beat * 0.5));
                 gl_PointSize = aMotion.y * uPixelRatio * (0.55 + 0.9 * vTwinkle);
             }
         `;
@@ -498,7 +542,9 @@
             const big = Math.random();
             seeds[i * 2] = Math.random();
             seeds[i * 2 + 1] = Math.random();
-            motions[i * 2] = 0.4 + Math.random() * 1.4;
+            // A whole number of screens per animation cycle (see CYCLE in
+            // MOTE_VS), so wrapping the clock never teleports a mote.
+            motions[i * 2] = 3 + Math.floor(Math.random() * 11);
             motions[i * 2 + 1] = 1.1 + Math.pow(big, 2.2) * 3.6;
             phases[i] = Math.random();
         }
@@ -587,9 +633,13 @@
             gl.drawArrays(gl.POINTS, 0, COUNT);
         }
 
-        const start = performance.now();
         let frame = 0;
         let lastPaint = 0;
+        /* Animation time, counted only while the page is on screen. Reading it
+           off the wall clock meant a phone put away for an hour came back to a
+           clock an hour further on: the scene jumped, and the noise drifted
+           past what a mobile GPU can hold. */
+        let clock = 0;
 
         function settle() {
             // Ease the glow towards the words instead of snapping when a post
@@ -606,11 +656,13 @@
             frame = requestAnimationFrame(tick);
             // ~40fps is enough for something this slow, and kinder on battery.
             if (now - lastPaint < 24) return;
+            // A long gap is a returning tab, not a long frame: do not let it
+            // advance the scene.
+            if (lastPaint) clock += Math.min(now - lastPaint, 100) / 1000;
             lastPaint = now;
 
-            const time = (now - start) / 1000;
             settle();
-            draw(time);
+            draw(clock);
         }
 
         function run() {
@@ -621,6 +673,8 @@
                 draw(11.0);                  // one calm, static frame
                 return;
             }
+            // Restart the frame clock: time spent hidden must not be counted.
+            lastPaint = 0;
             if (!frame) frame = requestAnimationFrame(tick);
         }
 
