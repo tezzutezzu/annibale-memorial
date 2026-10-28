@@ -70,6 +70,45 @@
   const AUTHOR_LINK =
     'h2 a[role="link"], h3 a[role="link"], h4 a[role="link"], h5 a[role="link"], strong a[role="link"]';
 
+  /* ------------------------------------------------------- clipped bodies -- */
+  // Facebook cuts long messages and leaves the button label inside the text:
+  // "… See more" with the English UI, "… Altro..." with the Italian one — the
+  // trailing dots are part of the label, which is why a naive exact match
+  // ("altro") never clicked it and every Italian post stayed truncated. After
+  // the click the label becomes "See less" / "Vedi meno".
+  const INVISIBLE = /[\u00ad\u034f\u061c\u115f\u1160\u17b4\u17b5\u180b-\u180e\u200b-\u200f\u202a-\u202e\u2060-\u2064\u3164\ufeff\uffa0]/g;
+  const ELLIPSIS = '(?:\\u2026+|\\.{3,})';
+  // Only a standalone "altro..." is a label: "dall'altro..." is the author's own
+  // sentence and must survive.
+  const WORD_START = "(?<![\\p{L}\\p{N}_'’])";
+  const MORE_LABEL = `(?:see more|vedi altro|leggi tutto|mostra altro)(?:\\s*${ELLIPSIS})?|${WORD_START}altro\\s*${ELLIPSIS}`;
+  const LESS_LABEL = '(?:see less|vedi meno|mostra meno)';
+
+  // The clickable button: just the label, plus the dots Italian UI glues to it.
+  const SEE_MORE_LABEL = new RegExp(`^(?:see more|vedi altro|leggi tutto|mostra altro|altro)(?:\\s*${ELLIPSIS})?$`, 'i');
+
+  // The label as it appears at the end of a clipped body. Only the label and its
+  // own dots go: the "…" Facebook printed before it stays, so a preview that
+  // still is a preview is recognisable as one.
+  const TRUNCATION_TAIL_RE = new RegExp(`\\s*(?:${MORE_LABEL}|${LESS_LABEL})\\s*$`, 'iu');
+  const CLIPPED_TAIL_RE = new RegExp(`${ELLIPSIS}\\s*$`, 'u');
+  const stripTruncationLabel = (t) => (t || '').replace(TRUNCATION_TAIL_RE, '').trim();
+  const looksClipped = (t) => CLIPPED_TAIL_RE.test(t || '');
+
+  // Nothing here can fetch the rest of a clipped body: once Facebook's button
+  // refuses to expand, the text on screen is all there is. Say so instead of
+  // saving a preview that looks like a finished post.
+  function warnClipped(batch) {
+    const cut = batch.filter((p) => looksClipped(p.text) || looksClipped(p.shared_text));
+    if (!cut.length) return 0;
+    console.warn(
+      `[fbScrape] ${cut.length}/${batch.length} post(s) still end with "…": Facebook did not ` +
+      'expand them, so those bodies are previews. Keep the tab in the foreground, reload, and ' +
+      'run again — or open the post and call fbScrape.dump().'
+    );
+    return cut.length;
+  }
+
   // The post's own header sits above its message, so the card must be the first
   // ancestor that already contains an author link *preceding* that message.
   // Climbing only until "some author link exists" grabbed the quoted post's
@@ -140,18 +179,12 @@
     // FB sprinkles invisible characters (word joiner, combining grapheme joiner,
     // zero-width space) between letters to defeat scrapers. If they survive,
     // every string picks up junk that breaks search and comparisons.
-    const INVISIBLE = /[\u00ad\u034f\u061c\u115f\u1160\u17b4\u17b5\u180b-\u180e\u200b-\u200f\u202a-\u202e\u2060-\u2064\u3164\ufeff\uffa0]/g;
     // Keep newlines (post bodies are multi-paragraph) but drop the junk.
     const stripInvisible = (s) => (s || '').replace(INVISIBLE, '');
     const clean = (s) => stripInvisible(s).replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
 
-    // FB clips long posts and appends an inline "… See more" inside the same text
-    // node, so it survives the NOISE filter. After expanding, a trailing
-    // "See less" appears instead. Drop either marker.
-    const stripSeeMore = (t) => (t || '').replace(/\s*(?:\u2026+|\.{3,})?\s*see (?:more|less)\s*$/i, '').trim();
-
-    const NOISE = /^(see more|see less|like|comment|share|reply|edited|all reactions:?|write a comment|top comments|most relevant|view more comments|view \d+ (more )?repl(y|ies)|hide|follow|join|suggested for you|sponsored|active now)$/i;
-    const COUNTER = /^[\d.,\s]*\d[\d.,\s]*\s*[KMB]?\s*(comments?|shares?|reactions?|views?|replies)$/i;
+    const NOISE = /^(see more|see less|vedi altro|vedi meno|leggi tutto|mostra altro|mostra meno|altro[.…]*|like|comment|share|reply|mi piace|commenta|condividi|rispondi|edited|modificato|all reactions:?|tutte le reazioni:?|write a comment|scrivi un commento|top comments|commenti principali|most relevant|più pertinenti|view more comments|visualizza altri commenti|view \d+ (more )?repl(y|ies)|visualizza \d+ rispost(e|he)|hide|nascondi|follow|segui|join|unisciti|suggested for you|consigliato per te|sponsored|sponsorizzato|active now|attivo ora)$/i;
+    const COUNTER = /^[\d.,\s]*\d[\d.,\s]*\s*[KMB]?\s*(comments?|shares?|reactions?|views?|replies|commenti|condivisioni|reazioni|visualizzazioni|risposte)$/i;
 
     const numFrom = (raw) => {
       if (!raw) return null;
@@ -241,7 +274,7 @@
         }
         text = lines.join('\n');
       }
-      text = stripSeeMore(text);
+      text = stripTruncationLabel(text);
 
       // ---------------- shared (quoted) post ----------------
       // A share often carries the only mention of the name: the sharer writes
@@ -261,7 +294,7 @@
       let sharedText = null;
       let sharedAuthor = null;
       for (const m of quotedMsgs) {
-        const t = stripSeeMore(stripInvisible(m.innerText || '').trim());
+        const t = stripTruncationLabel(stripInvisible(m.innerText || '').trim());
         if (!t || t === text || t.length > 20000) continue;
         if (sharedText && t.length <= sharedText.length) continue;
         sharedText = t;
@@ -549,14 +582,16 @@
   // Facebook ships a CLIPPED body plus a "See more" button; the full text only
   // exists in the DOM after the click. Measured on a real post: 658 -> 1124
   // characters. Without this step every long post is silently truncated.
-  const SEE_MORE_LABEL = /^(see more|vedi altro|leggi tutto|mostra altro|altro)$/i;
-
   async function expandPosts(waitMs = 900) {
     let clicked = 0;
+    // Invisible joiners and non-breaking spaces sit inside the label too, so
+    // normalise before matching: "Altro...", "Altro …" and "Altro" are the same
+    // button.
+    const label = (el) => (el.textContent || '').replace(INVISIBLE, '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
     for (const c of postContainers()) {
       for (const el of c.querySelectorAll('[role="button"]')) {
         // textContent for the same reason as above: no layout, much faster.
-        if (SEE_MORE_LABEL.test((el.textContent || '').trim())) {
+        if (SEE_MORE_LABEL.test(label(el))) {
           el.click();
           clicked++;
         }
@@ -641,6 +676,7 @@
       console.log(
         `[fbScrape] dump: ${batch.length} in the DOM, ${added} new, ${posts.length} collected in total`
       );
+      warnClipped(batch);
       if (batch.length < 10) {
         console.warn(
           '[fbScrape] only a handful of posts were mounted. Facebook unmounts posts ' +
@@ -706,6 +742,7 @@
     let round = 0;
     let added = 0;
     let stuck = 0;
+    const clipped = new Set(); // posts whose body still ends at Facebook's cut
 
     console.log('%c[fbScrape] start', 'color:#0a0;font-weight:bold', cfg);
 
@@ -728,6 +765,11 @@
         const expanded = cfg.expand ? await expandPosts(cfg.expandWait) : 0;
 
         const batch = fbExtractPosts();
+        for (const p of batch) {
+          const id = computeId(p);
+          if (looksClipped(p.text) || looksClipped(p.shared_text)) clipped.add(id);
+          else clipped.delete(id);
+        }
         const fresh = ingest(batch);
         added += fresh;
         idle = fresh ? 0 : idle + 1;
@@ -775,6 +817,12 @@
         `%c[fbScrape] done — ${added} new, ${posts.length} total in ${secs}s`,
         'color:#0a0;font-weight:bold'
       );
+      if (clipped.size) {
+        console.warn(
+          `[fbScrape] ${clipped.size} post(s) still end with "…" — a clipped preview, not the ` +
+          'whole message. Open the post and run fbScrape.dump() to catch the rest.'
+        );
+      }
       console.log('[fbScrape] next: fbScrape.saveJSON()  |  fbScrape.saveCSV()  |  window.__fbPosts');
     }
 

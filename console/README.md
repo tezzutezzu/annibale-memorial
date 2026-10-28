@@ -164,6 +164,12 @@ fbScrape.restore()
 4 MB di JSON (più o meno 1000–2000 ricordi): da lì in poi bisogna salvare il file
 con `fbScrape.saveJSON()`.
 
+**La Console avvisa che qualche post finisce con "…".** Significa che Facebook non
+ha aperto il pulsante "Altro..." di quel messaggio: il testo salvato è il
+riassunto, non il post intero. Tieni la scheda in primo piano, ricarica e riprova;
+per i singoli post ostinati aprili e usa `fbScrape.dump()`. All'import il testo
+completo sostituisce il riassunto.
+
 **La raccolta si ferma sempre allo stesso punto.** Di solito è Facebook che ha
 finito i risultati (una ricerca finisce, una pagina smette di caricare), non un
 errore dello script: salva con `saveJSON()`, importa, e se serve riparti con un

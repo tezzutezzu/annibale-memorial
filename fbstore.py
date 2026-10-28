@@ -235,20 +235,26 @@ def backfill_media(http, args: argparse.Namespace, jsonl_path: Path | None = Non
 # Facebook cuts long messages behind an "Altro..." button. Dumps taken before
 # the console scraper learned to expand it stop at that preview, with the button
 # label glued to the end of the text; strip it before comparing so a full
-# capture still matches the preview that came before it.
-TRUNCATION_RE = re.compile(
-    r"\s*(?:…|\.\.\.)\s*(?:altro|vedi altro|mostra altro|see more)\s*(?:…|\.\.\.)?\s*$",
-    re.IGNORECASE,
-)
+# capture still matches the preview that came before it. The Italian label ends
+# in dots of its own ("Altro..."), which is why it has to be matched explicitly.
+_ELLIPSIS = r"(?:…|\.\.\.)"
+_WORD_START = r"(?<![\w'’])"
+_MORE_LABEL = rf"(?:(?:vedi altro|leggi tutto|mostra altro|see more)(?:\s*{_ELLIPSIS})?|{_WORD_START}altro\s*{_ELLIPSIS})"
+_LESS_LABEL = r"(?:vedi meno|mostra meno|see less)"
 
-# Once the button label is gone a cut message just ends in the ellipsis, which
-# is the signal that a later capture may have more of it.
-PREVIEW_END_RE = re.compile(r"(?:…|\.\.\.)\s*$")
+TRUNCATION_RE = re.compile(rf"\s*(?:{_MORE_LABEL}|{_LESS_LABEL})\s*$", re.IGNORECASE)
+
+# Once the button label is gone a cut message just ends in the ellipsis (or in
+# the label itself, on dumps from older scrapers), which is the signal that a
+# later capture may have more of it.
+PREVIEW_END_RE = re.compile(rf"{_ELLIPSIS}\s*$")
+PREVIEW_LABEL_RE = re.compile(rf"\s*{_MORE_LABEL}\s*$", re.IGNORECASE)
 
 
 def looks_truncated(text: str | None) -> bool:
     """True when the message stops at Facebook's cut, not at its end."""
-    return bool(PREVIEW_END_RE.search(text or ""))
+    body = text or ""
+    return bool(PREVIEW_END_RE.search(body) or PREVIEW_LABEL_RE.search(body))
 
 
 def message_signature(text: str, limit: int = 300) -> str:
