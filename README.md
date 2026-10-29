@@ -110,10 +110,10 @@ La cartella si può copiare dove vuoi (anche su una chiavetta), ma
 `index.html` deve restare dentro la cartella insieme a `data/`:
 se lo sposti da solo, le foto non si trovano più.
 
-Le altre cose (`console/`, `import_console_dump.py`, `fbstore.py`,
-`remove_posts.py`, `requirements.txt`) servono solo se un giorno si vogliono
-raccogliere altri ricordi da Facebook. Per guardare la presentazione non
-servono.
+Le altre cose (`console/`, `import_console_dump.py`, `import_thoughts.py`,
+`fbstore.py`, `remove_posts.py`, `requirements.txt`) servono solo se un giorno si
+vogliono raccogliere altri ricordi o importare i pensieri lasciati sul sito. Per
+guardare la presentazione non servono.
 
 ## 4. Se qualcosa non funziona
 
@@ -140,7 +140,49 @@ Manca la connessione a internet. La pagina si apre, ma senza l'impaginazione che
 arriva da internet il testo non sta nella colonna. Controlla la connessione e
 ricarica con <kbd>Cmd</kbd>+<kbd>R</kbd>.
 
-## 5. Aggiungere altri ricordi (facoltativo, per chi se la sente)
+## 5. Lasciare un pensiero dal sito
+
+Chi visita la presentazione può scrivere il proprio ricordo senza avere un
+account: in alto, accanto a **Ricordi** e **Video**, c'è **Lascia un pensiero**.
+
+1. Si compila il modulo: nome, pensiero, una foto se si vuole, email
+   facoltativa.
+2. Il pensiero **non compare subito**: arriva a chi cura il sito, che lo legge e
+   decide se pubblicarlo.
+3. Una volta approvato, si esporta il foglio delle risposte da Tally e si importa
+   dal Terminale:
+
+   ```
+   python3 import_thoughts.py ~/Downloads/tally-export.csv
+   ```
+
+   Lo script aggiunge i pensieri a `data/posts.jsonl`, scarica le foto in
+   `data/media/` e rigenera `data/posts.csv`. Rilanciare lo stesso file non crea
+   doppioni, e con `--dry-run` si vede cosa succederebbe senza scrivere niente.
+   L'email non viene mai salvata: resta solo in Tally.
+
+### Preparare il modulo (una volta sola)
+
+1. Creare un modulo gratuito su tally.so con cinque campi: **Nome o come vuoi
+   firmarti** (obbligatorio), **Il tuo pensiero per Annibale** (obbligatorio),
+   **Una foto** (facoltativa, un file), **La tua email** (facoltativa),
+   **Consenso alla pubblicazione** (obbligatorio).
+2. Nelle impostazioni del modulo: notifica via email a ogni risposta, tema scuro,
+   “Prevent duplicate submissions”.
+3. Copiare il link di incorporamento (Share → Embed) e incollarlo nella costante
+   `FORM_URL` in fondo a `index.html`, aggiungendo in coda
+   `?hideTitle=1&transparentBackground=1&alignLeft=1`. Finché è vuota, il
+   pulsante resta nascosto e nessun dato esce dal sito.
+4. Se vuoi indicare un indirizzo a cui chiedere la rimozione di un pensiero,
+   scrivilo in `THOUGHTS_CONTACT`, sempre in fondo a `index.html`.
+
+Per esportare solo i pensieri approvati: nel pannello Tally si scelgono le
+risposte e si esporta il CSV (oppure si usa l'integrazione con Google Sheets e si
+scarica il foglio). Le risposte restano sui server di Tally, che è un fornitore
+europeo; se il CSV ha una colonna **Approvato**, lo script importa solo le righe
+con “sì”.
+
+## 6. Aggiungere altri ricordi (facoltativo, per chi se la sente)
 
 Si fa in due passi.
 
@@ -183,7 +225,7 @@ Istruzioni più dettagliate per la raccolta: `console/README.md`.
 > Le foto di Facebook sono collegate da indirizzi che scadono dopo pochi giorni:
 > se raccogli i messaggi, importali lo stesso giorno.
 
-## 6. Togliere un ricordo
+## 7. Togliere un ricordo
 
 Se un post non c'entra (un augurio di compleanno, una pubblicità, un post che
 non è un ricordo), si toglie così, copiando l'identificativo dall'indirizzo
@@ -199,7 +241,13 @@ finisce in `data/excluded.json`: così, se un giorno si reimporta lo stesso file
 di Facebook, quel post **non torna**. `data/excluded.json` va tenuto insieme
 agli altri dati.
 
-## 7. Una nota
+Vale anche per i pensieri arrivati dal sito (gli identificativi cominciano con
+`site_`): si tolgono con lo stesso comando e, reimportando lo stesso CSV, non
+tornano.
+
+## 8. Una nota
 
 I messaggi e le foto sono di chi li ha scritti: questa presentazione serve per
-ricordare Annibale tra noi, non per essere pubblicata altrove.
+ricordare Annibale tra noi, non per essere pubblicata altrove. Anche i pensieri
+lasciati dal sito vengono pubblicati solo con il consenso di chi li scrive, e
+chiunque può chiederne la rimozione.

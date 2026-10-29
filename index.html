@@ -167,6 +167,21 @@
                 <a href="video.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
                           hover:bg-white/5 hover:text-stone-200">Video</a>
+                <!-- Hidden until a Tally form URL is configured (see the script
+                     at the end of the page): a button that opens nothing is
+                     worse than no button. -->
+                <button type="button" id="leave-thought"
+                        class="hidden items-center gap-1.5 rounded-full border border-white/15 bg-white/5
+                               px-2.5 py-1 text-stone-300 transition-colors
+                               hover:border-white/30 hover:bg-white/10 hover:text-stone-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16.5 3.75a2.121 2.121 0 013 3L7.5 18.75l-4.5 1.5 1.5-4.5L16.5 3.75z" />
+                    </svg>
+                    <span class="sm:hidden">Pensiero</span>
+                    <span class="hidden sm:inline">Lascia un pensiero</span>
+                </button>
             </nav>
 
             <!-- `contents` lets the counter join the narrow grid, while on a wide
@@ -273,6 +288,40 @@
                 opacity-0 transition-opacity duration-200">
         <span class="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs
                      text-stone-200 shadow-lg shadow-black/40 backdrop-blur"></span>
+    </div>
+
+    <!-- Lascia un pensiero: the form lives on Tally and is embedded here.
+         Nothing is requested from tally.so until the button is pressed. -->
+    <div id="thoughts" class="fixed inset-0 z-[70] hidden" role="dialog" aria-modal="true"
+         aria-labelledby="thoughts-title" aria-describedby="thoughts-note">
+        <div id="thoughts-backdrop" class="absolute inset-0"></div>
+
+        <div class="relative mx-auto mt-[5vh] flex h-[min(88vh,720px)] w-[min(94vw,44rem)] flex-col
+                    overflow-hidden rounded-2xl border border-white/10 bg-[#12100f]
+                    shadow-2xl shadow-black/70">
+            <div class="flex shrink-0 items-center justify-between gap-4 border-b border-white/10 px-4 py-3 md:px-5">
+                <h2 id="thoughts-title" class="font-serif text-lg text-stone-100">Lascia un pensiero</h2>
+                <button type="button" id="thoughts-close" aria-label="Chiudi il modulo"
+                        class="flex h-8 w-8 items-center justify-center rounded-full text-stone-500
+                               transition-colors hover:bg-white/10 hover:text-stone-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="min-h-0 flex-1 bg-white overflow-hidden px-4 pb-4 pt-3 md:px-5 md:pb-5">
+                <iframe id="thoughts-frame" title="Modulo per lasciare un pensiero ad Annibale"
+                        class="block h-full w-full border-0" loading="lazy"></iframe>
+            </div>
+
+            <p id="thoughts-note"
+               class="shrink-0 border-t border-white/10 px-4 py-3 text-[0.7rem] leading-relaxed text-stone-500 md:px-5">
+                Nome e messaggio saranno pubblicati sul sito dopo una revisione. L'email, se la
+                lasci, resta privata e serve solo a ricontattarti.
+            </p>
+        </div>
     </div>
 
     <script>
@@ -1304,6 +1353,9 @@
 
         // ⌘K / Ctrl-K opens the search from anywhere.
         document.addEventListener('keydown', (event) => {
+            // While the "leave a thought" modal is open the slideshow must not
+            // react to shortcuts meant for the form.
+            if (window.fbThoughts && window.fbThoughts.isOpen()) return;
             if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
                 event.preventDefault();
                 els.search.focus();
@@ -1312,6 +1364,7 @@
         });
 
         document.addEventListener('keydown', (event) => {
+            if (window.fbThoughts && window.fbThoughts.isOpen()) return;
             const k = event.key;
 
             // Everything typed in the search box belongs to the search box.
@@ -1371,6 +1424,104 @@
         }
 
         init();
+    </script>
+
+    <script>
+    /* ------------------------------------------------- "Lascia un pensiero" --
+       The form lives on Tally (free plan: unlimited submissions, one photo up to
+       10 MB), so GitHub Pages stays static and there is no backend to keep
+       alive. Paste the embed URL below to switch the button on; while it is
+       empty the button stays hidden and nothing is ever requested from
+       tally.so.
+
+       Recommended embed URL — the form's own title hidden and its background
+       transparent, so it sits on this page's dark panel:
+         https://tally.so/embed/XXXXXXXX?hideTitle=1&transparentBackground=1&alignLeft=1
+
+       THOUGHTS_CONTACT is the address people write to in order to have a
+       thought removed. Leave it empty and that sentence is not shown, so no
+       placeholder address can ever be published. */
+    (function thoughts() {
+        const FORM_URL = 'https://tally.so/embed/RWWe8J?alignLeft=1&hideTitle=1&dynamicHeight=1';
+        const THOUGHTS_CONTACT = '';
+
+        const button = document.getElementById('leave-thought');
+        const modal = document.getElementById('thoughts');
+        const frame = document.getElementById('thoughts-frame');
+        const closeButton = document.getElementById('thoughts-close');
+        const backdrop = document.getElementById('thoughts-backdrop');
+        const note = document.getElementById('thoughts-note');
+        if (!button || !modal || !frame || !closeButton || !backdrop || !note) return;
+
+        // Read by the slideshow's global key handlers, which must not act while
+        // the form is on screen.
+        const isOpen = () => !modal.classList.contains('hidden');
+        window.fbThoughts = { isOpen, open, close };
+
+        let lastFocus = null;
+        let loaded = false;
+
+        function open() {
+            if (isOpen() || !FORM_URL) return;
+            lastFocus = document.activeElement;
+            // The iframe is created empty: Tally is contacted only now, never on
+            // page load, so a visitor who never opens the form is never traced.
+            if (!loaded) {
+                frame.src = FORM_URL;
+                loaded = true;
+            }
+            modal.classList.remove('hidden');
+            closeButton.focus();
+        }
+
+        function close() {
+            if (!isOpen()) return;
+            modal.classList.add('hidden');
+            if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+        }
+
+        if (THOUGHTS_CONTACT) {
+            note.append(' Per chiedere la rimozione di un pensiero scrivi a ');
+            const link = document.createElement('a');
+            link.href = 'mailto:' + THOUGHTS_CONTACT;
+            link.textContent = THOUGHTS_CONTACT;
+            link.className = 'underline hover:text-stone-300';
+            note.append(link, '.');
+        }
+
+        if (!FORM_URL) return;   // button stays hidden until the form exists
+        button.classList.remove('hidden');
+        button.classList.add('inline-flex');
+
+        button.addEventListener('click', open);
+        closeButton.addEventListener('click', close);
+        backdrop.addEventListener('click', close);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && isOpen()) {
+                event.preventDefault();
+                close();
+            }
+        });
+
+        // Tab must cycle inside the dialog, not wander into the slideshow behind.
+        modal.addEventListener('keydown', (event) => {
+            if (event.key !== 'Tab' || !isOpen()) return;
+            const stops = Array.from(modal.querySelectorAll('button, a[href], iframe'))
+                .filter((el) => !el.disabled && el.getClientRects().length);
+            if (!stops.length) return;
+            const first = stops[0];
+            const last = stops[stops.length - 1];
+            const active = document.activeElement;
+            const outside = !modal.contains(active);
+            if (event.shiftKey && (outside || active === first)) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && (outside || active === last)) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+    })();
     </script>
 </body>
 </html>
