@@ -222,6 +222,15 @@ Si fa in due passi.
 
 Istruzioni più dettagliate per la raccolta: `console/README.md`.
 
+Se qualche ricordo si ferma a metà — il testo finisce con «…» — è un'anteprima
+che Facebook aveva tagliato dietro il pulsante *Altro*: non è rotto, è
+incompleto. Basta raccoglierlo di nuovo con l'*Altro* aperto e reimportare, e il
+testo intero prende il posto dell'anteprima. Per sapere quali sono:
+
+```
+python3 audit_truncated.py
+```
+
 > Le foto di Facebook sono collegate da indirizzi che scadono dopo pochi giorni:
 > se raccogli i messaggi, importali lo stesso giorno.
 
@@ -244,6 +253,12 @@ agli altri dati.
 Vale anche per i pensieri arrivati dal sito (gli identificativi cominciano con
 `site_`): si tolgono con lo stesso comando e, reimportando lo stesso CSV, non
 tornano.
+
+> Attenzione a togliere un'anteprima tagliata (un testo che finisce con «…»): se
+> il post ha un indirizzo Facebook (`fb_…`) l'identificativo resta lo stesso, e
+> con quello in `data/excluded.json` il testo completo non si potrà più
+> importare. Per un'anteprima la strada è l'importazione (vedi sopra), non la
+> rimozione.
 
 ## 8. Una nota
 
