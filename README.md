@@ -65,6 +65,10 @@ un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
 Il frontespizio compare a ogni apertura. Se l'indirizzo contiene già un ricordo
 (`.../#fb_...`), dopo l'ingresso si arriva direttamente a quel ricordo.
 
+Il frontespizio non ha un fondo suo: dietro le parole si vede lo stesso sfondo
+animato dei ricordi. Con `?aura=off`, o se il computer non sa disegnarlo, resta
+il fondo scuro con i puntini, come nel resto del sito.
+
 ### Le foto di un ricordo
 
 Se un ricordo contiene più foto, sotto l'immagine compaiono due frecce e il
