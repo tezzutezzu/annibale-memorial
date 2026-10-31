@@ -56,6 +56,15 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   Per spegnerlo del tutto, aggiungi `?aura=off` in fondo all'indirizzo
   (`.../index.html?aura=off`): la pagina torna nera, senza sfondo colorato.
 
+### Il frontespizio
+
+Aprendo il sito compare una pagina iniziale con un pensiero su Annibale: non è
+un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
+<kbd>Invio</kbd>, <kbd>Spazio</kbd> o <kbd>→</kbd> (anche <kbd>Esc</kbd>).
+
+Il frontespizio compare a ogni apertura. Se l'indirizzo contiene già un ricordo
+(`.../#fb_...`), dopo l'ingresso si arriva direttamente a quel ricordo.
+
 ### Le foto di un ricordo
 
 Se un ricordo contiene più foto, sotto l'immagine compaiono due frecce e il
