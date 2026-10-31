@@ -69,6 +69,10 @@ Il frontespizio non ha un fondo suo: dietro le parole si vede lo stesso sfondo
 animato dei ricordi. Con `?aura=off`, o se il computer non sa disegnarlo, resta
 il fondo scuro con i puntini, come nel resto del sito.
 
+Accanto al pensiero c'è una fotografia di Annibale al microfono durante un
+incontro pubblico (`home.png`, con una versione WebP più leggera). Su schermo
+stretto la foto sta sopra il testo.
+
 ### Le foto di un ricordo
 
 Se un ricordo contiene più foto, sotto l'immagine compaiono due frecce e il
@@ -140,6 +144,7 @@ condividilo** apre direttamente il modulo per lasciare un pensiero.
 index.html                ← la presentazione (è questa che si apre)
 video.html                ← la pagina dei video
 credits.html              ← la pagina dei crediti
+home.png / home.webp      ← la foto del frontespizio
 data/posts.jsonl          ← i testi dei messaggi
 data/media/               ← tutte le foto (una cartella per ricordo)
 data/posts.csv            ← la stessa roba in forma di foglio di calcolo
