@@ -56,6 +56,22 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   Per spegnerlo del tutto, aggiungi `?aura=off` in fondo all'indirizzo
   (`.../index.html?aura=off`): la pagina torna nera, senza sfondo colorato.
 
+### Le foto di un ricordo
+
+Se un ricordo contiene più foto, sotto l'immagine compaiono due frecce e il
+conteggio **Foto 1 / 3**. Le frecce scorrono tutte le foto di quel ricordo;
+quelle in fondo alla pagina continuano a cambiare ricordo.
+
+Su smartphone e tablet puoi anche **scorrere il dito sulla foto**: verso sinistra
+per la foto successiva, verso destra per la precedente. Il testo continua a
+scorrere verticalmente nella propria area.
+
+Puoi usare anche la tastiera: premi <kbd>Tab</kbd> per raggiungere le frecce
+delle foto, poi <kbd>←</kbd> e <kbd>→</kbd> per sfogliarle. Fuori da questi
+comandi, le frecce della tastiera continuano a cambiare ricordo.
+Ogni volta che passi a un altro ricordo, viene mostrata la sua prima foto.
+Con una sola foto, i comandi della galleria non compaiono.
+
 ### Cercare un ricordo
 
 In alto a destra c'è la casella **Cerca**: basta scrivere una parola o un nome.
