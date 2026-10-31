@@ -108,8 +108,8 @@ resta lì.
 
 ### I video
 
-Nei due pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
-**Ricordi** (la presentazione) e **Video**. Su uno schermo stretto finiscono su
+Nei pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
+**Ricordi** (la presentazione), **Video** e **Crediti**. Su uno schermo stretto finiscono su
 una riga tutta loro, sempre al centro. La pagina dei video raccoglie gli
 interventi pubblici di Annibale, divisi per periodo (Puglia / Bollenti Spiriti,
 Milano / Comune di Milano) e in ordine cronologico.
@@ -120,11 +120,18 @@ Milano / Comune di Milano) e in ordine cronologico.
 - L'icona in alto a destra di ogni scheda apre lo stesso video su YouTube.
 - Serve la connessione a internet: i video stanno su YouTube.
 
+### I crediti
+
+Il terzo pulsante dell'intestazione apre **Crediti**, la pagina con le persone
+che hanno immaginato e costruito il sito: l'idea è di Mariella Stella e Danilo
+Di Cuia, con i contributi di Alessandro Tartaglia e Andrea Di Benedetto.
+
 ## 3. Cosa c'è nella cartella
 
 ```
 index.html                ← la presentazione (è questa che si apre)
 video.html                ← la pagina dei video
+credits.html              ← la pagina dei crediti
 data/posts.jsonl          ← i testi dei messaggi
 data/media/               ← tutte le foto (una cartella per ricordo)
 data/posts.csv            ← la stessa roba in forma di foglio di calcolo
