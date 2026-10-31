@@ -69,9 +69,9 @@ Il frontespizio non ha un fondo suo: dietro le parole si vede lo stesso sfondo
 animato dei ricordi. Con `?aura=off`, o se il computer non sa disegnarlo, resta
 il fondo scuro con i puntini, come nel resto del sito.
 
-Accanto al pensiero c'è una fotografia di Annibale al microfono durante un
-incontro pubblico (`home.png`, con una versione WebP più leggera). Su schermo
-stretto la foto sta sopra il testo.
+Accanto al pensiero c'è una fotografia di Annibale durante un incontro
+(`home.jpg`, con una versione WebP più leggera). Su schermo stretto la foto
+sta sopra il testo.
 
 ### Le foto di un ricordo
 
@@ -117,8 +117,10 @@ resta lì.
 ### I video
 
 Nei pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
-**Ricordi** (la presentazione), **Video** e **Crediti**. Su uno schermo stretto finiscono su
-una riga tutta loro, sempre al centro. La pagina dei video raccoglie gli
+**Ricordi** (la presentazione), **Video** e **Crediti**. Su uno schermo stretto
+questi pulsanti finiscono in un menu che si apre dal pulsante in alto a destra,
+al posto del conteggio dei ricordi; il menu si chiude con <kbd>Esc</kbd> o
+toccando fuori. La pagina dei video raccoglie gli
 interventi pubblici di Annibale, divisi per periodo (Puglia / Bollenti Spiriti,
 Milano / Comune di Milano) e in ordine cronologico.
 
@@ -144,7 +146,7 @@ condividilo** apre direttamente il modulo per lasciare un pensiero.
 index.html                ← la presentazione (è questa che si apre)
 video.html                ← la pagina dei video
 credits.html              ← la pagina dei crediti
-home.png / home.webp      ← la foto del frontespizio
+home.jpg / home.webp      ← la foto del frontespizio
 data/posts.jsonl          ← i testi dei messaggi
 data/media/               ← tutte le foto (una cartella per ricordo)
 data/posts.csv            ← la stessa roba in forma di foglio di calcolo

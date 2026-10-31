@@ -176,7 +176,14 @@
         }
         main:focus { outline: none; }
     </style>
-    <noscript><style>#frontispiece { display: none; } .cover-open .page { visibility: visible; }</style></noscript>
+    <noscript><style>
+        #frontispiece { display: none; }
+        .cover-open .page { visibility: visible; }
+        @media (max-width: 1023px) {
+            #site-nav { display: flex; grid-column: 1 / -1; justify-content: center; margin-top: 0.5rem; }
+            #menu-toggle { display: none; }
+        }
+    </style></noscript>
 </head>
 <body class="text-stone-200 antialiased cover-open">
 
@@ -187,16 +194,16 @@
         <!-- Header: on wide screens title left, section selector centred, search
              and counter right. Narrower screens stack: title/counter, selector,
              then the full-width search. -->
-        <header class="shrink-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pt-5 md:pt-8 pb-2
+        <header class="relative shrink-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pt-5 md:pt-8 pb-2
                        grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                        gap-x-4 gap-y-2">
             <p class="col-start-1 row-start-1 text-stone-500 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
                 PER ANNIBALE
             </p>
 
-            <nav aria-label="Sezioni del sito"
-                 class="col-span-2 row-start-2 flex items-center justify-center gap-1.5 text-[0.72rem]
-                        lg:col-span-1 lg:col-start-2 lg:row-start-1">
+            <nav id="site-nav" aria-label="Sezioni del sito"
+                 class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
+                        lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
                 <a href="index.html" aria-current="page"
                    class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Ricordi</a>
                 <a href="video.html"
@@ -222,11 +229,53 @@
                 </button>
             </nav>
 
+            <!-- Below lg the sections above move into this panel; the button
+                 takes the place of the memory counter. -->
+            <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
+                           rounded-full border border-white/15 bg-white/5 text-stone-300 transition-colors
+                           hover:border-white/30 hover:bg-white/10 hover:text-stone-100
+                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-close hidden h-4 w-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
+            <div id="mobile-menu" class="absolute right-4 md:right-10 top-full z-[65] hidden w-60 lg:hidden">
+                <nav aria-label="Sezioni del sito"
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#12100f] p-1.5
+                            shadow-2xl shadow-black/70">
+                    <a href="index.html" aria-current="page"
+                       class="block rounded-xl bg-white/10 px-3 py-2 text-sm text-stone-100">Ricordi</a>
+                    <a href="video.html"
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Video</a>
+                    <a href="credits.html"
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Crediti</a>
+                    <button type="button" id="menu-thoughts"
+                            class="hidden w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm
+                                   text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M16.5 3.75a2.121 2.121 0 013 3L7.5 18.75l-4.5 1.5 1.5-4.5L16.5 3.75z" />
+                        </svg>
+                        Lascia un pensiero
+                    </button>
+                </nav>
+            </div>
+
             <!-- `contents` lets the counter join the narrow grid, while on a wide
                  screen the two sit together in the right-hand column. -->
             <div class="contents lg:col-start-3 lg:row-start-1 lg:flex lg:items-center lg:justify-self-end lg:gap-4">
                 <!-- Fuzzy search over the posts -->
-                <div id="search-wrap" class="relative col-span-2 row-start-3 w-full lg:w-auto shrink-0">
+                <div id="search-wrap" class="relative col-span-2 row-start-2 w-full lg:w-auto shrink-0">
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-500 pointer-events-none"
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -243,7 +292,7 @@
                                 shadow-2xl shadow-black/70"></div>
                 </div>
 
-                <p id="counter" class="col-start-2 row-start-1 justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap"></p>
+                <p id="counter" class="col-start-2 row-start-1 hidden justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap lg:block"></p>
             </div>
         </header>
 
@@ -354,8 +403,8 @@
                     <figure class="mx-auto w-full max-w-[15rem] sm:max-w-xs lg:max-w-none">
                         <picture>
                             <source srcset="home.webp" type="image/webp">
-                            <img src="home.png" width="1123" height="620" decoding="async"
-                                 alt="Annibale D'Elia parla al microfono durante un incontro pubblico"
+                            <img src="home.jpg" width="1079" height="1080" decoding="async"
+                                 alt="Annibale D'Elia sorride accanto ad altre persone durante un incontro"
                                  class="w-full rounded-2xl object-cover shadow-2xl shadow-black/60
                                         outline outline-1 -outline-offset-1 outline-white/10">
                         </picture>
@@ -1779,5 +1828,6 @@
         }
     })();
     </script>
+    <script src="menu.js" defer></script>
 </body>
 </html>

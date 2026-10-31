@@ -49,19 +49,25 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
     </style>
+    <noscript><style>
+        @media (max-width: 1023px) {
+            #site-nav { display: flex; grid-column: 1 / -1; justify-content: center; margin-top: 0.5rem; }
+            #menu-toggle { display: none; }
+        }
+    </style></noscript>
 </head>
 <body class="text-stone-200 antialiased">
 
     <header class="topbar sticky top-0 z-40">
-        <div class="mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
+        <div class="relative mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                     gap-x-4 gap-y-2 px-4 md:px-8 py-3">
             <p class="col-start-1 row-start-1 text-stone-500 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
                 PER ANNIBALE
             </p>
 
-            <nav aria-label="Sezioni del sito"
-                 class="col-span-2 row-start-2 flex items-center justify-center gap-1.5 text-[0.72rem]
-                        lg:col-span-1 lg:col-start-2 lg:row-start-1">
+            <nav id="site-nav" aria-label="Sezioni del sito"
+                 class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
+                        lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
                 <a href="index.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200">Ricordi</a>
                 <a href="video.html"
@@ -69,6 +75,37 @@
                 <a href="credits.html" aria-current="page"
                    class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Crediti</a>
             </nav>
+
+            <!-- Below lg the sections above move into this panel. -->
+            <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
+                           rounded-full border border-white/15 bg-white/5 text-stone-300 transition-colors
+                           hover:border-white/30 hover:bg-white/10 hover:text-stone-100
+                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-close hidden h-4 w-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
+            <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
+                <nav aria-label="Sezioni del sito"
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#12100f] p-1.5
+                            shadow-2xl shadow-black/70">
+                    <a href="index.html"
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Ricordi</a>
+                    <a href="video.html"
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Video</a>
+                    <a href="credits.html" aria-current="page"
+                       class="block rounded-xl bg-white/10 px-3 py-2 text-sm text-stone-100">Crediti</a>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -113,5 +150,6 @@
         </p>
     </main>
 
+    <script src="menu.js" defer></script>
 </body>
 </html>
