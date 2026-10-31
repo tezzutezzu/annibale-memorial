@@ -126,6 +126,10 @@ Il terzo pulsante dell'intestazione apre **Crediti**, la pagina con le persone
 che hanno immaginato e costruito il sito: l'idea è di Mariella Stella e Danilo
 Di Cuia, con i contributi di Alessandro Tartaglia e Andrea Di Benedetto.
 
+Nella stessa pagina c'è l'invito a usare il sito non solo per ricordare
+Annibale ma per continuare a imparare dalle sue esperienze: **Se hai un ricordo,
+condividilo** apre direttamente il modulo per lasciare un pensiero.
+
 ## 3. Cosa c'è nella cartella
 
 ```
@@ -176,6 +180,9 @@ ricarica con <kbd>Cmd</kbd>+<kbd>R</kbd>.
 
 Chi visita la presentazione può scrivere il proprio ricordo senza avere un
 account: in alto, accanto a **Ricordi** e **Video**, c'è **Lascia un pensiero**.
+Il modulo si apre anche da un indirizzo diretto, `index.html?pensiero=1`, che
+salta il frontespizio: è il link usato da **Se hai un ricordo, condividilo**
+nella pagina dei crediti.
 
 1. Si compila il modulo: nome, pensiero, una foto se si vuole, email
    facoltativa.

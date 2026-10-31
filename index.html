@@ -1609,6 +1609,14 @@
 
         window.fbFrontispiece = { isOpen: () => open };
 
+        // Arriving from "Se hai un ricordo, condividilo": the visitor already
+        // chose to write, so the cover must not stand in the way.
+        if (new URLSearchParams(location.search).has('pensiero')) {
+            open = false;
+            cover.hidden = true;
+            return;
+        }
+
         page.inert = true;
         enter.focus({ preventScroll: true });
 
@@ -1745,6 +1753,15 @@
                 first.focus();
             }
         });
+
+        // Same promise as "condividilo" on the credits page: open the form at
+        // once. The parameter is then dropped so a reload does not reopen it.
+        if (new URLSearchParams(location.search).has('pensiero')) {
+            open();
+            const url = new URL(location.href);
+            url.searchParams.delete('pensiero');
+            history.replaceState(null, '', url.pathname + url.search + url.hash);
+        }
     })();
     </script>
 </body>
