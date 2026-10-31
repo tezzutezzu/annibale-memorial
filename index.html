@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -15,6 +15,7 @@
                 extend: {
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
+                        reading: ['Lora', 'serif'],
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
@@ -197,7 +198,7 @@
         <header class="relative shrink-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pt-5 md:pt-8 pb-2
                        grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                        gap-x-4 gap-y-2">
-            <p class="col-start-1 row-start-1 text-stone-500 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
+            <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
                 PER ANNIBALE
             </p>
 
@@ -331,7 +332,7 @@
                 <!-- Text, right -->
                 <article id="card" class="h-full min-h-0 flex flex-col">
                     <blockquote id="text"
-                        class="quote font-serif text-lg md:text-2xl leading-relaxed md:leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-2"></blockquote>
+                        class="quote font-reading text-lg md:text-2xl leading-relaxed md:leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-2"></blockquote>
 
                     <div class="mt-6 md:mt-8 pt-4 border-t border-white/10 flex items-center justify-between gap-4">
                         <div class="min-w-0">
@@ -410,9 +411,9 @@
                         </picture>
                     </figure>
                     <div class="text-center lg:text-left">
-                        <p id="frontispiece-title" class="text-stone-500 uppercase tracking-[0.28em] text-[0.65rem] md:text-xs">Per Annibale</p>
+                        <p id="frontispiece-title" class="text-stone-400 uppercase tracking-[0.28em] text-[0.65rem] md:text-xs">Per Annibale</p>
                         <blockquote id="frontispiece-quote"
-                                    class="mt-4 font-serif text-lg leading-relaxed text-stone-200 lg:mt-5 lg:text-2xl lg:leading-relaxed">Annibale era un'anima antica e per questo molto potente. Ha guidato la speranza prima ancora del cambiamento. Perché nessuna comunità senza la speranza può innescare cambiamenti, soprattutto se rivoluzionari. Quella speranza che ha costruito in ognuno dei giovani che ha aiutato, in tutti i progetti generativi che ha supportato e in tutte le persone che lo amavano e che lui amava, è oggi viva per tutti noi a partire da qui</blockquote>
+                                    class="mt-4 font-reading text-lg leading-relaxed text-stone-200 lg:mt-5 lg:text-2xl lg:leading-relaxed">Annibale era un'anima antica e per questo molto potente. Ha guidato la speranza prima ancora del cambiamento. Perché nessuna comunità senza la speranza può innescare cambiamenti, soprattutto se rivoluzionari. Quella speranza che ha costruito in ognuno dei giovani che ha aiutato, in tutti i progetti generativi che ha supportato e in tutte le persone che lo amavano e che lui amava, è oggi viva per tutti noi a partire da qui</blockquote>
                     </div>
                 </div>
             </div>
