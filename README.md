@@ -120,9 +120,10 @@ Nei pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
 **Ricordi** (la presentazione), **Video** e **Crediti**. Su uno schermo stretto
 questi pulsanti finiscono in un menu che si apre dal pulsante in alto a destra,
 al posto del conteggio dei ricordi; il menu si chiude con <kbd>Esc</kbd> o
-toccando fuori. La pagina dei video raccoglie gli
-interventi pubblici di Annibale, divisi per periodo (Puglia / Bollenti Spiriti,
-Milano / Comune di Milano) e in ordine cronologico.
+toccando fuori. La pagina dei video raccoglie gli interventi pubblici di
+Annibale, divisi per periodo (Puglia / Bollenti Spiriti, Roma / Agenzia Italiana
+per la Gioventù, Milano / Comune di Milano e altri interventi) e in ordine
+cronologico quando la data è disponibile.
 
 - Si clicca sull'immagine di un video e il video parte lì, dentro la pagina.
 - Le immagini sono solo un'anteprima: i video veri si caricano solo quando li
@@ -134,7 +135,8 @@ Milano / Comune di Milano) e in ordine cronologico.
 
 Il terzo pulsante dell'intestazione apre **Crediti**, la pagina con le persone
 che hanno immaginato e costruito il sito: l'idea è di Mariella Stella e Danilo
-Di Cuia, con i contributi di Alessandro Tartaglia e Andrea Di Benedetto.
+Di Cuia, con i contributi di Alessandro Tartaglia, Andrea Di Benedetto e
+Claudio De Leo.
 
 Nella stessa pagina c'è l'invito a usare il sito non solo per ricordare
 Annibale ma per continuare a imparare dalle sue esperienze: **Se hai un ricordo,
