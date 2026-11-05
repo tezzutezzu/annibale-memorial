@@ -417,7 +417,7 @@
 <br><br>
 La speranza che ha costruito in ognuno dei giovani che ha aiutato, nei progetti generativi che ha sostenuto, nelle persone che lo amavano e che lui amava, oggi è viva in tutti noi. E riparte da qui.
 <br><br>
-Questo sito è una raccolta aperta. Chiunque può contribuire con un testo e farlo crescere.</blockquote>
+Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E c'è una raccolta aperta di testi e immagini, in gran parte recuperati dalla marea di messaggi che hanno attraversato la rete. Tutti e tutte possono contribuire e farla crescere. /blockquote>
                     </div>
                 </div>
             </div>
@@ -1098,6 +1098,15 @@ Questo sito è una raccolta aperta. Chiunque può contribuire con un testo e far
                 .filter(p => p.text || p.image);
         }
 
+        function shuffle(posts) {
+            const shuffled = [...posts];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
         function preload(post, photoIndex = 0) {
             const image = post && post.images[photoIndex];
             if (image) new Image().src = image.src;
@@ -1630,7 +1639,7 @@ Questo sito è una raccolta aperta. Chiunque può contribuire con un testo e far
 
         async function init() {
             try {
-                state.posts = normalise(await loadPosts());
+                state.posts = shuffle(normalise(await loadPosts()));
                 if (!state.posts.length) {
                     showMessage('Nessun ricordo da mostrare.');
                     return;
