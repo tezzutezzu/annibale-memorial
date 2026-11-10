@@ -19,11 +19,41 @@
                     },
                     colors: {
                         stone: {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            800: '#292524',
-                            900: '#1c1917',
-                        }
+                            50: '#f6f4f4',
+                            100: '#352925',
+                            200: '#382a28',
+                            300: '#594641',
+                            400: '#6d544e',
+                            500: '#73564f',
+                            600: '#73564f',
+                            700: '#9c6253',
+                            800: '#c3725c',
+                            900: '#352925',
+                        },
+                        terracotta: {
+                            50: '#fbf3f0',
+                            100: '#f5e4de',
+                            200: '#e9c2b5',
+                            300: '#d89a86',
+                            400: '#c3725c',
+                            500: '#b45c45',
+                            600: '#9d4b37',
+                            700: '#87402f',
+                            800: '#72382c',
+                            900: '#55291f',
+                        },
+                        plum: {
+                            50: '#f8f2f7',
+                            100: '#efe1ed',
+                            200: '#dbbfd6',
+                            300: '#c398bc',
+                            400: '#a875a2',
+                            500: '#985f89',
+                            600: '#854c77',
+                            700: '#71416a',
+                            800: '#593355',
+                            900: '#41233d',
+                        },
                     }
                 }
             }
@@ -35,11 +65,11 @@
         /* Same ground as the slideshow, but this page scrolls normally. */
         body {
             min-height: 100%;
-            background-color: #0b0a09;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+            background-color: #f6f4f4;
+            background-image: radial-gradient(rgba(152, 95, 137, 0.055) 1px, transparent 1px);
             background-size: 32px 32px;
             background-attachment: fixed;
-            color: #e7e5e4;
+            color: #382a28;
         }
 
         /* 16:9 frame that holds either the poster or the player. */
@@ -48,8 +78,8 @@
             aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 0.9rem;
-            background: #14120f;
-            outline: 1px solid rgba(255, 255, 255, 0.08);
+            background: #fffaf8;
+            outline: 1px solid rgba(89, 70, 65, 0.16);
             outline-offset: -1px;
         }
 
@@ -71,7 +101,7 @@
         .frame .veil {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(11, 10, 9, 0.75), rgba(11, 10, 9, 0.15) 55%, rgba(11, 10, 9, 0.05));
+            background: linear-gradient(to top, rgba(53, 41, 37, 0.68), rgba(53, 41, 37, 0.12) 55%, rgba(53, 41, 37, 0.04));
             opacity: 1;
             transition: opacity 200ms ease;
         }
@@ -87,7 +117,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(28, 25, 23, 0.72);
+            background: rgba(53, 41, 37, 0.72);
             border: 1px solid rgba(255, 255, 255, 0.28);
             backdrop-filter: blur(3px);
             transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
@@ -95,7 +125,7 @@
 
         .card:hover .play,
         .card:focus-visible .play {
-            background: rgba(220, 38, 38, 0.92);
+            background: rgba(157, 75, 55, 0.96);
             border-color: rgba(255, 255, 255, 0.55);
             transform: translate(-50%, -50%) scale(1.06);
         }
@@ -103,7 +133,7 @@
         .card:hover .veil { opacity: 0.55; }
 
         /* Keyboard focus ring, only where it can be seen. */
-        .card:focus-visible { outline: 2px solid rgba(253, 230, 138, 0.55); outline-offset: 3px; }
+        .card:focus-visible { outline: 2px solid rgba(157, 75, 55, 0.7); outline-offset: 3px; }
 
         /* Iframes fade in once swapped in, so nothing flashes. */
         .frame iframe { animation: fade 220ms ease both; }
@@ -111,9 +141,9 @@
 
         /* Sticky header stays liquid over the cards. */
         .topbar {
-            background: rgba(11, 10, 9, 0.72);
+            background: rgba(246, 244, 244, 0.88);
             backdrop-filter: blur(12px) saturate(140%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            border-bottom: 1px solid rgba(89, 70, 65, 0.12);
         }
     </style>
     <noscript><style>
@@ -136,11 +166,11 @@
                  class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
                         lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
                 <a href="index.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200">Ricordi</a>
+                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Ricordi</a>
                 <a href="video.html" aria-current="page"
-                   class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Video</a>
+                   class="rounded-full border border-terracotta-400/40 bg-terracotta-100 px-2.5 py-1 text-terracotta-800">Video</a>
                 <a href="credits.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-white/5 hover:text-stone-200">Crediti</a>
+                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Crediti</a>
             </nav>
 
             <!-- Below lg the sections above move into this panel; the button
@@ -148,8 +178,8 @@
             <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
                     aria-controls="mobile-menu"
                     class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
-                           rounded-full border border-white/15 bg-white/5 text-stone-300 transition-colors
-                           hover:border-white/30 hover:bg-white/10 hover:text-stone-100
+                           rounded-full border border-stone-900/15 bg-stone-900/5 text-stone-300 transition-colors
+                           hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100
                            focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -164,14 +194,14 @@
             <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
             <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
                 <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#12100f] p-1.5
-                            shadow-2xl shadow-black/70">
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-[#fffaf8] p-1.5
+                            shadow-2xl shadow-black/15">
                     <a href="index.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Ricordi</a>
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Ricordi</a>
                     <a href="video.html" aria-current="page"
-                       class="block rounded-xl bg-white/10 px-3 py-2 text-sm text-stone-100">Video</a>
+                       class="block rounded-xl bg-terracotta-100 px-3 py-2 text-sm text-terracotta-800">Video</a>
                     <a href="credits.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Crediti</a>
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Crediti</a>
                 </nav>
             </div>
 
@@ -193,7 +223,7 @@
         <!-- ============================ PUGLIA ============================ -->
         <section class="pt-8 md:pt-10">
             <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-white/10 pb-2 mb-5">
+                       border-b border-stone-900/10 pb-2 mb-5">
                 Puglia / Bollenti Spiriti <span class="normal-case tracking-normal">(2010–2016)</span>
             </h2>
 
@@ -403,7 +433,7 @@
         <!-- ============================== ROMA ============================= -->
         <section class="pt-10 md:pt-14">
             <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-white/10 pb-2 mb-5">
+                       border-b border-stone-900/10 pb-2 mb-5">
                 Roma / Agenzia Italiana per la Gioventù <span class="normal-case tracking-normal">(2016)</span>
             </h2>
 
@@ -437,7 +467,7 @@
         <!-- ============================ MILANO ============================ -->
         <section class="pt-10 md:pt-14">
             <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-white/10 pb-2 mb-5">
+                       border-b border-stone-900/10 pb-2 mb-5">
                 Milano / Comune di Milano <span class="normal-case tracking-normal">(2017–2025)</span>
             </h2>
 
@@ -493,7 +523,7 @@
         <!-- ========================= ALTRI VIDEO ========================== -->
         <section class="pt-10 md:pt-14">
             <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-white/10 pb-2 mb-5">
+                       border-b border-stone-900/10 pb-2 mb-5">
                 Altri interventi
             </h2>
 
@@ -524,8 +554,8 @@
             </div>
         </section>
 
-        <p class="mt-14 pt-6 border-t border-white/10 text-center text-xs text-stone-500 font-light">
-            <a href="index.html" class="text-stone-400 underline decoration-white/20 underline-offset-4
+        <p class="mt-14 pt-6 border-t border-stone-900/10 text-center text-xs text-stone-500 font-light">
+            <a href="index.html" class="text-stone-400 underline decoration-stone-900/20 underline-offset-4
                                        transition-colors hover:text-stone-100">Torna ai ricordi</a>
         </p>
     </main>

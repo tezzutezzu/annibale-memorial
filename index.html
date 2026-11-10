@@ -20,11 +20,41 @@
                     },
                     colors: {
                         stone: {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            800: '#292524',
-                            900: '#1c1917',
-                        }
+                            50: '#f6f4f4',
+                            100: '#352925',
+                            200: '#382a28',
+                            300: '#594641',
+                            400: '#6d544e',
+                            500: '#73564f',
+                            600: '#73564f',
+                            700: '#9c6253',
+                            800: '#c3725c',
+                            900: '#352925',
+                        },
+                        terracotta: {
+                            50: '#fbf3f0',
+                            100: '#f5e4de',
+                            200: '#e9c2b5',
+                            300: '#d89a86',
+                            400: '#c3725c',
+                            500: '#b45c45',
+                            600: '#9d4b37',
+                            700: '#87402f',
+                            800: '#72382c',
+                            900: '#55291f',
+                        },
+                        plum: {
+                            50: '#f8f2f7',
+                            100: '#efe1ed',
+                            200: '#dbbfd6',
+                            300: '#c398bc',
+                            400: '#a875a2',
+                            500: '#985f89',
+                            600: '#854c77',
+                            700: '#71416a',
+                            800: '#593355',
+                            900: '#41233d',
+                        },
                     }
                 }
             }
@@ -35,11 +65,11 @@
 
         /* One post at a time: the page itself never scrolls. */
         body {
-            background-color: #0b0a09;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+            background-color: #f6f4f4;
+            background-image: radial-gradient(rgba(152, 95, 137, 0.055) 1px, transparent 1px);
             background-size: 32px 32px;
             overflow: hidden;
-            color: #e7e5e4;
+            color: #382a28;
         }
 
         /* --- backdrop ------------------------------------------------------
@@ -59,7 +89,7 @@
 
         /* The colour gathers under the words, so the type gets a whisper of
            shadow to keep its edges crisp against it. */
-        #text { text-shadow: 0 1px 18px rgba(0, 0, 0, 0.5); }
+        #text { text-shadow: 0 1px 18px rgba(246, 244, 244, 0.8); }
 
         /* --- Image (left) ------------------------------------------------- */
         #figure {
@@ -101,10 +131,10 @@
         /* Long posts scroll inside their column, never the page. */
         .quote {
             scrollbar-width: thin;
-            scrollbar-color: #44403c transparent;
+            scrollbar-color: #c398bc transparent;
         }
         .quote::-webkit-scrollbar { width: 6px; }
-        .quote::-webkit-scrollbar-thumb { background: #44403c; border-radius: 9999px; }
+        .quote::-webkit-scrollbar-thumb { background: #c398bc; border-radius: 9999px; }
 
         /* When a post has no picture the image column collapses to zero
            width, so the text takes the whole width. */
@@ -127,7 +157,7 @@
             overflow-x: hidden;      /* long alt-text "dates" must not widen the panel */
             /* Solid, not translucent: the post behind the panel is long text,
                and anything see-through made the results unreadable. */
-            background-color: #14120f;
+            background-color: #fffaf8;
         }
         @media (max-width: 767px) {
             #results {
@@ -139,17 +169,16 @@
 
         /* The searched words, marked inside the result snippets. */
         #results mark {
-            background: rgba(253, 230, 138, 0.16);
-            color: #fde68a;
+            background: #f5e4de;
+            color: #72382c;
             border-radius: 0.15rem;
             padding: 0 0.1rem;
         }
         #results::-webkit-scrollbar { width: 6px; }
-        #results::-webkit-scrollbar-thumb { background: #44403c; border-radius: 9999px; }
-        #results { scrollbar-width: thin; scrollbar-color: #44403c transparent; }
-        #results [aria-selected="true"] { background: rgba(255, 255, 255, 0.07); }
-        /* Chrome's own clear button on <input type=search> is invisible on dark. */
-        #search::-webkit-search-cancel-button { filter: invert(0.6); cursor: pointer; }
+        #results::-webkit-scrollbar-thumb { background: #c398bc; border-radius: 9999px; }
+        #results { scrollbar-width: thin; scrollbar-color: #c398bc transparent; }
+        #results [aria-selected="true"] { background: rgba(195, 114, 92, 0.12); }
+        #search::-webkit-search-cancel-button { cursor: pointer; }
 
         /* --- frontespizio --------------------------------------------------
            No panel of its own: the same WebGL backdrop and dust that sit
@@ -159,17 +188,17 @@
         #frontispiece[hidden] { display: none; }
         .cover-open .page { visibility: hidden; }
         #frontispiece-title,
-        #frontispiece-quote { text-shadow: 0 1px 18px rgba(0, 0, 0, 0.5); }
+        #frontispiece-quote { text-shadow: 0 1px 18px rgba(246, 244, 244, 0.8); }
         /* The quote can be taller than a phone screen: it scrolls, and the
            bottom edge fades so it is clear there is more to read. */
         #frontispiece .cover-scroll {
             scrollbar-width: thin;
-            scrollbar-color: #44403c transparent;
+            scrollbar-color: #c398bc transparent;
             -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent);
             mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent);
         }
         #frontispiece .cover-scroll::-webkit-scrollbar { width: 6px; }
-        #frontispiece .cover-scroll::-webkit-scrollbar-thumb { background: #44403c; border-radius: 9999px; }
+        #frontispiece .cover-scroll::-webkit-scrollbar-thumb { background: #c398bc; border-radius: 9999px; }
         #frontispiece.is-leaving { animation: frontispiece-out 420ms ease forwards; }
         @keyframes frontispiece-out { to { opacity: 0; visibility: hidden; } }
         @media (prefers-reduced-motion: reduce) {
@@ -206,20 +235,20 @@
                  class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
                         lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
                 <a href="index.html" aria-current="page"
-                   class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-stone-100">Ricordi</a>
+                   class="rounded-full border border-terracotta-400/40 bg-terracotta-100 px-2.5 py-1 text-terracotta-800">Ricordi</a>
                 <a href="video.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
-                          hover:bg-white/5 hover:text-stone-200">Video</a>
+                          hover:bg-stone-900/5 hover:text-stone-200">Video</a>
                 <a href="credits.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
-                          hover:bg-white/5 hover:text-stone-200">Crediti</a>
+                          hover:bg-stone-900/5 hover:text-stone-200">Crediti</a>
                 <!-- Hidden until a Tally form URL is configured (see the script
                      at the end of the page): a button that opens nothing is
                      worse than no button. -->
                 <button type="button" id="leave-thought"
-                        class="hidden items-center gap-1.5 rounded-full border border-white/15 bg-white/5
+                        class="hidden items-center gap-1.5 rounded-full border border-stone-900/15 bg-stone-900/5
                                px-2.5 py-1 text-stone-300 transition-colors
-                               hover:border-white/30 hover:bg-white/10 hover:text-stone-100">
+                               hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -235,8 +264,8 @@
             <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
                     aria-controls="mobile-menu"
                     class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
-                           rounded-full border border-white/15 bg-white/5 text-stone-300 transition-colors
-                           hover:border-white/30 hover:bg-white/10 hover:text-stone-100
+                           rounded-full border border-stone-900/15 bg-stone-900/5 text-stone-300 transition-colors
+                           hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100
                            focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -251,17 +280,17 @@
             <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
             <div id="mobile-menu" class="absolute right-4 md:right-10 top-full z-[65] hidden w-60 lg:hidden">
                 <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#12100f] p-1.5
-                            shadow-2xl shadow-black/70">
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-[#fffaf8] p-1.5
+                            shadow-2xl shadow-black/15">
                     <a href="index.html" aria-current="page"
-                       class="block rounded-xl bg-white/10 px-3 py-2 text-sm text-stone-100">Ricordi</a>
+                       class="block rounded-xl bg-terracotta-100 px-3 py-2 text-sm text-terracotta-800">Ricordi</a>
                     <a href="video.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Video</a>
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Video</a>
                     <a href="credits.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">Crediti</a>
+                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Crediti</a>
                     <button type="button" id="menu-thoughts"
                             class="hidden w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm
-                                   text-stone-300 transition-colors hover:bg-white/5 hover:text-stone-100">
+                                   text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -285,12 +314,12 @@
                     <input id="search" type="search" autocomplete="off" spellcheck="false"
                            placeholder="Cerca un ricordo…"
                            aria-label="Cerca tra i ricordi, per testo o autore"
-                           class="w-full lg:w-72 bg-white/5 border border-white/10 rounded-full pl-9 pr-3 py-1.5
+                           class="w-full lg:w-72 bg-stone-900/5 border border-stone-900/10 rounded-full pl-9 pr-3 py-1.5
                                   text-sm text-stone-200 placeholder:text-stone-500 outline-none
-                                  focus:border-white/25 focus:bg-white/10 transition-colors" />
+                                  focus:border-terracotta-500 focus:bg-terracotta-50 transition-colors" />
                     <div id="results" role="listbox" aria-label="Risultati"
-                         class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-white/10
-                                shadow-2xl shadow-black/70"></div>
+                         class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-stone-900/10
+                                shadow-2xl shadow-black/15"></div>
                 </div>
 
                 <p id="counter" class="col-start-2 row-start-1 hidden justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap lg:block"></p>
@@ -298,7 +327,7 @@
         </header>
 
         <!-- Post -->
-        <main tabindex="-1" class="flex-1 min-h-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pb-2">
+        <main tabindex="-1" class="flex-1 min-h-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 p-6">
             <div id="grid" class="h-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-stretch">
 
                 <!-- Image, left -->
@@ -310,8 +339,8 @@
                                 class="shrink-0 flex items-center justify-center gap-4 pt-2"
                                 role="group" aria-label="Foto di questo ricordo">
                         <button id="photo-prev" type="button" aria-label="Foto precedente" aria-controls="photo"
-                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10
-                                       bg-white/5 text-stone-300 hover:bg-white/10 focus-visible:outline focus-visible:outline-2
+                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-900/10
+                                       bg-stone-900/5 text-stone-300 hover:bg-stone-900/10 focus-visible:outline focus-visible:outline-2
                                        focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -319,8 +348,8 @@
                         </button>
                         <span id="photo-counter" class="text-sm text-stone-400 tabular-nums" aria-live="polite" aria-atomic="true"></span>
                         <button id="photo-next" type="button" aria-label="Foto successiva" aria-controls="photo"
-                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10
-                                       bg-white/5 text-stone-300 hover:bg-white/10 focus-visible:outline focus-visible:outline-2
+                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-900/10
+                                       bg-stone-900/5 text-stone-300 hover:bg-stone-900/10 focus-visible:outline focus-visible:outline-2
                                        focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
                             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
@@ -334,7 +363,7 @@
                     <blockquote id="text"
                         class="quote font-reading text-lg md:text-2xl leading-relaxed md:leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-2"></blockquote>
 
-                    <div class="mt-6 md:mt-8 pt-4 border-t border-white/10 flex items-center justify-between gap-4">
+                    <div class="mt-6 md:mt-8 pt-4 border-t border-stone-900/10 flex items-center justify-between gap-4">
                         <div class="min-w-0">
                             <a id="author-link" href="#" target="_blank" rel="noopener noreferrer"
                                class="font-medium text-stone-100 hover:text-stone-400 transition-colors duration-200 truncate block">
@@ -370,9 +399,9 @@
             <div class="mx-auto flex w-full max-w-[1600px] items-center justify-center gap-4">
                 <button id="prev" type="button" aria-label="Ricordo precedente"
                         class="flex h-12 w-12 md:h-10 md:w-10 shrink-0 cursor-pointer items-center justify-center
-                               rounded-full border border-white/10 bg-white/5 text-stone-300 transition-colors
-                               hover:border-white/25 hover:bg-white/10 hover:text-stone-100
-                               active:bg-white/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-white/10 disabled:hover:bg-white/5">
+                               rounded-full border border-stone-900/10 bg-stone-900/5 text-stone-300 transition-colors
+                               hover:border-stone-900/25 hover:bg-stone-900/10 hover:text-stone-100
+                               active:bg-stone-900/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-stone-900/10 disabled:hover:bg-stone-900/5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -381,9 +410,9 @@
 
                 <button id="next" type="button" aria-label="Ricordo successivo"
                         class="flex h-12 w-12 md:h-10 md:w-10 shrink-0 cursor-pointer items-center justify-center
-                               rounded-full border border-white/10 bg-white/5 text-stone-300 transition-colors
-                               hover:border-white/25 hover:bg-white/10 hover:text-stone-100
-                               active:bg-white/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-white/10 disabled:hover:bg-white/5">
+                               rounded-full border border-stone-900/10 bg-stone-900/5 text-stone-300 transition-colors
+                               hover:border-stone-900/25 hover:bg-stone-900/10 hover:text-stone-100
+                               active:bg-stone-900/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-stone-900/10 disabled:hover:bg-stone-900/5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -407,7 +436,7 @@
                             <img src="home.jpg" width="1079" height="1080" decoding="async"
                                  alt="Annibale D'Elia sorride accanto ad altre persone durante un incontro"
                                  class="w-full rounded-2xl object-cover shadow-2xl shadow-black/60
-                                        outline outline-1 -outline-offset-1 outline-white/10">
+                                        outline outline-1 -outline-offset-1 outline-stone-900/10">
                         </picture>
                     </figure>
                     <div class="text-center lg:text-left">
@@ -425,8 +454,8 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
 
         <div class="shrink-0 pb-10 text-center md:pb-14">
             <button id="frontispiece-enter" type="button"
-                    class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5
-                           text-sm text-stone-200 transition-colors hover:border-white/30 hover:bg-white/10
+                    class="inline-flex items-center gap-2 rounded-full border border-stone-900/15 bg-stone-900/5 px-5 py-2.5
+                           text-sm text-stone-200 transition-colors hover:border-stone-900/30 hover:bg-stone-900/10
                            focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300">
                 Entra
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -441,8 +470,8 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
     <div id="toast" aria-live="polite"
          class="pointer-events-none fixed inset-x-0 bottom-16 z-[60] flex justify-center
                 opacity-0 transition-opacity duration-200">
-        <span class="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs
-                     text-stone-200 shadow-lg shadow-black/40 backdrop-blur"></span>
+        <span class="rounded-full border border-stone-900/10 bg-stone-900/10 px-3 py-1.5 text-xs
+                     text-stone-200 shadow-lg shadow-black/10 backdrop-blur"></span>
     </div>
 
     <!-- Lascia un pensiero: the form lives on Tally and is embedded here.
@@ -452,13 +481,13 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         <div id="thoughts-backdrop" class="absolute inset-0"></div>
 
         <div class="relative mx-auto mt-[5vh] flex h-[min(88vh,720px)] w-[min(94vw,44rem)] flex-col
-                    overflow-hidden rounded-2xl border border-white/10 bg-[#12100f]
-                    shadow-2xl shadow-black/70">
-            <div class="flex shrink-0 items-center justify-between gap-4 border-b border-white/10 px-4 py-3 md:px-5">
+                    overflow-hidden rounded-2xl border border-stone-900/10 bg-[#fffaf8]
+                    shadow-2xl shadow-black/15">
+            <div class="flex shrink-0 items-center justify-between gap-4 border-b border-stone-900/10 px-4 py-3 md:px-5">
                 <h2 id="thoughts-title" class="font-serif text-lg text-stone-100">Lascia un pensiero</h2>
                 <button type="button" id="thoughts-close" aria-label="Chiudi il modulo"
                         class="flex h-8 w-8 items-center justify-center rounded-full text-stone-500
-                               transition-colors hover:bg-white/10 hover:text-stone-200">
+                               transition-colors hover:bg-stone-900/10 hover:text-stone-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -472,7 +501,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             </div>
 
             <p id="thoughts-note"
-               class="shrink-0 border-t border-white/10 px-4 py-3 text-[0.7rem] leading-relaxed text-stone-500 md:px-5">
+               class="shrink-0 border-t border-stone-900/10 px-4 py-3 text-[0.7rem] leading-relaxed text-stone-500 md:px-5">
                 Nome e messaggio saranno pubblicati sul sito dopo una revisione. L'email, se la
                 lasci, resta privata e serve solo a ricontattarti.
             </p>
@@ -484,7 +513,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
        Backdrop: a multicolour nebula swirling under the words, with motes of
        coloured dust drifting up through it. One canvas, two WebGL passes.
        Everything here is optional — if WebGL is missing the canvas is removed
-       and the page keeps its plain dark background.
+       and the page keeps its plain light background.
        --------------------------------------------------------------------- */
     (function backdrop() {
         const canvas = document.getElementById('aura');
@@ -542,15 +571,11 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             }
 
             vec3 palette(float t) {
-                t = fract(t) * 4.0;
-                vec3 indigo  = vec3(0.32, 0.26, 0.95);
-                vec3 cyan    = vec3(0.20, 0.78, 1.00);
-                vec3 magenta = vec3(0.95, 0.32, 0.90);
-                vec3 gold    = vec3(1.00, 0.68, 0.32);
-                if (t < 1.0) return mix(indigo,  cyan,    smoothstep(0.0, 1.0, t));
-                if (t < 2.0) return mix(cyan,    magenta, smoothstep(0.0, 1.0, t - 1.0));
-                if (t < 3.0) return mix(magenta, gold,    smoothstep(0.0, 1.0, t - 2.0));
-                return mix(gold, indigo, smoothstep(0.0, 1.0, t - 3.0));
+                t = fract(t) * 2.0;
+                vec3 terracotta = vec3(0.76, 0.45, 0.36);
+                vec3 plum = vec3(0.60, 0.37, 0.54);
+                if (t < 1.0) return mix(terracotta, plum, smoothstep(0.0, 1.0, t));
+                return mix(plum, terracotta, smoothstep(0.0, 1.0, t - 1.0));
             }
 
             void main() {
@@ -587,7 +612,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
                 float hue = 0.55 + 0.24 * warp.y + 0.34 * p.x + 0.22 * p.y
                           + 0.16 * veil + 0.05 * sin(t * 0.021);
                 vec3 col = mix(palette(hue), palette(hue + 0.26), wisp * 0.6);
-                col = mix(col, vec3(1.0), 0.04);
+                col = mix(col, vec3(1.0), 0.42);
 
                 // The colour gathers under the words, with a fainter echo of it
                 // across the rest of the page.
@@ -596,13 +621,13 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
                 float dist = length(d / r);
                 float under = exp(-dist * dist * 0.5);
 
-                // Light lives in the folds; between them the page stays dark,
-                // which is what keeps the type readable. A soft hollow in the
+                // A restrained glow keeps the colored folds behind the text
+                // from reducing contrast. A soft hollow in the middle of the block
                 // middle of the block reads as a halo around the words and
                 // keeps the busiest part of the sky off the glyphs.
                 float glow = min(fall + 0.5 * wisp, 1.0);
                 float halo = 1.0 - 0.30 * exp(-dist * dist * 2.2);
-                float alpha = (0.14 + 0.86 * under) * halo * (0.012 + 0.62 * glow);
+                float alpha = (0.08 + 0.92 * under) * halo * (0.006 + 0.16 * glow);
 
                 gl_FragColor = vec4(col, alpha);
             }
@@ -662,10 +687,12 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
                 float core = smoothstep(0.5, 0.0, d);
                 core *= core;
 
-                vec3 col = 0.5 + 0.5 * cos(6.28318 * (vHue + vec3(0.0, 0.33, 0.67)));
+                vec3 terracotta = vec3(0.76, 0.45, 0.36);
+                vec3 plum = vec3(0.60, 0.37, 0.54);
+                vec3 col = mix(terracotta, plum, smoothstep(0.0, 1.0, vHue));
                 col = mix(vec3(1.0), col, 0.45);
 
-                gl_FragColor = vec4(col, core * vTwinkle * 0.42);
+                gl_FragColor = vec4(col, core * vTwinkle * 0.18);
             }
         `;
 
@@ -877,7 +904,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             gl.clear(gl.COLOR_BUFFER_BIT);
             gl.enable(gl.BLEND);
 
-            // Nebula: ordinary alpha over the dark page.
+            // Nebula: ordinary alpha over the light page.
             gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
             gl.useProgram(nebula);
             gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -973,7 +1000,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         if (still.addEventListener) still.addEventListener('change', run);
 
         // If the driver drops the context the canvas goes blank; the page keeps
-        // its own dark background, and nothing depends on the glow.
+        // its own light background, and nothing depends on the glow.
         canvas.addEventListener('webglcontextlost', (event) => {
             event.preventDefault();
             cancelAnimationFrame(frame);
@@ -1488,12 +1515,12 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             box.innerHTML = hits.slice(0, SEARCH_MAX).map(({ rec }) => {
                 const thumb = rec.image
                     ? `<img src="${esc(rec.image)}" alt="" loading="lazy"
-                            class="h-11 w-11 rounded-md object-cover shrink-0 bg-stone-900">`
-                    : `<span class="h-11 w-11 rounded-md shrink-0 bg-white/5 border border-white/10"></span>`;
+                            class="h-11 w-11 rounded-md object-cover shrink-0 bg-stone-50">`
+                    : `<span class="h-11 w-11 rounded-md shrink-0 bg-stone-900/5 border border-stone-900/10"></span>`;
                 return `
                     <button type="button" role="option" data-i="${rec.i}" aria-selected="false"
-                            class="w-full text-left px-3 py-2.5 flex gap-3 items-start border-b border-white/5 last:border-0
-                                   hover:bg-white/5 focus:outline-none transition-colors">
+                            class="w-full text-left px-3 py-2.5 flex gap-3 items-start border-b border-stone-900/5 last:border-0
+                                   hover:bg-stone-900/5 focus:outline-none transition-colors">
                         ${thumb}
                         <span class="min-w-0 flex-1">
                             <span class="flex items-baseline gap-2">
@@ -1657,7 +1684,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
                     <strong class="block mb-2 text-stone-100">Impossibile caricare ${DATA_URL}</strong>
                     ${err.message}<br><br>
                     Apri questa pagina da un server locale, non con doppio clic:
-                    <code class="block mt-2 p-3 bg-white/5 rounded select-all">python3 -m http.server 8899</code>
+                    <code class="block mt-2 p-3 bg-stone-900/5 rounded select-all">python3 -m http.server 8899</code>
                     poi vai su <code>http://localhost:8899/</code>.
                 `);
             }
@@ -1745,7 +1772,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
        tally.so.
 
        Recommended embed URL — the form's own title hidden and its background
-       transparent, so it sits on this page's dark panel:
+       transparent, so it sits on this page's light panel:
          https://tally.so/embed/XXXXXXXX?hideTitle=1&transparentBackground=1&alignLeft=1
 
        THOUGHTS_CONTACT is the address people write to in order to have a
