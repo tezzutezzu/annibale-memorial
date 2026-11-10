@@ -286,6 +286,29 @@ python3 audit_truncated.py
 > Le foto di Facebook sono collegate da indirizzi che scadono dopo pochi giorni:
 > se raccogli i messaggi, importali lo stesso giorno.
 
+## Controllare cosa si vede
+
+La presentazione mostra tutto quello che non è marcato `relevant: false`: un
+post raccolto da una ricerca o da una pagina arriva sullo schermo anche se
+nessuno lo ha giudicato. Per sapere cosa c'è dentro:
+
+```
+python3 audit_relevance.py
+```
+
+Lo script legge il file come lo legge la pagina e separa due gruppi:
+
+- i casi che una regola chiude da sola (solo un augurio, un testo di poche
+  parole senza il nome, una riga senza testo né foto, un messaggio ripetuto);
+- tutto il resto, da leggere.
+
+`--ids` stampa solo gli identificativi dei casi segnalati, pronti per
+`remove_posts.py`; `--csv FILE` esporta il foglio completo; `--excerpts` stampa
+i post da leggere a blocchi, con `--offset`/`--limit` per avanzare.
+
+Le regole non cancellano niente: elencano e basta. La decisione resta da
+leggere, perché la cancellazione è definitiva.
+
 ## 7. Togliere un ricordo
 
 Se un post non c'entra (un augurio di compleanno, una pubblicità, un post che
