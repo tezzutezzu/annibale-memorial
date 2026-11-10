@@ -754,5 +754,691 @@
     "message": "Leggete l'articolo, come Annibale D'elia servono persone! Che almeno il suo testimone possa passare a tante persone che trovino in sé le sue qualità la sua intelligenza…",
     "removed_at": "2026-11-10T17:23:03+00:00",
     "reason": "Removed at user request"
+  },
+  {
+    "id": "h_e1b942b6caf0202a",
+    "author": null,
+    "message": "Ciao Annibale.\nGrazie.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_c51c47553c87a0bb",
+    "author": "Tiziana Petruzzelli",
+    "message": "Buon compleanno!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_2dd65f0b939e86dd",
+    "author": "La Sté",
+    "message": "Buon compleanno!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f0297fc4254cc206",
+    "author": "Anny Mazzone",
+    "message": "Buon compleanno, Annibale!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_b66b788c9b4d9e60",
+    "author": "Serena Cannale",
+    "message": "Happy Birthday, Annibale!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_c2a9492ee48e19ef",
+    "author": "Marco Lotito",
+    "message": "Buon compleanno, Annibale!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_da65090db4e3632c",
+    "author": "Eva Milella",
+    "message": "Auguroni Annibale",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10231385090435694",
+    "author": "Silvia Tittoto",
+    "message": "Buon compleanno, Annibale!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_02b142ce4c344d71",
+    "author": null,
+    "message": "grazie",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_52ccc51b45da8417",
+    "author": "Regione Puglia",
+    "message": "Ciao Annibale.\nGrazie.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_c53789210de550d0",
+    "author": "Paola Sucato",
+    "message": "Auguri",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_84e7d4fe883c6e2f",
+    "author": null,
+    "message": "Grande Sabrina",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_06d1e53272d4e225",
+    "author": null,
+    "message": "Genni Buonocore grazie!",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_75e0b93929a94bd2",
+    "author": null,
+    "message": "Subito Possa accadere",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_7c4c239163103f85",
+    "author": null,
+    "message": "in puglia",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f70a15dd3b003034",
+    "author": null,
+    "message": "Okke ale",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_6c16b6d961a02185",
+    "author": "Gianluigi Trevisi",
+    "message": "",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_dd58a2350ea21cfb",
+    "author": "Annibale D'elia",
+    "message": "",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_3878b28bffc3d026",
+    "author": "Gianni Perilli",
+    "message": "Siete stati tantissimi, e avete fatto del mio 60esimo un compleanno da ricordare.\nGrazie a tutti",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_74ac64a2c3a0da51",
+    "author": "Marina Leuzzi - Assessora Urbanistica, Casa e Mare",
+    "message": "In Regione abbiamo approvato la legge sugli affitti brevi.\nUna legge per tutelare il diritto alla casa, per evitare che i residenti vengano esclusi dai propri quartieri per il costo degli affitti e pe",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10236291274127545",
+    "author": "Romanzi di Fantascienza",
+    "message": "Grazie di avermi accettato nel gruppo. Comprato oggi e curioso di leggerlo.Ricordo di aver visto la trasposizione cinematografica da ragazzo. Ho molte aspettative !",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_1129464525409901",
+    "author": "Marco Capone",
+    "message": "Da Nuovo Armenia ho visto un film:\nAlla Base un manifesto per costruire, con linee guida o linee rotte da navigare in un Mare Mosso, irregolare, ibrido diremmo nel mondo attuale. Orecchie grandi per a",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10232067776949042",
+    "author": "Giuliana Zoppis",
+    "message": "Chi sa cosa è il NUDGE sarà invogliato a saperne di più. Chi ancora non lo sa ed è curioso, lo scoprirà raggiungendoci il 17 novembre 2024 a 21 House of Stories Milano. Per avvicinare le idee e le att",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_381512f73fe3d7af",
+    "author": "Flaviano Zandonai",
+    "message": "La prossima settimana a BookCity Milano presenteremo il nostro libro #spazioaldesiderio scritto con Paolo Venturi in combo con #fareassieme di Michele d'Alena ed Ezio Manzini. Entrambe editi da Egea. ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_1093938992739272",
+    "author": "Valerio Pedroni",
+    "message": "Milano al centro di una nuova economia civile e di prossimità\nOggi presenterò in commissione consiliare insieme a Natascia Tosoni  il nuovo bando \"crowdfunding civico\", in cui il Comune di Milano sost",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_df608177d51861b3",
+    "author": "Le Giornate di Bertinoro per l'Economia Civile",
+    "message": "Cos'è l'economia di prossimità?…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_933356298818115",
+    "author": "Le Giornate di Bertinoro per l'Economia Civile",
+    "message": "𝗖𝗮𝗺𝗯𝗶𝗮𝗿𝗲 𝗹𝗲 𝗿𝗲𝗴𝗼𝗹𝗲 𝗱𝗲𝗹 𝗴𝗶𝗼𝗰𝗼? 𝗦𝗶 𝗽𝘂ò 𝗳𝗮𝗿𝗲. 𝗗𝗮𝗹𝗹𝗲 𝘀𝗼𝗹𝘂𝘇𝗶𝗼𝗻𝗶 𝗮 𝗻𝘂𝗼𝘃𝗲 𝗶𝘀𝘁𝗶𝘁𝘂𝘇𝗶𝗼𝗻𝗶\n GDB Lab | venerdì 11 ottobre | ore 17.30-18.45\nIntroduce e coordina:\nFlaviano Zandonai, Open Innovation Manager Consorzi",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10230721001519068",
+    "author": "Natascia Tosoni",
+    "message": "Forum Economia urbana 2024 - Milano e l’economia di prossimità.\nQuello che emerge è il valore della collaborazione e della costruzione di una visione comune che solo il pubblico può agire, per garanti",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_3639a160c4a45bf6",
+    "author": "Vittorio Palumbo",
+    "message": "STAY HUMAN, cosi concludeva I comunicati da Gaza nel suo blog Vittorio Arrigoni fino al 2011, anno in cui fu assassinato in Palestina.\nNon un eroe ma una persona normal…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_5b29ca409d2569b7",
+    "author": "Vittorio Palumbo",
+    "message": "STAY HUMAN, cosi concludeva I comunicati da Gaza nel suo blog Vittorio Arrigoni fino al 2011, anno in cui fu assassinato in Palestina.\nNon un eroe ma una persona normale, un pacifista che aveva scelto",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10229826380139100",
+    "author": "Paolo Manfredi",
+    "message": "Ieri sera una presentazione particolare di “L’eccellenza non basta”. Per il luogo, Troia (FG), che mi è caro da più di trent'anni, per un teatro pienissimo, per l'energia dei ragazzi di NuovaMenteTroi",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_882442010350514",
+    "author": "Mattea Belpiede",
+    "message": "Un compleanno speciale per la nostra bella e giovane Informa Scarl Anna Barbieri Donatella Paparella Pasquale Braschi NunzioeVale Bruno",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_0d1dc730a008f516",
+    "author": "Paolo Venturi",
+    "message": "\"Le costruzioni e le politiche urbanistiche devono perciò immaginare soluzioni buone non solo per massimizzare l’utilità economica del presente, ma per aumentare la fel…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_ec81422f937ec300",
+    "author": "Paolo Venturi",
+    "message": "\"Le costruzioni e le politiche urbanistiche devono perciò immaginare soluzioni buone non solo per massimizzare l’utilità economica del presente, ma per aumentare la felicità degli abitanti di domani. ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_8db42b34c76f72e1",
+    "author": "Alessandro Tartaglia",
+    "message": "Sto facendo una ricerca (purtroppo veloce) su policy innovative a livello locale (comuni e regioni) in Italia e all'estero. Conoscete cose che devo sicuramente andare a guardare?\nBertram Niessen Marco",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10160698825348497",
+    "author": "Stefano Bianco",
+    "message": "Il Comune di Milano e la Camera commercio Milano Monza Brianza Lodi, in collaborazione con il Municipio 4 e il Municipio 5 hanno lanciato un bando che finanzia l'apertura, l’ammodernamento o ampliamen",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10230648461333547",
+    "author": null,
+    "message": "\"me che stai addi'?? (in amicizia, eh)\"",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10230517103422208",
+    "author": "Marco Minoja",
+    "message": "...si ricomincia. \nTeatro, come vedete, certo, ma anche musica, cinema, lingue!\nDa oggi la Fondazione Milano Scuole Civiche ha scelto un nuovo direttore generale...\n(l'ho sempre sospettato che fossero",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10222978933650175",
+    "author": "Michele Saponaro",
+    "message": "Impossibile resistere al piacere di condividere la foto di uno dei complimenti monumentali più suggestivi della Basilicata.\nPer di più ubicato a Venosa \"Città di Orazio\", dove ebbe inizio la straordin",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_b616ba5539f524ed",
+    "author": "Giovanni Laino",
+    "message": "Una bella testimonianza video in cui Alberto Magnaghi si racconta, una eredità culturale con cui dovremo fare a lungo i conti .....",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_3d8e6525e4fd91ba",
+    "author": "Paolo Manfredi",
+    "message": "Venerdì 22 settembre alle ore 10 al Museo del Risorgimento (Via Borgonuovo 23, Milano) parleremo di competenze e imprenditorialità come leva per lo sviluppo locale in u…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_4fe8a0d2d20a386e",
+    "author": "Paolo Manfredi",
+    "message": "Venerdì 22 settembre alle ore 10 al Museo del Risorgimento (Via Borgonuovo 23, Milano) parleremo di competenze e imprenditorialità come leva per lo sviluppo locale in un seminario organizzato da Uffic",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10231512100247209",
+    "author": "Giovanni Laino",
+    "message": "Oggi Richard Sennet in una intervista a La Repubblica dice cose sensate, ancora minoritarie nelle ns. Università,   vero Michelangelo Russo ?",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_3880539408840391",
+    "author": "Claudio Calvaresi",
+    "message": "Quattro giorni con Tim Ingold. \nAbbiamo visitato Chiaravalle, il padiglione di terzo paesaggio e – visto che c'eravamo – pure l’abbazia. Abbiamo incontrato Mapping San Siro e poi inaugurato, con un in",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10231425690854338",
+    "author": "Andrea Bartoli",
+    "message": "Gli Ambasciatori dei Non Umani, uno degli spettacoli più belli della mia vita.\nGrato per aver vissuto questa esperienza emozionante e onorato di farne parte.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_667440483445545",
+    "author": "Michele Saponaro",
+    "message": "A Venosa \"Città di Orazio\" 43 anni fa iniziò la mia (nostra con Filomena Barbone , Antonietta Conte , Giuseppe Elefante , Canio Tolla ) straordinaria \"avventura\" nell'Amministrazione statale dei beni ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10159655680578177",
+    "author": null,
+    "message": "Incontri a sorpresa al taglio della torta",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_840351b5fbbbd800",
+    "author": "Sabrina Pedrini",
+    "message": "Sono ancora a condividere questa raccolta fondi organizzata da mie studentesse e miei studenti allo scopo di sostenere una compagna che nell’alluvione ha perso tutto. \nUna manciata di questə baldə gio",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_24ccaa8de8c0d2e2",
+    "author": null,
+    "message": "Quando ti candidi sindaco a fg?",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_2b8c2574afe87a1a",
+    "author": null,
+    "message": "stiamo partecipando a un bando",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_312c92e32efb4175",
+    "author": null,
+    "message": "per fare una scuola di innovazione",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_8d8fd73331525574",
+    "author": null,
+    "message": "puoi spedire a un po' di amici tuoi l'invito a votare la scuola? https://www.youtube.com/watch?v=h5JV4MLebXE per votare bisogna cliccare qui: https://goo.gl/2IZcNj",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10225445516818944",
+    "author": "Oliverio Gentile",
+    "message": "Oggi ho partecipato a questo \"Workshop pubblico: \"Studio d'area per la rigenerazione urbana\" - quadrante Ripamonti / Area a sud dello Scalo Romana\" che la Consigliera di Municipio 5 Stefania Vedovato ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_af8365fd52ed2c7b",
+    "author": "Le Giornate di Bertinoro per l'Economia Civile",
+    "message": "Cos'è l'economia di prossimità?\n— e Aiccon…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10152507757728736",
+    "author": "Marco Cataldo",
+    "message": "TEDxLecce: il #futuro! Manca davvero poco alla terza edizione del #TEDxLecce.Quest’anno il tema sarà il #futuro: diciannove storie di economia, scienza, impresa, food, arte, teatro, impegno sociale, d",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_29297692576510327",
+    "author": "IO E I MIEI CAZZO DI GATTI",
+    "message": "Gatti invasori parte 2\nNonò misteriosamente scomparso, si suppone comodo a casa di qualcuno vista la tendenza alle incursioni nelle case di tutta la zona. Ebola si prende il suo posto e invita pure la",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_1548686460627773",
+    "author": null,
+    "message": "Dal Brasile \n alla Serbia \n , qualcosa si muove. La vittoria di Lula in Brasile e l’ammissione della sconfitta da parte del presidente serbo Vučić in favore della vittoria della lista degli Studenti r",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_b13ddd72ab0e20e8",
+    "author": "Nidia odv",
+    "message": "Novate Mil.se (MI) 24 ottobre 2026\n ANCHE OGGI ABBIAMO APERTO IL CUORE A UN’EMERGENZA. \nLei è Lulù, una piccola e meravigliosa gattina di circa 40 giorni. \nCitofonano in Oasi un marito e una moglie. H",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_1788536345582600",
+    "author": "Vittoria Losavio",
+    "message": "",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_29495410190077482",
+    "author": null,
+    "message": "Stasera in Serbia, non lontano da noi, è accaduto qualcosa di straordinario. La lista degli studenti ha vinto le elezioni politiche contro tutti i pronostici. Ribaltando un Governo che durava da 12 an",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_95a79fac4e9210e9",
+    "author": "Raffaele Alberto Ventura",
+    "message": "Dagli archivi: \"Per Agamben sono tutti fascisti tranne i fascisti\", Domani, 28 luglio 2021. Ci ripenso mentre il Comitato Invisibile torna agli onori della cronaca.\n- - -\nNell’ultimo quarto di secolo ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10249155969058214",
+    "author": "Maurizio Difronzo",
+    "message": "Ciao Orné! \nOggi ti abbiamo salutata così! \nQuattro anni fa, grazie a Centro Cinofilo Bauhouse - Pensione, Asilo e Addestramento, una delle nostre case, ed agli amici di Mantrailing - Puglia, ci siamo",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_da6d560fa7f246e7",
+    "author": "Alberto Mello",
+    "message": "In queste ore vediamo ministri, polizia, esercito, tv di stato schierati in assetto da guerra contro un gruppetto di 17enni. C'abbiamo anche in prima pagina il fermo de \"la mente\" del \"Movimento 17 ot",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_3444832142349582",
+    "author": "Giuseppe Serio",
+    "message": "IN MARCIA PER LA PACE, CONTRO IL RIARMO!\nOggi, insieme a migliaia di persone, ho partecipato alla marcia da Gravina ad Altamura, con l'assessora Elena Convertini , che ha rappresentato Martina Franca ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_1789676542246749",
+    "author": "Saverio Ricci",
+    "message": "Mi fa schifo il dito puntato dei 50-60enni di oggi verso i figli e i ragazzi in genere.\nDovreste ricordare che in molti avete iniziato a lavorare grazie alla raccomandazione del politico di turno (a v",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f3de9ed07a1640ea",
+    "author": null,
+    "message": "“È la seconda volta che mi chiama Signor primo ministro. Io sono la Signora primo ministro e dovrà farci l’abitudine”, dice Fatima Ezzahra El Mansouri gesticolando con trasporto, punta il dito verso l",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_122311163888243913",
+    "author": "Carezze d'Argento",
+    "message": "ARRIVATI I 5 PICCOLINI! \nVi ricordate dei 5 piccoli gattini per i quali avevamo chiesto una mano con il cibo kitten? \nGrazie alla vostra generosità, il cibo è arrivato! \n \nE abbiamo anche una bella no",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_1efa063469da4089",
+    "author": "Paolo Gi",
+    "message": "Libri (molto) accessibili \nIn queste ore abbiamo portato online la versione italiana di un progetto che in Francia e Canada raggiunge da anni migliaia di studenti con difficoltà di lettura, cambiando ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f4f0bfc1b6b6d441",
+    "author": "Valeria Belviso",
+    "message": "\"lo la chiamo la teoria dello 0-0, quella per cui se uno fa gol, non ci si impegna per segnarne altri 2 e ribaltare il risultato. Piuttosto si va dall'arbitro per chiedere di annullare quel gol. Ecco,",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f56bbcea5a688bdd",
+    "author": "Rosanna Picoco",
+    "message": "Riportare in terra un piccolo pezzo di Paradiso.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10239167932070420",
+    "author": "Giusy Caroppo",
+    "message": "Oggi, all’affollatissima assemblea pubblica, indetta dalla Regione Puglia, che ha chiamato a raccolta gli operatori della cultura. Con la speranza di una rapida e “concreta” ripartenza. Buon lavoro Si",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10221082349353468",
+    "author": "Antonio Spera Detto Tonino",
+    "message": "Il 17 febbraio del 1991 veniva arrestato Mario Chiesa, apostrofato da Bettino Craxi come “mariuolo isolato”, e iniziava la grande stagione di Mani Pulite.\nIl 17 febbraio del 1979 nasco io e trent’anni",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_4135638638818",
+    "author": "Andrea Paoletti",
+    "message": "5 anni fa conoscevo Mariella, con molta curiosità visto che amici da ogni dove mi parlavano di lei (vero Daniela Galvani e Davide Agazzi?). Le nostre pance si sono rico—  pieno di gioia.…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_db077b3c6308a766",
+    "author": "Paolo Venturi",
+    "message": "Giovina Caldarola prima di tutto #grazie.#grazie per aver restituito una narrazione così dettagliata e #grazie perchè la tua felicità ora è anche la mia..;)) — con Roberto Covolo e altre 5 persone.…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10206272739448233",
+    "author": "Coopstartup Puglia",
+    "message": "La cooperazione è un fantastico modo di iniziare (Annibale D'elia)— con Annibale D'elia e altre 2 persone.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_111978645579361",
+    "author": "Giada Tedeschi",
+    "message": "REVIVAL......Marco Costantino, Marco Ranieri, Roberto Covolo, Annibale D'elia, Emanuele Derobertis,— con Roberto Covolo e altre 9 persone.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_c36c1f0be35bc11c",
+    "author": null,
+    "message": "Vedo un grandissimo Annibale D'Elia !",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10244038383717170",
+    "author": "Simona Palese",
+    "message": "c’è che è tutto troppo.\n“amico mio”\n“amica mia”.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10230774219638421",
+    "author": "Claudia Valentini",
+    "message": "Le foto fatte bene, con tutti, arriveranno. Così come le riflessioni e le azioni per rendere concrete le tantissime idee e riflessioni che ieri ciascuno di voi ha donato all'altro. Solo grazie! È stat",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_97bde75e7de3e516",
+    "author": "Giuseppe Beccia",
+    "message": "Da questa mattina la Puglia è più povera. Pina Belli D'Elia, una delle più grandi studiose dell'arte pugliese, non c'è più. Da piccolo leggevo il suo nome sulle copertine dei libri della biblioteca di",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10234905313632194",
+    "author": "Annibale D'elia",
+    "message": "Con quelle facce un po' così, dal 1970\n(grazie a tutt* \n)",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_10231420312869353",
+    "author": "Annibale D'elia",
+    "message": "Grazie amiche e amici per gli auguri \n \nIn occasione di quest'altro giro intorno al sole, mi sparo le pose con questo scatto di tarda estate di Martina Leo",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "fb_4368986393246334",
+    "author": "Nabil Bey II",
+    "message": "Ciao Annibale , abbiamo condiviso un pezzo di strada e di musica, agli albori degli Al Darawish, quando tutto era ancora sogno, ricerca e meraviglia. È difficile accettare che il tuo viaggio si sia in",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f8ade6edc84af8e1",
+    "author": "Mimmo Pesare",
+    "message": "Una tragedia immensa, sono scioccato dal dolore!\nAnnibale, un pezzo importante della mia generazione, grazie per il tuo bollente spirito, fratello, che la terra ti sia lieve",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_225e38e2e84d8fd9",
+    "author": "Antonella Caggese",
+    "message": "Quando morirò, da mo a cent'anni, vorrei leggere da Lassù un centesimo delle cose belle e intense che sto leggendo per Annibale D'elia, che - purtroppo - non ho mai conosciuto personalmente ma che ora",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_20fa5159769f582c",
+    "author": "Enrico Consoli",
+    "message": "Una perdita grave per la nostra Puglia. \nUn dolore per chi ti ha conosciuto e ti ha voluto bene.\nCiao, Annibale D'elia.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_ec643d738f7d4bd5",
+    "author": "Paola Medici",
+    "message": "Io non ho avuto il privilegio di conoscerti personalmente, ma se oggi sono rimasta in questa regione, lo devo anche a te, al tuo spirito bollente, visionario e generativo di bellezza, che in quegli an",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_3efa278b41c9d78e",
+    "author": "Peppino Disabato",
+    "message": "No, non e' giusto.Annibale D'elia e' il simbolo di una intera generazione di pugliesi.La morte porta via sempre i migliori.",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_cead3dc6a8810dec",
+    "author": "Giuseppe Volpe",
+    "message": "\".. perchè siamo profondamente convinti che aprire sia sempre generativo\".\nCiao Annibale D'elia, grazie per la bellezza che hai donato a noi e per quello che hai fatto per la tua/nostra amata Puglia",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_01fa016d5110efa9",
+    "author": "Michele Loiacono",
+    "message": "Scrivo dopo aver versato tutte le lacrime che avevo, mentre anche il cielo, qui a Bari, sembra piangere a dirotto.Voglio dire che le anime belle esistono.Non sono semplici, non sono ingenue, né tantom",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_5ecaece70081e4fe",
+    "author": "Antonella Ardito",
+    "message": "La morte non è niente, scriveva Henry Scott Holland, sono solo passato dall’altra parte.Ma Annibale D'elia tu ci lasci così soli adesso, quando avevamo ricominciato a sognare, come quando avevamo poco",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_ae09ce2a39fb48c6",
+    "author": "Giulio Deliso",
+    "message": "Annibale D'elia non lo conoscevo.\nNon eravamo amici, e nemmeno di quei conoscenti che si incrociano per amicizie comuni. Stessa città, stesso liceo, quasi diciotto anni di distanza a tenerci in mondi ",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_9142507b50311dba",
+    "author": "Carlo Pastore",
+    "message": "Notte d’estate, corso Vittorio Emanuele. Rientravo a casa e la città era deserta. Incrocio un caro amico, seduto solo su una panchina, poi arrivi tu Annibale D'elia, aspettava te che eri andato a pren",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_f4733d6c0f1ca9da",
+    "author": "Emmanuela Petrarolo",
+    "message": "Bollenti Spiriti, Principi Attivi, Ritorno al Futuro. \nProgetti segnati da quel patto etico che ha fatto crescere una generazione intera sognando il mondo per innamorarsi della propria terra e decider",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_47c8c34d52afa97f",
+    "author": "Vanni Salvemini",
+    "message": "Eh va beh.Scriveva qualcuno nei suoi post mattutini.Sono ateo. Non credo nel paradiso, negli incontri nell’aldilà o in qualche posto meraviglioso dove, prima o poi, ci ritroveremo tutti.…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_5df12b1c2e410b5c",
+    "author": "Giuseppe Savino",
+    "message": "Annibale, ci incontrammo per la prima volta il 1° luglio 2014.Quando ti parlai di Vazapp, che stava nascendo, mi dicesti: «Devi pulire l’idea». Questa frase mi è rimasta in testa per tutto questo temp",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_47ea771e02e33d49",
+    "author": "Giacomo- Annibaldis",
+    "message": "Ad Annibale D'elia\na tutti noi @amici di Annibale \n.. a tutti.. chi.. \nCIAO ANNIBALE\nLe risate, le carezze dell’amicizia, guardarci negli occhi e capirci. Il tuo sorriso.…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
+  },
+  {
+    "id": "h_c802f63ff49ab7db",
+    "author": "Cecilia Zingaro",
+    "message": "Che dispiacere immenso, Annibale D'elia\neri appena tornato in Puglia per costruire cose belle, ed invece… che brutta morte inaspettata\nun abbraccio ai familiari \ncond…",
+    "removed_at": "2026-11-10T17:53:16+00:00",
+    "reason": "controllo rilevanza: non pertinente"
   }
 ]
