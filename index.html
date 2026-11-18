@@ -7,53 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        reading: ['Lora', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"Nunito Sans"', 'sans-serif'],
                     },
                     colors: {
                         stone: {
-                            50: '#f6f4f4',
-                            100: '#352925',
-                            200: '#382a28',
-                            300: '#594641',
-                            400: '#6d544e',
-                            500: '#73564f',
-                            600: '#73564f',
-                            700: '#9c6253',
-                            800: '#c3725c',
-                            900: '#352925',
+                            50: '#ffffff',
+                            100: '#494949',
+                            200: '#565656',
+                            300: '#646464',
+                            400: '#6b6b6b',
+                            500: '#626262',
+                            600: '#565656',
+                            700: '#484848',
+                            800: '#383838',
+                            900: '#303030',
                         },
-                        terracotta: {
-                            50: '#fbf3f0',
-                            100: '#f5e4de',
-                            200: '#e9c2b5',
-                            300: '#d89a86',
-                            400: '#c3725c',
-                            500: '#b45c45',
-                            600: '#9d4b37',
-                            700: '#87402f',
-                            800: '#72382c',
-                            900: '#55291f',
-                        },
-                        plum: {
-                            50: '#f8f2f7',
-                            100: '#efe1ed',
-                            200: '#dbbfd6',
-                            300: '#c398bc',
-                            400: '#a875a2',
-                            500: '#985f89',
-                            600: '#854c77',
-                            700: '#71416a',
-                            800: '#593355',
-                            900: '#41233d',
+                        accent: {
+                            50: '#fff1f6',
+                            100: '#ffe1eb',
+                            200: '#ffb8d0',
+                            300: '#ff8db5',
+                            400: '#ff4e8d',
+                            500: '#f8327b',
+                            600: '#dd1d65',
+                            700: '#bb124f',
+                            800: '#971043',
+                            900: '#720f36',
                         },
                     }
                 }
@@ -63,11 +49,11 @@
     <style>
         html, body { height: 100%; }
         body {
-            background-color: #f6f4f4;
-            background-image: radial-gradient(rgba(152, 95, 137, 0.055) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-color: #fff;
+            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
+            background-size: 112px 112px;
             overflow: hidden;
-            color: #382a28;
+            color: #565656;
         }
 
         #figure { display: flex; flex-direction: column; position: relative; overflow: hidden; }
@@ -85,25 +71,25 @@
 
         .quote, #results, #frontispiece .cover-scroll {
             scrollbar-width: thin;
-            scrollbar-color: #c398bc transparent;
+            scrollbar-color: #c4c4c4 transparent;
         }
         .quote::-webkit-scrollbar, #results::-webkit-scrollbar,
         #frontispiece .cover-scroll::-webkit-scrollbar { width: 6px; }
         .quote::-webkit-scrollbar-thumb, #results::-webkit-scrollbar-thumb,
         #frontispiece .cover-scroll::-webkit-scrollbar-thumb {
-            background: #c398bc; border-radius: 9999px;
+            background: #c4c4c4; border-radius: 9999px;
         }
 
         #results {
             position: absolute; top: calc(100% + 0.5rem); right: 0;
             width: min(26rem, 86vw); overflow-x: hidden;
-            background-color: #fffaf8;
+            background-color: #fff;
         }
         #results mark {
-            background: #f5e4de; color: #72382c;
+            background: #ffe1eb; color: #971043;
             border-radius: 0.15rem; padding: 0 0.1rem;
         }
-        #results [aria-selected="true"] { background: rgba(195, 114, 92, 0.12); }
+        #results [aria-selected="true"] { background: rgba(248, 50, 123, 0.12); }
         #search::-webkit-search-cancel-button { cursor: pointer; }
 
         #frontispiece[hidden] { display: none; }
@@ -141,7 +127,7 @@
         }
     </style></noscript>
 </head>
-<body class="text-stone-200 antialiased cover-open">
+<body class="font-sans text-stone-200 antialiased cover-open">
 
     <div class="page h-full flex flex-col">
 
@@ -152,14 +138,14 @@
                        grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                        gap-x-4 gap-y-2">
             <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER ANNIBALE
+                PER <span class="text-accent-500">ANNIBALE</span>
             </p>
 
             <nav id="site-nav" aria-label="Sezioni del sito"
                  class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
                         lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
                 <a href="index.html" aria-current="page"
-                   class="rounded-full border border-terracotta-400/40 bg-terracotta-100 px-2.5 py-1 text-terracotta-800">Ricordi</a>
+                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Ricordi</a>
                 <a href="video.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
                           hover:bg-stone-900/5 hover:text-stone-200">Video</a>
@@ -204,10 +190,10 @@
             <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
             <div id="mobile-menu" class="absolute right-4 md:right-10 top-full z-[65] hidden w-60 lg:hidden">
                 <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-[#fffaf8] p-1.5
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
                             shadow-2xl shadow-black/15">
                     <a href="index.html" aria-current="page"
-                       class="block rounded-xl bg-terracotta-100 px-3 py-2 text-sm text-terracotta-800">Ricordi</a>
+                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Ricordi</a>
                     <a href="video.html"
                        class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Video</a>
                     <a href="credits.html"
@@ -240,7 +226,7 @@
                            aria-label="Cerca tra i ricordi, per testo o autore"
                            class="w-full lg:w-72 bg-stone-900/5 border border-stone-900/10 rounded-full pl-9 pr-3 py-1.5
                                   text-sm text-stone-200 placeholder:text-stone-500 outline-none
-                                  focus:border-terracotta-500 focus:bg-terracotta-50 transition-colors" />
+                                  focus:border-accent-500 focus:bg-accent-50 transition-colors" />
                     <div id="results" role="listbox" aria-label="Risultati"
                          class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-stone-900/10
                                 shadow-2xl shadow-black/15"></div>
@@ -285,7 +271,7 @@
                 <!-- Text, right -->
                 <article id="card" class="h-full min-h-0 flex flex-col">
                     <blockquote id="text"
-                        class="quote font-reading text-lg md:text-2xl leading-relaxed md:leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-2"></blockquote>
+                        class="quote font-sans text-base md:text-xl leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-4 md:pr-8"></blockquote>
 
                     <div class="mt-6 md:mt-8 pt-4 border-t border-stone-900/10 flex items-center justify-between gap-4">
                         <div class="min-w-0">
@@ -365,7 +351,7 @@
                     <div class="text-center lg:text-left">
                         <p id="frontispiece-title" class="text-stone-400 uppercase tracking-[0.28em] text-[0.65rem] md:text-xs">Per Annibale</p>
                         <blockquote id="frontispiece-quote"
-                                    class="mt-4 font-reading text-lg leading-relaxed text-stone-200 lg:mt-5 lg:text-2xl lg:leading-relaxed">Annibale era un’anima antica, e per questo molto potente. Ha guidato la speranza prima ancora del cambiamento, perché senza speranza nessuna comunità può innescare cambiamenti, soprattutto se rivoluzionari. Amava i bollenti spiriti: le persone inquiete, curiose, che non si accontentano. A loro ha dedicato spazio, fiducia e lavoro.
+                                    class="mt-4 font-sans text-lg leading-relaxed text-stone-200 lg:mt-5 lg:text-2xl lg:leading-relaxed">Annibale era un’anima antica, e per questo molto potente. Ha guidato la speranza prima ancora del cambiamento, perché senza speranza nessuna comunità può innescare cambiamenti, soprattutto se rivoluzionari. Amava i bollenti spiriti: le persone inquiete, curiose, che non si accontentano. A loro ha dedicato spazio, fiducia e lavoro.
 <br><br>
 La speranza che ha costruito in ognuno dei giovani che ha aiutato, nei progetti generativi che ha sostenuto, nelle persone che lo amavano e che lui amava, oggi è viva in tutti noi. E riparte da qui.
 <br><br>
@@ -404,10 +390,10 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         <div id="thoughts-backdrop" class="absolute inset-0"></div>
 
         <div class="relative mx-auto mt-[5vh] flex h-[min(88vh,720px)] w-[min(94vw,44rem)] flex-col
-                    overflow-hidden rounded-2xl border border-stone-900/10 bg-[#fffaf8]
+                    overflow-hidden rounded-2xl border border-stone-900/10 bg-white
                     shadow-2xl shadow-black/15">
             <div class="flex shrink-0 items-center justify-between gap-4 border-b border-stone-900/10 px-4 py-3 md:px-5">
-                <h2 id="thoughts-title" class="font-serif text-lg text-stone-100">Lascia un pensiero</h2>
+                <h2 id="thoughts-title" class="font-sans text-lg text-stone-100">Lascia un pensiero</h2>
                 <button type="button" id="thoughts-close" aria-label="Chiudi il modulo"
                         class="flex h-8 w-8 items-center justify-center rounded-full text-stone-500
                                transition-colors hover:bg-stone-900/10 hover:text-stone-200">

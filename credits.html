@@ -7,52 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"Nunito Sans"', 'sans-serif'],
                     },
                     colors: {
                         stone: {
-                            50: '#f6f4f4',
-                            100: '#352925',
-                            200: '#382a28',
-                            300: '#594641',
-                            400: '#6d544e',
-                            500: '#73564f',
-                            600: '#73564f',
-                            700: '#9c6253',
-                            800: '#c3725c',
-                            900: '#352925',
+                            50: '#ffffff',
+                            100: '#494949',
+                            200: '#565656',
+                            300: '#646464',
+                            400: '#6b6b6b',
+                            500: '#626262',
+                            600: '#565656',
+                            700: '#484848',
+                            800: '#383838',
+                            900: '#303030',
                         },
-                        terracotta: {
-                            50: '#fbf3f0',
-                            100: '#f5e4de',
-                            200: '#e9c2b5',
-                            300: '#d89a86',
-                            400: '#c3725c',
-                            500: '#b45c45',
-                            600: '#9d4b37',
-                            700: '#87402f',
-                            800: '#72382c',
-                            900: '#55291f',
-                        },
-                        plum: {
-                            50: '#f8f2f7',
-                            100: '#efe1ed',
-                            200: '#dbbfd6',
-                            300: '#c398bc',
-                            400: '#a875a2',
-                            500: '#985f89',
-                            600: '#854c77',
-                            700: '#71416a',
-                            800: '#593355',
-                            900: '#41233d',
+                        accent: {
+                            50: '#fff1f6',
+                            100: '#ffe1eb',
+                            200: '#ffb8d0',
+                            300: '#ff8db5',
+                            400: '#ff4e8d',
+                            500: '#f8327b',
+                            600: '#dd1d65',
+                            700: '#bb124f',
+                            800: '#971043',
+                            900: '#720f36',
                         },
                     }
                 }
@@ -65,18 +52,18 @@
         /* Same ground as the slideshow, but this page scrolls normally. */
         body {
             min-height: 100%;
-            background-color: #f6f4f4;
-            background-image: radial-gradient(rgba(152, 95, 137, 0.055) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-color: #fff;
+            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
+            background-size: 112px 112px;
             background-attachment: fixed;
-            color: #382a28;
+            color: #565656;
         }
 
         /* Sticky header stays liquid over the page. */
         .topbar {
-            background: rgba(246, 244, 244, 0.88);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px) saturate(140%);
-            border-bottom: 1px solid rgba(89, 70, 65, 0.12);
+            border-bottom: 1px solid rgba(48, 48, 48, 0.12);
         }
     </style>
     <noscript><style>
@@ -86,13 +73,13 @@
         }
     </style></noscript>
 </head>
-<body class="text-stone-200 antialiased">
+<body class="font-sans text-stone-200 antialiased">
 
     <header class="topbar sticky top-0 z-40">
         <div class="relative mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                     gap-x-4 gap-y-2 px-4 md:px-8 py-3">
             <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER ANNIBALE
+                PER <span class="text-accent-500">ANNIBALE</span>
             </p>
 
             <nav id="site-nav" aria-label="Sezioni del sito"
@@ -103,7 +90,7 @@
                 <a href="video.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Video</a>
                 <a href="credits.html" aria-current="page"
-                   class="rounded-full border border-terracotta-400/40 bg-terracotta-100 px-2.5 py-1 text-terracotta-800">Crediti</a>
+                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Crediti</a>
             </nav>
 
             <!-- Below lg the sections above move into this panel. -->
@@ -126,14 +113,14 @@
             <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
             <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
                 <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-[#fffaf8] p-1.5
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
                             shadow-2xl shadow-black/15">
                     <a href="index.html"
                        class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Ricordi</a>
                     <a href="video.html"
                        class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Video</a>
                     <a href="credits.html" aria-current="page"
-                       class="block rounded-xl bg-terracotta-100 px-3 py-2 text-sm text-terracotta-800">Crediti</a>
+                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Crediti</a>
                 </nav>
             </div>
         </div>
@@ -142,10 +129,10 @@
     <main class="mx-auto w-full max-w-3xl px-4 md:px-8 pb-20">
 
         <div class="pt-10 md:pt-16 pb-6 md:pb-8">
-            <h1 class="font-serif text-2xl md:text-4xl text-stone-100 leading-tight">Crediti</h1>
+            <h1 class="font-sans text-2xl md:text-4xl text-stone-100 leading-tight">Crediti</h1>
         </div>
 
-        <p class="max-w-2xl font-serif text-lg leading-relaxed text-stone-200 md:text-2xl md:leading-relaxed">
+        <p class="max-w-2xl font-sans text-lg leading-relaxed text-stone-200 md:text-2xl md:leading-relaxed">
             Questo sito è un'opportunità per ricordare Annibale ma, soprattutto, per continuare a
             imparare dalle sue esperienze. Se hai un ricordo,
             <a href="index.html?pensiero=1"
@@ -157,7 +144,7 @@
                        border-b border-stone-900/10 pb-2 mb-5">
                 Un'idea di
             </h2>
-            <ul class="font-serif text-lg md:text-2xl text-stone-100 leading-relaxed">
+            <ul class="font-sans text-lg md:text-2xl text-stone-100 leading-relaxed">
                 <li>Mariella Stella</li>
                 <li>Danilo Di Cuia</li>
             </ul>
@@ -168,7 +155,7 @@
                        border-b border-stone-900/10 pb-2 mb-5">
                 Contributi
             </h2>
-            <ul class="font-serif text-lg md:text-2xl text-stone-100 leading-relaxed">
+            <ul class="font-sans text-lg md:text-2xl text-stone-100 leading-relaxed">
                 <li>Alessandro Tartaglia</li>
                 <li>Andrea Di Benedetto</li>
                 <li>Claudio De Leo</li>

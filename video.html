@@ -7,52 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"Nunito Sans"', 'sans-serif'],
                     },
                     colors: {
                         stone: {
-                            50: '#f6f4f4',
-                            100: '#352925',
-                            200: '#382a28',
-                            300: '#594641',
-                            400: '#6d544e',
-                            500: '#73564f',
-                            600: '#73564f',
-                            700: '#9c6253',
-                            800: '#c3725c',
-                            900: '#352925',
+                            50: '#ffffff',
+                            100: '#494949',
+                            200: '#565656',
+                            300: '#646464',
+                            400: '#6b6b6b',
+                            500: '#626262',
+                            600: '#565656',
+                            700: '#484848',
+                            800: '#383838',
+                            900: '#303030',
                         },
-                        terracotta: {
-                            50: '#fbf3f0',
-                            100: '#f5e4de',
-                            200: '#e9c2b5',
-                            300: '#d89a86',
-                            400: '#c3725c',
-                            500: '#b45c45',
-                            600: '#9d4b37',
-                            700: '#87402f',
-                            800: '#72382c',
-                            900: '#55291f',
-                        },
-                        plum: {
-                            50: '#f8f2f7',
-                            100: '#efe1ed',
-                            200: '#dbbfd6',
-                            300: '#c398bc',
-                            400: '#a875a2',
-                            500: '#985f89',
-                            600: '#854c77',
-                            700: '#71416a',
-                            800: '#593355',
-                            900: '#41233d',
+                        accent: {
+                            50: '#fff1f6',
+                            100: '#ffe1eb',
+                            200: '#ffb8d0',
+                            300: '#ff8db5',
+                            400: '#ff4e8d',
+                            500: '#f8327b',
+                            600: '#dd1d65',
+                            700: '#bb124f',
+                            800: '#971043',
+                            900: '#720f36',
                         },
                     }
                 }
@@ -65,11 +52,11 @@
         /* Same ground as the slideshow, but this page scrolls normally. */
         body {
             min-height: 100%;
-            background-color: #f6f4f4;
-            background-image: radial-gradient(rgba(152, 95, 137, 0.055) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-color: #fff;
+            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
+            background-size: 112px 112px;
             background-attachment: fixed;
-            color: #382a28;
+            color: #565656;
         }
 
         /* 16:9 frame that holds either the poster or the player. */
@@ -78,8 +65,8 @@
             aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 0.9rem;
-            background: #fffaf8;
-            outline: 1px solid rgba(89, 70, 65, 0.16);
+            background: #fff;
+            outline: 1px solid rgba(48, 48, 48, 0.14);
             outline-offset: -1px;
         }
 
@@ -101,7 +88,7 @@
         .frame .veil {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(53, 41, 37, 0.68), rgba(53, 41, 37, 0.12) 55%, rgba(53, 41, 37, 0.04));
+            background: linear-gradient(to top, rgba(48, 48, 48, 0.68), rgba(48, 48, 48, 0.12) 55%, rgba(48, 48, 48, 0.04));
             opacity: 1;
             transition: opacity 200ms ease;
         }
@@ -117,7 +104,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(53, 41, 37, 0.72);
+            background: rgba(48, 48, 48, 0.72);
             border: 1px solid rgba(255, 255, 255, 0.28);
             backdrop-filter: blur(3px);
             transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
@@ -125,7 +112,7 @@
 
         .card:hover .play,
         .card:focus-visible .play {
-            background: rgba(157, 75, 55, 0.96);
+            background: rgba(248, 50, 123, 0.96);
             border-color: rgba(255, 255, 255, 0.55);
             transform: translate(-50%, -50%) scale(1.06);
         }
@@ -133,7 +120,7 @@
         .card:hover .veil { opacity: 0.55; }
 
         /* Keyboard focus ring, only where it can be seen. */
-        .card:focus-visible { outline: 2px solid rgba(157, 75, 55, 0.7); outline-offset: 3px; }
+        .card:focus-visible { outline: 2px solid rgba(248, 50, 123, 0.7); outline-offset: 3px; }
 
         /* Iframes fade in once swapped in, so nothing flashes. */
         .frame iframe { animation: fade 220ms ease both; }
@@ -141,9 +128,9 @@
 
         /* Sticky header stays liquid over the cards. */
         .topbar {
-            background: rgba(246, 244, 244, 0.88);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px) saturate(140%);
-            border-bottom: 1px solid rgba(89, 70, 65, 0.12);
+            border-bottom: 1px solid rgba(48, 48, 48, 0.12);
         }
     </style>
     <noscript><style>
@@ -153,13 +140,13 @@
         }
     </style></noscript>
 </head>
-<body class="text-stone-200 antialiased">
+<body class="font-sans text-stone-200 antialiased">
 
     <header class="topbar sticky top-0 z-40">
         <div class="relative mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
                     gap-x-4 gap-y-2 px-4 md:px-8 py-3">
             <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER ANNIBALE
+                PER <span class="text-accent-500">ANNIBALE</span>
             </p>
 
             <nav id="site-nav" aria-label="Sezioni del sito"
@@ -168,7 +155,7 @@
                 <a href="index.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Ricordi</a>
                 <a href="video.html" aria-current="page"
-                   class="rounded-full border border-terracotta-400/40 bg-terracotta-100 px-2.5 py-1 text-terracotta-800">Video</a>
+                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Video</a>
                 <a href="credits.html"
                    class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Crediti</a>
             </nav>
@@ -194,12 +181,12 @@
             <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
             <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
                 <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-[#fffaf8] p-1.5
+                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
                             shadow-2xl shadow-black/15">
                     <a href="index.html"
                        class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Ricordi</a>
                     <a href="video.html" aria-current="page"
-                       class="block rounded-xl bg-terracotta-100 px-3 py-2 text-sm text-terracotta-800">Video</a>
+                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Video</a>
                     <a href="credits.html"
                        class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Crediti</a>
                 </nav>
@@ -213,7 +200,7 @@
     <main class="mx-auto w-full max-w-5xl px-4 md:px-8 pb-20">
 
         <div class="pt-8 md:pt-12 pb-2 md:pb-4">
-            <h1 class="font-serif text-2xl md:text-4xl text-stone-100 leading-tight">Interventi e incontri</h1>
+            <h1 class="font-sans text-2xl md:text-4xl text-stone-100 leading-tight">Interventi e incontri</h1>
             <p class="mt-2 text-sm md:text-base text-stone-400 font-light max-w-2xl">
                 Discorsi, interviste e presentazioni pubbliche, in ordine cronologico quando la data è disponibile.
                 Clicca su un video per guardarlo qui.
@@ -240,7 +227,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Bari · 14 luglio 2010 · I parte</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=CxQNOBtoyJ8" target="_blank" rel="noopener noreferrer"
@@ -262,7 +249,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">Ospite di Puglia Eccellente</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Ospite di Puglia Eccellente</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Puglia Eccellente · 2011</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=Fav9Xf9SWuQ" target="_blank" rel="noopener noreferrer"
@@ -284,7 +271,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«I dinosauri e i nuovi»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«I dinosauri e i nuovi»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TEDxCastelDelMonte · 2012</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=OXiEMQ4CjCM" target="_blank" rel="noopener noreferrer"
@@ -306,7 +293,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«7 appunti su giovani, sud e innovazione»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«7 appunti su giovani, sud e innovazione»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TEDxLecce</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=InL-Gq1w4hU" target="_blank" rel="noopener noreferrer"
@@ -328,7 +315,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«Il Buon Governo e il bene comune»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Il Buon Governo e il bene comune»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Teatro dal Verme · 28 maggio 2014</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=LpyFpG7EY0g" target="_blank" rel="noopener noreferrer"
@@ -350,7 +337,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«RoomArt», design in discarica</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«RoomArt», design in discarica</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Principi Attivi 2012 · Gioia del Colle, 20 settembre 2014</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=kRArNqBj-xA" target="_blank" rel="noopener noreferrer"
@@ -372,7 +359,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">Intervista</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Intervista</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Giornate di Bertinoro 2014 · AICCON</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=biA7kw5F5s0" target="_blank" rel="noopener noreferrer"
@@ -394,7 +381,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«Siamo noi»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Siamo noi»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Bollenti Spiriti · 18 dicembre 2014</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=t25fkmysQZo" target="_blank" rel="noopener noreferrer"
@@ -416,7 +403,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«Politiche pubbliche per supereroi»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Politiche pubbliche per supereroi»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">XYZ Talk · La Scuola Open Source · luglio 2016</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=DZJi7uaUdss" target="_blank" rel="noopener noreferrer"
@@ -450,7 +437,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">TF Talks 5 - Intervento di Annibale D'Elia</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">TF Talks 5 - Intervento di Annibale D'Elia</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TF Talks 5 · Tool Fair, Roma · 6 ottobre 2016</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=TIlr6d757o4" target="_blank" rel="noopener noreferrer"
@@ -484,7 +471,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«Innesco»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Innesco»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Arti e mestieri della partecipazione generativa</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=BP9R-EP-M9w" target="_blank" rel="noopener noreferrer"
@@ -506,7 +493,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">Intervista integrale</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Intervista integrale</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Convegno DI-SEGNO PUBBLICO</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=bxKzkheqyTo" target="_blank" rel="noopener noreferrer"
@@ -540,7 +527,7 @@
                     </button>
                     <div class="mt-3 flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="font-serif text-base md:text-lg text-stone-100 leading-snug">«I luoghi tra innovazione sociale e mutamento»</h3>
+                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«I luoghi tra innovazione sociale e mutamento»</h3>
                             <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Corso Giovanni Laino · pubblicato il 24 ottobre 2026</p>
                         </div>
                         <a href="https://www.youtube.com/watch?v=AlK4u7Fl2R8" target="_blank" rel="noopener noreferrer"
