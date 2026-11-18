@@ -1284,42 +1284,40 @@ button {
     gap: 2rem;
 }
 
+.playlist__now {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+}
+
 @media (min-width: 900px) {
     .playlist {
         grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
         align-items: start;
         gap: 2.5rem;
     }
-}
 
-.playlist__now {
-    min-width: 0;
+    /* The list is taller than the player: keep the player in view while scrolling. */
+    .playlist__now {
+        position: sticky;
+        top: 6rem;
+    }
 }
 
 .playlist__now .frame {
     cursor: default;
 }
 
-.playlist__caption {
-    margin: 0.9rem 0 0;
+/* Compact player: beyond this width Spotify switches to a taller layout that
+   clips the long track titles. */
+.playlist__now > * {
+    max-width: 540px;
 }
 
-.playlist__caption h2 {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 1.05rem;
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-.playlist__caption p {
-    margin: 0.4rem 0 0;
-    color: var(--muted);
-    font-family: "Space Mono", monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+/* The Spotify embed wants a fixed height rather than the 16/9 of video frames. */
+.playlist__now .frame--audio {
+    aspect-ratio: auto;
+    height: 154px;
 }
 
 .playlist__list {
@@ -1327,8 +1325,6 @@ button {
     padding: 0;
     list-style: none;
     border-top: 1px solid var(--ink);
-    max-height: 54vh;
-    overflow-y: auto;
 }
 
 .playlist__list li {
@@ -1337,7 +1333,7 @@ button {
 
 .playlist__item {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.9rem;
     width: 100%;
     padding: 0.7rem 0.2rem;
@@ -1365,13 +1361,42 @@ button {
     opacity: 0.7;
 }
 
+.playlist__song {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
 .playlist__title {
     font-size: 0.9rem;
     line-height: 1.4;
 }
 
+.playlist__artist {
+    color: var(--muted);
+    font-family: "Space Mono", monospace;
+    font-size: 0.62rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.playlist__item[aria-current="true"] .playlist__artist {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.playlist__time {
+    flex: none;
+    margin-left: auto;
+    font-family: "Space Mono", monospace;
+    font-size: 0.66rem;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.7;
+}
+
 .playlist__hint {
-    margin: 1rem 0 0;
+    margin: 0;
     color: var(--muted);
     font-family: "Space Mono", monospace;
     font-size: 0.68rem;

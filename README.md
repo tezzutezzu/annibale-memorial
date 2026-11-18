@@ -129,10 +129,16 @@ cronologico quando la data è disponibile.
 
 ### La playlist
 
-Il terzo pulsante dell'intestazione apre **Playlist**: gli stessi interventi
-della pagina Video, uno dopo l'altro e in ordine cronologico. Si sceglie un
-titolo dall'elenco e il video parte nell'area grande a sinistra, senza cambiare
-pagina.
+Il terzo pulsante dell'intestazione apre **Playlist**: la playlist Spotify
+«Gli elefanti gentili», con i suoi undici brani nell'ordine originale. Si sceglie
+un titolo dall'elenco e il brano si ascolta nel player a sinistra, senza cambiare
+pagina; il collegamento sotto il player apre la playlist intera su Spotify.
+
+- Il player è quello di Spotify: serve la connessione a internet.
+- L'elenco si può scorrere mentre il player resta fermo, così il brano scelto
+  resta sotto mano.
+- I brani e i loro titoli si aggiornano modificando la playlist su Spotify: la
+  pagina è una copia, non si collega da sola.
 
 ### I crediti
 
@@ -150,7 +156,7 @@ condividilo** apre direttamente il modulo per lasciare un pensiero.
 ```
 index.html                ← la presentazione (è questa che si apre)
 video.html                ← la pagina dei video
-playlist.html             ← gli stessi video, uno dopo l'altro
+playlist.html             ← la playlist Spotify «Gli elefanti gentili»
 credits.html              ← la pagina dei crediti
 assets/                   ← il motivo a X e gli stili condivisi
 assets/site-theme.css     ← colori, caratteri e impaginazione del sito
