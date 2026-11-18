@@ -114,16 +114,10 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            border-radius: 1rem;
             /* Photos arrive with their own pale frame, so a heavy black drop
                shadow read as a grubby smudge on the coloured ground. A hairline
                and two soft, mostly downward shadows lift the picture without
                darkening the space around it. */
-            box-shadow:
-                0 0 0 1px rgba(0, 0, 0, 0.55),
-                0 1px 3px rgba(0, 0, 0, 0.35),
-                0 18px 40px -22px rgba(0, 0, 0, 0.55);
-            user-select: none;
             -webkit-user-drag: none;
             pointer-events: none;
         }
@@ -435,7 +429,7 @@
                             <source srcset="home.webp" type="image/webp">
                             <img src="home.jpg" width="1079" height="1080" decoding="async"
                                  alt="Annibale D'Elia sorride accanto ad altre persone durante un incontro"
-                                 class="w-full rounded-2xl object-cover shadow-2xl shadow-black/60
+                                 class="w-full object-cover shadow-2xl shadow-black/60
                                         outline outline-1 -outline-offset-1 outline-stone-900/10">
                         </picture>
                     </figure>
