@@ -42,7 +42,7 @@ body {
     min-height: 100%;
     background-color: var(--paper);
     background-image: url("x-pattern.svg");
-    background-size: 245px 96px;
+    background-size: 90vw auto;
     background-repeat: repeat;
     background-attachment: fixed;
     color: var(--ink);
@@ -74,10 +74,7 @@ button {
     color: inherit;
 }
 
-:focus-visible {
-    outline: 2px solid var(--ink);
-    outline-offset: 2px;
-}
+
 
 /* ------------------------------------------------------------------ topbar */
 
@@ -85,14 +82,6 @@ button {
     position: relative;
     z-index: 40;
     width: 100%;
-}
-
-.topbar--sticky {
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(20, 20, 20, 0.12);
 }
 
 .topbar__inner {
@@ -1175,7 +1164,6 @@ button {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border: 1px solid var(--ink);
     background: var(--paper);
     cursor: pointer;
     padding: 0;
@@ -1300,7 +1288,7 @@ button {
     /* The list is taller than the player: keep the player in view while scrolling. */
     .playlist__now {
         position: sticky;
-        top: 6rem;
+        top: 1.5rem;
     }
 }
 

@@ -6,7 +6,7 @@
       <rect x="-9.5" y="-25" width="19" height="50" rx="9.5" transform="rotate(-45)"/>
     </g>
     <pattern id="stripes" width="4" height="4" patternUnits="userSpaceOnUse">
-      <rect width="1.4" height="4" fill="#fff"/>
+
     </pattern>
     <mask id="motif-mask">
       <g fill="#fff">
