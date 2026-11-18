@@ -57,8 +57,11 @@ Aprendo il sito compare una pagina iniziale con un pensiero su Annibale: non è
 un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
 <kbd>Invio</kbd>, <kbd>Spazio</kbd> o <kbd>→</kbd> (anche <kbd>Esc</kbd>).
 
-Il frontespizio compare a ogni apertura. Se l'indirizzo contiene già un ricordo
-(`.../#fb_...`), dopo l'ingresso si arriva direttamente a quel ricordo.
+Il frontespizio compare solo alla prima visita: dopo aver premuto **Entra** (o
+un tasto per proseguire), la scelta viene salvata nel browser e le visite
+successive saltano la pagina iniziale. Se l'indirizzo contiene già un ricordo
+(`.../#fb_...`), alla prima visita si arriva a quel ricordo dopo l'ingresso;
+nelle visite successive il collegamento apre direttamente quel ricordo.
 
 Il frontespizio condivide lo sfondo chiaro a puntini della presentazione.
 

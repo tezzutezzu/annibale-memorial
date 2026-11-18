@@ -346,8 +346,7 @@
         </footer>
     </div>
 
-    <!-- Frontespizio: the cover shown on every load. A shared link to a
-         memory (#<id>) is already selected behind it; entering reveals it. -->
+    <!-- A shared memory link is already selected behind the first-visit cover. -->
     <section id="frontispiece" class="fixed inset-0 z-[80] flex flex-col"
              role="dialog" aria-modal="true"
              aria-labelledby="frontispiece-title" aria-describedby="frontispiece-quote">
@@ -1099,9 +1098,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
 
     <script>
     /* -------------------------------------------------------- frontespizio --
-       The cover is shown on every load, so nothing behind it should be
-       reachable: the page becomes inert and Tab stays on the single button.
-       The slideshow's global shortcuts check fbFrontispiece.isOpen(). */
+       The first-visit cover keeps the page inert until dismissed. */
     (function frontispiece() {
         const cover = document.getElementById('frontispiece');
         const enter = document.getElementById('frontispiece-enter');
@@ -1109,6 +1106,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         if (!cover || !enter || !page) return;
 
         const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const seenKey = 'per-annibale-frontispiece-seen';
         let open = true;
         let closing = false;
 
@@ -1121,6 +1119,17 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             cover.hidden = true;
             document.body.classList.remove('cover-open');
             return;
+        }
+
+        try {
+            if (localStorage.getItem(seenKey) === '1') {
+                open = false;
+                cover.hidden = true;
+                document.body.classList.remove('cover-open');
+                return;
+            }
+        } catch (error) {
+            console.warn('Could not read the frontispiece preference from localStorage.', error);
         }
 
         page.inert = true;
@@ -1141,6 +1150,11 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         function close() {
             if (!open || closing) return;
             closing = true;
+            try {
+                localStorage.setItem(seenKey, '1');
+            } catch (error) {
+                console.warn('Could not save the frontispiece preference to localStorage.', error);
+            }
             // Reveal the slideshow under the words as they fade out.
             document.body.classList.remove('cover-open');
             if (calm.matches) { finish(); return; }
