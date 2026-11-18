@@ -49,12 +49,7 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   la pagina intera non si muove mai.
 - Se un ricordo non ha foto, il testo occupa tutto lo spazio.
 - In alto a destra c'è il conteggio, ad esempio `12 / 248`.
-- Dietro le parole si muove uno sfondo di colore e polvere di luce: è solo
-  decorazione. Se il sistema è impostato per ridurre le animazioni
-  (*Impostazioni → Accessibilità → Movimento*), lo sfondo resta fermo; se il
-  computer non sa disegnarlo, la pagina resta scura com'era prima.
-  Per spegnerlo del tutto, aggiungi `?aura=off` in fondo all'indirizzo
-  (`.../index.html?aura=off`): la pagina torna nera, senza sfondo colorato.
+- Lo sfondo chiaro ha un motivo di puntini statico.
 
 ### Il frontespizio
 
@@ -65,9 +60,7 @@ un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
 Il frontespizio compare a ogni apertura. Se l'indirizzo contiene già un ricordo
 (`.../#fb_...`), dopo l'ingresso si arriva direttamente a quel ricordo.
 
-Il frontespizio non ha un fondo suo: dietro le parole si vede lo stesso sfondo
-animato dei ricordi. Con `?aura=off`, o se il computer non sa disegnarlo, resta
-il fondo scuro con i puntini, come nel resto del sito.
+Il frontespizio condivide lo sfondo chiaro a puntini della presentazione.
 
 Accanto al pensiero c'è una fotografia di Annibale durante un incontro
 (`home.jpg`, con una versione WebP più leggera). Su schermo stretto la foto
