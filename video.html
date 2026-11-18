@@ -4,553 +4,331 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video — Per Annibale</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Nunito Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            50: '#ffffff',
-                            100: '#494949',
-                            200: '#565656',
-                            300: '#646464',
-                            400: '#6b6b6b',
-                            500: '#626262',
-                            600: '#565656',
-                            700: '#484848',
-                            800: '#383838',
-                            900: '#303030',
-                        },
-                        accent: {
-                            50: '#fff1f6',
-                            100: '#ffe1eb',
-                            200: '#ffb8d0',
-                            300: '#ff8db5',
-                            400: '#ff4e8d',
-                            500: '#f8327b',
-                            600: '#dd1d65',
-                            700: '#bb124f',
-                            800: '#971043',
-                            900: '#720f36',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html { height: 100%; }
-
-        /* Same ground as the slideshow, but this page scrolls normally. */
-        body {
-            min-height: 100%;
-            background-color: #fff;
-            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
-            background-size: 112px 112px;
-            background-attachment: fixed;
-            color: #565656;
-        }
-
-        /* 16:9 frame that holds either the poster or the player. */
-        .frame {
-            position: relative;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            border-radius: 0.9rem;
-            background: #fff;
-            outline: 1px solid rgba(48, 48, 48, 0.14);
-            outline-offset: -1px;
-        }
-
-        .frame img,
-        .frame iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-
-        /* hqdefault is 4:3 with black bars on a 16:9 video: cropping the
-           height removes them without distorting the picture. */
-        .frame img { object-fit: cover; }
-
-        /* The poster doubles as the play button (whole card is clickable). */
-        .frame .veil {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(48, 48, 48, 0.68), rgba(48, 48, 48, 0.12) 55%, rgba(48, 48, 48, 0.04));
-            opacity: 1;
-            transition: opacity 200ms ease;
-        }
-
-        .play {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 4.25rem;
-            height: 3rem;
-            border-radius: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(48, 48, 48, 0.72);
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            backdrop-filter: blur(3px);
-            transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
-        }
-
-        .card:hover .play,
-        .card:focus-visible .play {
-            background: rgba(248, 50, 123, 0.96);
-            border-color: rgba(255, 255, 255, 0.55);
-            transform: translate(-50%, -50%) scale(1.06);
-        }
-
-        .card:hover .veil { opacity: 0.55; }
-
-        /* Keyboard focus ring, only where it can be seen. */
-        .card:focus-visible { outline: 2px solid rgba(248, 50, 123, 0.7); outline-offset: 3px; }
-
-        /* Iframes fade in once swapped in, so nothing flashes. */
-        .frame iframe { animation: fade 220ms ease both; }
-        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Sticky header stays liquid over the cards. */
-        .topbar {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px) saturate(140%);
-            border-bottom: 1px solid rgba(48, 48, 48, 0.12);
-        }
-    </style>
-    <noscript><style>
-        @media (max-width: 1023px) {
-            #site-nav { display: flex; grid-column: 1 / -1; justify-content: center; margin-top: 0.5rem; }
-            #menu-toggle { display: none; }
-        }
-    </style></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site-theme.css">
 </head>
-<body class="font-sans text-stone-200 antialiased">
+<body class="page--browse">
 
-    <header class="topbar sticky top-0 z-40">
-        <div class="relative mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
-                    gap-x-4 gap-y-2 px-4 md:px-8 py-3">
-            <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER <span class="text-accent-500">ANNIBALE</span>
-            </p>
+    <div class="page">
 
-            <nav id="site-nav" aria-label="Sezioni del sito"
-                 class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
-                        lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
-                <a href="index.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Ricordi</a>
-                <a href="video.html" aria-current="page"
-                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Video</a>
-                <a href="credits.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Crediti</a>
-            </nav>
+        <header class="topbar topbar--sticky">
+            <div class="topbar__inner">
+                <a class="site-brand" href="index.html" aria-label="Per Annibale — Ricordi">
+                    <span class="brand-cover">per <b>ANNIBALE</b><span class="surname">D'Elia</span></span>
+                    <span class="brand-tag">Per Annibale</span>
+                </a>
 
-            <!-- Below lg the sections above move into this panel; the button
-                 takes the place of the video count. -->
-            <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
-                    aria-controls="mobile-menu"
-                    class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
-                           rounded-full border border-stone-900/15 bg-stone-900/5 text-stone-300 transition-colors
-                           hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100
-                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-close hidden h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-
-            <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
-            <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
-                <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
-                            shadow-2xl shadow-black/15">
-                    <a href="index.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Ricordi</a>
-                    <a href="video.html" aria-current="page"
-                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Video</a>
-                    <a href="credits.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Crediti</a>
+                <nav id="site-nav" aria-label="Sezioni del sito">
+                    <a href="index.html">Ricordi</a>
+                    <a href="video.html" aria-current="page">Video</a>
+                    <a href="playlist.html">Playlist</a>
+                    <a href="credits.html">Crediti</a>
+                    <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
                 </nav>
+
+                <div class="topbar__right">
+                    <p id="counter">13 video</p>
+
+                    <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                            aria-controls="mobile-menu">
+                        <svg class="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                        </svg>
+                        <svg class="menu-icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="mobile-menu-backdrop" class="hidden"></div>
+                <div id="mobile-menu" class="hidden">
+                    <nav aria-label="Sezioni del sito">
+                        <a href="index.html">Ricordi</a>
+                        <a href="video.html" aria-current="page">Video</a>
+                        <a href="playlist.html">Playlist</a>
+                        <a href="credits.html">Crediti</a>
+                        <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
+                    </nav>
+                </div>
             </div>
+        </header>
 
-            <p class="col-start-2 row-start-1 hidden justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap
-                      lg:col-start-3 lg:block">13 video</p>
-        </div>
-    </header>
+        <main>
+            <div class="sheet">
+                <div class="sheet__head">
+                    <h1>Interventi e incontri</h1>
+                    <p class="sheet__intro">
+                        Discorsi, interviste e presentazioni pubbliche, in ordine cronologico quando la data è
+                        disponibile. Clicca su un video per guardarlo qui.
+                    </p>
+                </div>
 
-    <main class="mx-auto w-full max-w-5xl px-4 md:px-8 pb-20">
-
-        <div class="pt-8 md:pt-12 pb-2 md:pb-4">
-            <h1 class="font-sans text-2xl md:text-4xl text-stone-100 leading-tight">Interventi e incontri</h1>
-            <p class="mt-2 text-sm md:text-base text-stone-400 font-light max-w-2xl">
-                Discorsi, interviste e presentazioni pubbliche, in ordine cronologico quando la data è disponibile.
-                Clicca su un video per guardarlo qui.
-            </p>
-        </div>
-
-        <!-- ============================ PUGLIA ============================ -->
-        <section class="pt-8 md:pt-10">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Puglia / Bollenti Spiriti <span class="normal-case tracking-normal">(2010–2016)</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-
-                <article class="card group">
-                    <button type="button" data-video="CxQNOBtoyJ8" data-title="Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)">
-                        <img src="https://i.ytimg.com/vi/CxQNOBtoyJ8/hqdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Bari · 14 luglio 2010 · I parte</p>
+                <section>
+                    <h2>Puglia / Bollenti Spiriti <span>(2010–2016)</span></h2>
+                    <div class="card-grid">
+                        <article class="card">
+                        <button type="button" data-video="CxQNOBtoyJ8" data-title="Il keynote di Annibale D&#x27;Elia al Working Capital Tour Bari 2010 (I parte)"
+                                class="frame" aria-label="Riproduci: Il keynote di Annibale D&#x27;Elia al Working Capital Tour Bari 2010 (I parte)">
+                            <img src="https://i.ytimg.com/vi/CxQNOBtoyJ8/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</h3>
+                                <p class="card__meta">Bari · 14 luglio 2010 · I parte</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=CxQNOBtoyJ8" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Il keynote di Annibale D&#x27;Elia al Working Capital Tour Bari 2010 (I parte)» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=CxQNOBtoyJ8" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri il keynote al Working Capital Tour Bari 2010 su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="Fav9Xf9SWuQ" data-title="Pugliaeccellente.com ospite: Annibale D'Elia"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Pugliaeccellente.com ospite, Annibale D'Elia">
-                        <img src="https://i.ytimg.com/vi/Fav9Xf9SWuQ/sddefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Ospite di Puglia Eccellente</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Puglia Eccellente · 2011</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="Fav9Xf9SWuQ" data-title="Pugliaeccellente.com ospite: Annibale D&#x27;Elia"
+                                class="frame" aria-label="Riproduci: Pugliaeccellente.com ospite: Annibale D&#x27;Elia">
+                            <img src="https://i.ytimg.com/vi/Fav9Xf9SWuQ/sddefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>Ospite di Puglia Eccellente</h3>
+                                <p class="card__meta">Puglia Eccellente · 2011</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=Fav9Xf9SWuQ" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Pugliaeccellente.com ospite: Annibale D&#x27;Elia» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=Fav9Xf9SWuQ" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri l'intervista di Puglia Eccellente su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="OXiEMQ4CjCM" data-title="I dinosauri e i nuovi"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: I dinosauri e i nuovi, TEDxCastelDelMonte 2012">
-                        <img src="https://i.ytimg.com/vi/OXiEMQ4CjCM/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«I dinosauri e i nuovi»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TEDxCastelDelMonte · 2012</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="OXiEMQ4CjCM" data-title="I dinosauri e i nuovi"
+                                class="frame" aria-label="Riproduci: I dinosauri e i nuovi">
+                            <img src="https://i.ytimg.com/vi/OXiEMQ4CjCM/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«I dinosauri e i nuovi»</h3>
+                                <p class="card__meta">TEDxCastelDelMonte · 2012</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=OXiEMQ4CjCM" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «I dinosauri e i nuovi» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=OXiEMQ4CjCM" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «I dinosauri e i nuovi» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="InL-Gq1w4hU" data-title="7 appunti su giovani, sud e innovazione"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: 7 appunti su giovani, sud e innovazione, TEDxLecce">
-                        <img src="https://i.ytimg.com/vi/InL-Gq1w4hU/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«7 appunti su giovani, sud e innovazione»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TEDxLecce</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="InL-Gq1w4hU" data-title="7 appunti su giovani, sud e innovazione"
+                                class="frame" aria-label="Riproduci: 7 appunti su giovani, sud e innovazione">
+                            <img src="https://i.ytimg.com/vi/InL-Gq1w4hU/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«7 appunti su giovani, sud e innovazione»</h3>
+                                <p class="card__meta">TEDxLecce</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=InL-Gq1w4hU" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «7 appunti su giovani, sud e innovazione» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=InL-Gq1w4hU" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «7 appunti su giovani, sud e innovazione» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="LpyFpG7EY0g" data-title="Il Buon Governo e il bene comune"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Il Buon Governo e il bene comune, Teatro dal Verme, 28 maggio 2014">
-                        <img src="https://i.ytimg.com/vi/LpyFpG7EY0g/sddefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Il Buon Governo e il bene comune»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Teatro dal Verme · 28 maggio 2014</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="LpyFpG7EY0g" data-title="Il Buon Governo e il bene comune"
+                                class="frame" aria-label="Riproduci: Il Buon Governo e il bene comune">
+                            <img src="https://i.ytimg.com/vi/LpyFpG7EY0g/sddefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«Il Buon Governo e il bene comune»</h3>
+                                <p class="card__meta">Teatro dal Verme · 28 maggio 2014</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=LpyFpG7EY0g" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Il Buon Governo e il bene comune» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=LpyFpG7EY0g" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «Il Buon Governo e il bene comune» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="kRArNqBj-xA" data-title="RoomArt, design in discarica"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: RoomArt, design in discarica, conferenza finale a Gioia del Colle, 20 settembre 2014">
-                        <img src="https://i.ytimg.com/vi/kRArNqBj-xA/sddefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«RoomArt», design in discarica</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Principi Attivi 2012 · Gioia del Colle, 20 settembre 2014</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="kRArNqBj-xA" data-title="RoomArt, design in discarica"
+                                class="frame" aria-label="Riproduci: RoomArt, design in discarica">
+                            <img src="https://i.ytimg.com/vi/kRArNqBj-xA/sddefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«RoomArt», design in discarica</h3>
+                                <p class="card__meta">Principi Attivi 2012 · Gioia del Colle, 20 settembre 2014</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=kRArNqBj-xA" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «RoomArt, design in discarica» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=kRArNqBj-xA" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «RoomArt», design in discarica su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="biA7kw5F5s0" data-title="Intervista, Giornate di Bertinoro 2014"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Intervista alle Giornate di Bertinoro 2014, AICCON">
-                        <img src="https://i.ytimg.com/vi/biA7kw5F5s0/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Intervista</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Giornate di Bertinoro 2014 · AICCON</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="biA7kw5F5s0" data-title="Intervista, Giornate di Bertinoro 2014"
+                                class="frame" aria-label="Riproduci: Intervista, Giornate di Bertinoro 2014">
+                            <img src="https://i.ytimg.com/vi/biA7kw5F5s0/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>Intervista</h3>
+                                <p class="card__meta">Giornate di Bertinoro 2014 · AICCON</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=biA7kw5F5s0" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Intervista, Giornate di Bertinoro 2014» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=biA7kw5F5s0" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri l'intervista alle Giornate di Bertinoro 2014 su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="t25fkmysQZo" data-title="Siamo noi"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Siamo noi, Bollenti Spiriti, 18 dicembre 2014">
-                        <img src="https://i.ytimg.com/vi/t25fkmysQZo/hqdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Siamo noi»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Bollenti Spiriti · 18 dicembre 2014</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="t25fkmysQZo" data-title="Siamo noi"
+                                class="frame" aria-label="Riproduci: Siamo noi">
+                            <img src="https://i.ytimg.com/vi/t25fkmysQZo/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«Siamo noi»</h3>
+                                <p class="card__meta">Bollenti Spiriti · 18 dicembre 2014</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=t25fkmysQZo" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Siamo noi» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=t25fkmysQZo" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «Siamo noi» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="DZJi7uaUdss" data-title="Politiche pubbliche per supereroi, XYZ Talk"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Politiche pubbliche per supereroi, XYZ Talk di La Scuola Open Source, luglio 2016">
-                        <img src="https://i.ytimg.com/vi/DZJi7uaUdss/sddefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Politiche pubbliche per supereroi»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">XYZ Talk · La Scuola Open Source · luglio 2016</p>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="DZJi7uaUdss" data-title="Politiche pubbliche per supereroi, XYZ Talk"
+                                class="frame" aria-label="Riproduci: Politiche pubbliche per supereroi, XYZ Talk">
+                            <img src="https://i.ytimg.com/vi/DZJi7uaUdss/sddefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«Politiche pubbliche per supereroi»</h3>
+                                <p class="card__meta">XYZ Talk · La Scuola Open Source · luglio 2016</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=DZJi7uaUdss" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Politiche pubbliche per supereroi, XYZ Talk» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
                         </div>
-                        <a href="https://www.youtube.com/watch?v=DZJi7uaUdss" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «Politiche pubbliche per supereroi», XYZ Talk su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
+                        </article>
                     </div>
-                </article>
-
+                </section>
+                <section>
+                    <h2>Roma / Agenzia Italiana per la Gioventù <span>(2016)</span></h2>
+                    <div class="card-grid">
+                        <article class="card">
+                        <button type="button" data-video="TIlr6d757o4" data-title="TF Talks 5 - Intervento di Annibale D&#x27;Elia"
+                                class="frame" aria-label="Riproduci: TF Talks 5 - Intervento di Annibale D&#x27;Elia">
+                            <img src="https://i.ytimg.com/vi/TIlr6d757o4/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>TF Talks 5 - Intervento di Annibale D'Elia</h3>
+                                <p class="card__meta">TF Talks 5 · Tool Fair, Roma · 6 ottobre 2016</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=TIlr6d757o4" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «TF Talks 5 - Intervento di Annibale D&#x27;Elia» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                        </article>
+                    </div>
+                </section>
+                <section>
+                    <h2>Milano / Comune di Milano <span>(2017–2025)</span></h2>
+                    <div class="card-grid">
+                        <article class="card">
+                        <button type="button" data-video="BP9R-EP-M9w" data-title="Innesco, arti e mestieri della partecipazione generativa"
+                                class="frame" aria-label="Riproduci: Innesco, arti e mestieri della partecipazione generativa">
+                            <img src="https://i.ytimg.com/vi/BP9R-EP-M9w/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«Innesco»</h3>
+                                <p class="card__meta">Arti e mestieri della partecipazione generativa</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=BP9R-EP-M9w" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Innesco, arti e mestieri della partecipazione generativa» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                        </article>
+                        <article class="card">
+                        <button type="button" data-video="bxKzkheqyTo" data-title="Intervista integrale, convegno DI-SEGNO PUBBLICO"
+                                class="frame" aria-label="Riproduci: Intervista integrale, convegno DI-SEGNO PUBBLICO">
+                            <img src="https://i.ytimg.com/vi/bxKzkheqyTo/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>Intervista integrale</h3>
+                                <p class="card__meta">Convegno DI-SEGNO PUBBLICO</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=bxKzkheqyTo" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «Intervista integrale, convegno DI-SEGNO PUBBLICO» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                        </article>
+                    </div>
+                </section>
+                <section>
+                    <h2>Altri interventi</h2>
+                    <div class="card-grid">
+                        <article class="card">
+                        <button type="button" data-video="AlK4u7Fl2R8" data-title="I luoghi tra innovazione sociale e mutamento"
+                                class="frame" aria-label="Riproduci: I luoghi tra innovazione sociale e mutamento">
+                            <img src="https://i.ytimg.com/vi/AlK4u7Fl2R8/maxresdefault.jpg" alt="" loading="lazy">
+                            <span class="veil"></span>
+                            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        </button>
+                        <div class="card__body">
+                            <div>
+                                <h3>«I luoghi tra innovazione sociale e mutamento»</h3>
+                                <p class="card__meta">Corso Giovanni Laino · pubblicato il 24 ottobre 2026</p>
+                            </div>
+                            <a class="card__link" href="https://www.youtube.com/watch?v=AlK4u7Fl2R8" target="_blank" rel="noopener noreferrer"
+                               title="Apri su YouTube" aria-label="Apri «I luoghi tra innovazione sociale e mutamento» su YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                        </article>
+                    </div>
+                </section>
             </div>
-        </section>
-
-        <!-- ============================== ROMA ============================= -->
-        <section class="pt-10 md:pt-14">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Roma / Agenzia Italiana per la Gioventù <span class="normal-case tracking-normal">(2016)</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-
-                <article class="card group">
-                    <button type="button" data-video="TIlr6d757o4" data-title="TF Talks 5 - Intervento di Annibale D'Elia"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: TF Talks 5 - Intervento di Annibale D'Elia">
-                        <img src="https://i.ytimg.com/vi/TIlr6d757o4/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">TF Talks 5 - Intervento di Annibale D'Elia</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">TF Talks 5 · Tool Fair, Roma · 6 ottobre 2016</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=TIlr6d757o4" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri l'intervento a TF Talks 5, Tool Fair di Roma su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ============================ MILANO ============================ -->
-        <section class="pt-10 md:pt-14">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Milano / Comune di Milano <span class="normal-case tracking-normal">(2017–2025)</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-
-                <article class="card group">
-                    <button type="button" data-video="BP9R-EP-M9w" data-title="Innesco, arti e mestieri della partecipazione generativa"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Innesco, arti e mestieri della partecipazione generativa">
-                        <img src="https://i.ytimg.com/vi/BP9R-EP-M9w/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«Innesco»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Arti e mestieri della partecipazione generativa</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=BP9R-EP-M9w" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri «Innesco» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card group">
-                    <button type="button" data-video="bxKzkheqyTo" data-title="Intervista integrale, convegno DI-SEGNO PUBBLICO"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: Intervista integrale al convegno DI-SEGNO PUBBLICO">
-                        <img src="https://i.ytimg.com/vi/bxKzkheqyTo/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">Intervista integrale</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Convegno DI-SEGNO PUBBLICO</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=bxKzkheqyTo" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri l'intervista integrale al convegno DI-SEGNO PUBBLICO su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ========================= ALTRI VIDEO ========================== -->
-        <section class="pt-10 md:pt-14">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Altri interventi
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-
-                <article class="card group">
-                    <button type="button" data-video="AlK4u7Fl2R8" data-title="I luoghi tra innovazione sociale e mutamento"
-                            class="frame block w-full cursor-pointer text-left" aria-label="Riproduci: I luoghi tra innovazione sociale e mutamento, corso Giovanni Laino">
-                        <img src="https://i.ytimg.com/vi/AlK4u7Fl2R8/maxresdefault.jpg" alt="" loading="lazy">
-                        <span class="veil"></span>
-                        <span class="play" aria-hidden="true">
-                            <svg class="h-5 w-5 translate-x-[1px] text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        </span>
-                    </button>
-                    <div class="mt-3 flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <h3 class="font-sans text-base md:text-lg text-stone-100 leading-snug">«I luoghi tra innovazione sociale e mutamento»</h3>
-                            <p class="text-[0.72rem] text-stone-500 uppercase tracking-wider mt-1">Corso Giovanni Laino · pubblicato il 24 ottobre 2026</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=AlK4u7Fl2R8" target="_blank" rel="noopener noreferrer"
-                           class="shrink-0 mt-1 text-stone-600 transition-colors hover:text-stone-300"
-                           title="Apri su YouTube" aria-label="Apri il video «I luoghi tra innovazione sociale e mutamento» su YouTube">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <p class="mt-14 pt-6 border-t border-stone-900/10 text-center text-xs text-stone-500 font-light">
-            <a href="index.html" class="text-stone-400 underline decoration-stone-900/20 underline-offset-4
-                                       transition-colors hover:text-stone-100">Torna ai ricordi</a>
-        </p>
-    </main>
+        </main>
+    </div>
 
     <script>
         /* Poster first, player on demand: loading every YouTube iframe up front
-           would slow the page. The iframe is created only when a
-           video is actually played, using the privacy-friendly domain. */
+           would slow the page. The iframe is created only when a video is
+           actually played, on the privacy-friendly domain. */
         document.querySelectorAll('[data-video]').forEach((button) => {
             button.addEventListener('click', () => {
                 const id = button.dataset.video;
@@ -566,7 +344,6 @@
 
                 button.replaceChildren(iframe);
                 button.removeAttribute('aria-label');   // the player is the control now
-                button.classList.remove('cursor-pointer');
                 button.style.cursor = 'default';
             }, { once: true });
         });

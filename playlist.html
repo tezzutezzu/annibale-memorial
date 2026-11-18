@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist — Per Annibale</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site-theme.css">
+</head>
+<body class="page--browse">
+
+    <div class="page">
+
+        <header class="topbar topbar--sticky">
+            <div class="topbar__inner">
+                <a class="site-brand" href="index.html" aria-label="Per Annibale — Ricordi">
+                    <span class="brand-cover">per <b>ANNIBALE</b><span class="surname">D'Elia</span></span>
+                    <span class="brand-tag">Per Annibale</span>
+                </a>
+
+                <nav id="site-nav" aria-label="Sezioni del sito">
+                    <a href="index.html">Ricordi</a>
+                    <a href="video.html">Video</a>
+                    <a href="playlist.html" aria-current="page">Playlist</a>
+                    <a href="credits.html">Crediti</a>
+                    <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
+                </nav>
+
+                <div class="topbar__right">
+                    <p id="counter">13 video</p>
+
+                    <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                            aria-controls="mobile-menu">
+                        <svg class="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                        </svg>
+                        <svg class="menu-icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="mobile-menu-backdrop" class="hidden"></div>
+                <div id="mobile-menu" class="hidden">
+                    <nav aria-label="Sezioni del sito">
+                        <a href="index.html">Ricordi</a>
+                        <a href="video.html">Video</a>
+                        <a href="playlist.html" aria-current="page">Playlist</a>
+                        <a href="credits.html">Crediti</a>
+                        <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="sheet">
+                <div class="sheet__head">
+                    <h1>Playlist</h1>
+                    <p class="sheet__intro">
+                        Tutti gli interventi di Annibale uno dopo l’altro, in ordine cronologico.
+                        Scegli un titolo per guardarlo qui.
+                    </p>
+                </div>
+
+                <div class="playlist">
+                    <div class="playlist__now">
+                        <div class="frame" id="player">
+                            <img id="poster" src="https://i.ytimg.com/vi/CxQNOBtoyJ8/hqdefault.jpg" alt="">
+                        </div>
+                        <div class="playlist__caption">
+                            <h2 id="now-title">Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</h2>
+                            <p id="now-meta">Bari · 14 luglio 2010 · I parte</p>
+                        </div>
+                        <p class="playlist__hint">
+                            I video restano su YouTube: si aprono qui, senza cookie di tracciamento.
+                        </p>
+                    </div>
+
+                    <ol class="playlist__list" id="list">
+                        <li>
+                            <button type="button" class="playlist__item" data-index="0"
+                                    data-video="CxQNOBtoyJ8" data-title="Il keynote di Annibale D&#x27;Elia al Working Capital Tour Bari 2010 (I parte)"
+                                    data-meta="Bari · 14 luglio 2010 · I parte">
+                                <span class="playlist__index">01</span>
+                                <span class="playlist__title">Il keynote di Annibale D'Elia al Working Capital Tour Bari 2010 (I parte)</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="1"
+                                    data-video="Fav9Xf9SWuQ" data-title="Pugliaeccellente.com ospite: Annibale D&#x27;Elia"
+                                    data-meta="Puglia Eccellente · 2011">
+                                <span class="playlist__index">02</span>
+                                <span class="playlist__title">Ospite di Puglia Eccellente</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="2"
+                                    data-video="OXiEMQ4CjCM" data-title="I dinosauri e i nuovi"
+                                    data-meta="TEDxCastelDelMonte · 2012">
+                                <span class="playlist__index">03</span>
+                                <span class="playlist__title">«I dinosauri e i nuovi»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="3"
+                                    data-video="InL-Gq1w4hU" data-title="7 appunti su giovani, sud e innovazione"
+                                    data-meta="TEDxLecce">
+                                <span class="playlist__index">04</span>
+                                <span class="playlist__title">«7 appunti su giovani, sud e innovazione»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="4"
+                                    data-video="LpyFpG7EY0g" data-title="Il Buon Governo e il bene comune"
+                                    data-meta="Teatro dal Verme · 28 maggio 2014">
+                                <span class="playlist__index">05</span>
+                                <span class="playlist__title">«Il Buon Governo e il bene comune»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="5"
+                                    data-video="kRArNqBj-xA" data-title="RoomArt, design in discarica"
+                                    data-meta="Principi Attivi 2012 · Gioia del Colle, 20 settembre 2014">
+                                <span class="playlist__index">06</span>
+                                <span class="playlist__title">«RoomArt», design in discarica</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="6"
+                                    data-video="biA7kw5F5s0" data-title="Intervista, Giornate di Bertinoro 2014"
+                                    data-meta="Giornate di Bertinoro 2014 · AICCON">
+                                <span class="playlist__index">07</span>
+                                <span class="playlist__title">Intervista</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="7"
+                                    data-video="t25fkmysQZo" data-title="Siamo noi"
+                                    data-meta="Bollenti Spiriti · 18 dicembre 2014">
+                                <span class="playlist__index">08</span>
+                                <span class="playlist__title">«Siamo noi»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="8"
+                                    data-video="DZJi7uaUdss" data-title="Politiche pubbliche per supereroi, XYZ Talk"
+                                    data-meta="XYZ Talk · La Scuola Open Source · luglio 2016">
+                                <span class="playlist__index">09</span>
+                                <span class="playlist__title">«Politiche pubbliche per supereroi»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="9"
+                                    data-video="TIlr6d757o4" data-title="TF Talks 5 - Intervento di Annibale D&#x27;Elia"
+                                    data-meta="TF Talks 5 · Tool Fair, Roma · 6 ottobre 2016">
+                                <span class="playlist__index">10</span>
+                                <span class="playlist__title">TF Talks 5 - Intervento di Annibale D'Elia</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="10"
+                                    data-video="BP9R-EP-M9w" data-title="Innesco, arti e mestieri della partecipazione generativa"
+                                    data-meta="Arti e mestieri della partecipazione generativa">
+                                <span class="playlist__index">11</span>
+                                <span class="playlist__title">«Innesco»</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="11"
+                                    data-video="bxKzkheqyTo" data-title="Intervista integrale, convegno DI-SEGNO PUBBLICO"
+                                    data-meta="Convegno DI-SEGNO PUBBLICO">
+                                <span class="playlist__index">12</span>
+                                <span class="playlist__title">Intervista integrale</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="playlist__item" data-index="12"
+                                    data-video="AlK4u7Fl2R8" data-title="I luoghi tra innovazione sociale e mutamento"
+                                    data-meta="Corso Giovanni Laino · pubblicato il 24 ottobre 2026">
+                                <span class="playlist__index">13</span>
+                                <span class="playlist__title">«I luoghi tra innovazione sociale e mutamento»</span>
+                            </button>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        /* One player, one list: choosing an item swaps the video in place. */
+        (function playlist() {
+            const player = document.getElementById('player');
+            const list = document.getElementById('list');
+            const nowTitle = document.getElementById('now-title');
+            const nowMeta = document.getElementById('now-meta');
+            if (!player || !list) return;
+
+            function paint(button) {
+                list.querySelectorAll('.playlist__item').forEach((el) => {
+                    el.setAttribute('aria-current', el === button ? 'true' : 'false');
+                });
+                nowTitle.textContent = button.querySelector('.playlist__title').textContent;
+                nowMeta.textContent = button.dataset.meta || '';
+            }
+
+            function play(button) {
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://www.youtube-nocookie.com/embed/' + button.dataset.video +
+                             '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+                iframe.title = button.dataset.title || 'Video';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                iframe.allowFullscreen = true;
+                iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                player.replaceChildren(iframe);
+                paint(button);
+            }
+
+            list.addEventListener('click', (event) => {
+                const button = event.target.closest('.playlist__item');
+                if (button) play(button);
+            });
+
+            paint(list.querySelector('.playlist__item'));
+        })();
+    </script>
+    <script src="menu.js" defer></script>
+</body>
+</html>

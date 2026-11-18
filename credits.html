@@ -4,170 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crediti — Per Annibale</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Nunito Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            50: '#ffffff',
-                            100: '#494949',
-                            200: '#565656',
-                            300: '#646464',
-                            400: '#6b6b6b',
-                            500: '#626262',
-                            600: '#565656',
-                            700: '#484848',
-                            800: '#383838',
-                            900: '#303030',
-                        },
-                        accent: {
-                            50: '#fff1f6',
-                            100: '#ffe1eb',
-                            200: '#ffb8d0',
-                            300: '#ff8db5',
-                            400: '#ff4e8d',
-                            500: '#f8327b',
-                            600: '#dd1d65',
-                            700: '#bb124f',
-                            800: '#971043',
-                            900: '#720f36',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html { height: 100%; }
-
-        /* Same ground as the slideshow, but this page scrolls normally. */
-        body {
-            min-height: 100%;
-            background-color: #fff;
-            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
-            background-size: 112px 112px;
-            background-attachment: fixed;
-            color: #565656;
-        }
-
-        /* Sticky header stays liquid over the page. */
-        .topbar {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px) saturate(140%);
-            border-bottom: 1px solid rgba(48, 48, 48, 0.12);
-        }
-    </style>
-    <noscript><style>
-        @media (max-width: 1023px) {
-            #site-nav { display: flex; grid-column: 1 / -1; justify-content: center; margin-top: 0.5rem; }
-            #menu-toggle { display: none; }
-        }
-    </style></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site-theme.css">
 </head>
-<body class="font-sans text-stone-200 antialiased">
+<body class="page--browse">
 
-    <header class="topbar sticky top-0 z-40">
-        <div class="relative mx-auto grid w-full max-w-5xl grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
-                    gap-x-4 gap-y-2 px-4 md:px-8 py-3">
-            <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER <span class="text-accent-500">ANNIBALE</span>
-            </p>
+    <div class="page">
 
-            <nav id="site-nav" aria-label="Sezioni del sito"
-                 class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
-                        lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
-                <a href="index.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Ricordi</a>
-                <a href="video.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors hover:bg-stone-900/5 hover:text-stone-200">Video</a>
-                <a href="credits.html" aria-current="page"
-                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Crediti</a>
-            </nav>
+        <header class="topbar topbar--sticky">
+            <div class="topbar__inner">
+                <a class="site-brand" href="index.html" aria-label="Per Annibale — Ricordi">
+                    <span class="brand-cover">per <b>ANNIBALE</b><span class="surname">D'Elia</span></span>
+                    <span class="brand-tag">Per Annibale</span>
+                </a>
 
-            <!-- Below lg the sections above move into this panel. -->
-            <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
-                    aria-controls="mobile-menu"
-                    class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
-                           rounded-full border border-stone-900/15 bg-stone-900/5 text-stone-300 transition-colors
-                           hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100
-                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-close hidden h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-
-            <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
-            <div id="mobile-menu" class="absolute right-4 md:right-8 top-full z-[65] hidden w-60 lg:hidden">
-                <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
-                            shadow-2xl shadow-black/15">
-                    <a href="index.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Ricordi</a>
-                    <a href="video.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Video</a>
-                    <a href="credits.html" aria-current="page"
-                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Crediti</a>
+                <nav id="site-nav" aria-label="Sezioni del sito">
+                    <a href="index.html">Ricordi</a>
+                    <a href="video.html">Video</a>
+                    <a href="playlist.html">Playlist</a>
+                    <a href="credits.html" aria-current="page">Crediti</a>
+                    <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
                 </nav>
+
+                <div class="topbar__right">
+                    <p id="counter"></p>
+
+                    <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                            aria-controls="mobile-menu">
+                        <svg class="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                        </svg>
+                        <svg class="menu-icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="mobile-menu-backdrop" class="hidden"></div>
+                <div id="mobile-menu" class="hidden">
+                    <nav aria-label="Sezioni del sito">
+                        <a href="index.html">Ricordi</a>
+                        <a href="video.html">Video</a>
+                        <a href="playlist.html">Playlist</a>
+                        <a href="credits.html" aria-current="page">Crediti</a>
+                        <a href="index.html?pensiero=1" class="nav-pensiero">Lascia un pensiero</a>
+                    </nav>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="mx-auto w-full max-w-3xl px-4 md:px-8 pb-20">
+        <main>
+            <div class="sheet">
+                <div class="sheet__head">
+                    <h1>Crediti</h1>
+                </div>
 
-        <div class="pt-10 md:pt-16 pb-6 md:pb-8">
-            <h1 class="font-sans text-2xl md:text-4xl text-stone-100 leading-tight">Crediti</h1>
-        </div>
+                <p class="sheet__intro">
+                    Questo sito è un'opportunità per ricordare Annibale ma, soprattutto, per continuare a
+                    imparare dalle sue esperienze. Se hai un ricordo,
+                    <a href="index.html?pensiero=1">condividilo</a>.
+                </p>
 
-        <p class="max-w-2xl font-sans text-lg leading-relaxed text-stone-200 md:text-2xl md:leading-relaxed">
-            Questo sito è un'opportunità per ricordare Annibale ma, soprattutto, per continuare a
-            imparare dalle sue esperienze. Se hai un ricordo,
-            <a href="index.html?pensiero=1"
-               class="underline decoration-stone-900/25 underline-offset-4 transition-colors hover:text-stone-100">condividilo</a>.
-        </p>
+                <div class="credits-grid">
+                    <section>
+                        <h2>Un'idea di</h2>
+                        <ul class="credits-list">
+                            <li>Mariella Stella</li>
+                            <li>Danilo Di Cuia</li>
+                        </ul>
+                    </section>
 
-        <section class="pt-10 md:pt-12">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Un'idea di
-            </h2>
-            <ul class="font-sans text-lg md:text-2xl text-stone-100 leading-relaxed">
-                <li>Mariella Stella</li>
-                <li>Danilo Di Cuia</li>
-            </ul>
-        </section>
+                    <section>
+                        <h2>Contributi</h2>
+                        <ul class="credits-list">
+                            <li>Alessandro Tartaglia</li>
+                            <li>Andrea Di Benedetto</li>
+                            <li>Claudio De Leo</li>
+                        </ul>
+                    </section>
+                </div>
 
-        <section class="pt-10 md:pt-12">
-            <h2 class="text-stone-500 uppercase tracking-[0.18em] text-[0.7rem] md:text-xs
-                       border-b border-stone-900/10 pb-2 mb-5">
-                Contributi
-            </h2>
-            <ul class="font-sans text-lg md:text-2xl text-stone-100 leading-relaxed">
-                <li>Alessandro Tartaglia</li>
-                <li>Andrea Di Benedetto</li>
-                <li>Claudio De Leo</li>
-            </ul>
-        </section>
-
-        <p class="mt-14 pt-6 border-t border-stone-900/10 text-center text-xs text-stone-500 font-light">
-            <a href="index.html" class="text-stone-400 underline decoration-stone-900/20 underline-offset-4
-                                       transition-colors hover:text-stone-100">Torna ai ricordi</a>
-        </p>
-    </main>
-
+                <p class="credits-note"><a href="index.html">Torna ai ricordi</a></p>
+            </div>
+        </main>
+    </div>
     <script src="menu.js" defer></script>
 </body>
 </html>

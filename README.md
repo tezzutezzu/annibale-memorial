@@ -49,7 +49,7 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
   la pagina intera non si muove mai.
 - Se un ricordo non ha foto, il testo occupa tutto lo spazio.
 - In alto a destra c'è il conteggio, ad esempio `12 / 248`.
-- Lo sfondo chiaro ha un motivo di puntini statico.
+- Lo sfondo chiaro ha un motivo statico di X pastello (`assets/x-pattern.svg`).
 
 ### Il frontespizio
 
@@ -63,7 +63,7 @@ successive saltano la pagina iniziale. Se l'indirizzo contiene già un ricordo
 (`.../#fb_...`), alla prima visita si arriva a quel ricordo dopo l'ingresso;
 nelle visite successive il collegamento apre direttamente quel ricordo.
 
-Il frontespizio condivide lo sfondo chiaro a puntini della presentazione.
+Il frontespizio condivide lo sfondo chiaro con motivo a X della presentazione.
 
 Accanto al pensiero c'è una fotografia di Annibale durante un incontro
 (`home.jpg`, con una versione WebP più leggera). Su schermo stretto la foto
@@ -113,10 +113,10 @@ resta lì.
 ### I video
 
 Nei pulsanti al centro dell'intestazione ci si sposta tra le sezioni:
-**Ricordi** (la presentazione), **Video** e **Crediti**. Su uno schermo stretto
-questi pulsanti finiscono in un menu che si apre dal pulsante in alto a destra,
-al posto del conteggio dei ricordi; il menu si chiude con <kbd>Esc</kbd> o
-toccando fuori. La pagina dei video raccoglie gli interventi pubblici di
+**Ricordi** (la presentazione), **Video**, **Playlist** e **Crediti**, più
+**Lascia un pensiero**. Su uno schermo stretto questi pulsanti finiscono in un
+menu che si apre dal pulsante in alto a destra, al posto del conteggio dei
+ricordi; il menu si chiude con <kbd>Esc</kbd> o toccando fuori. La pagina dei video raccoglie gli interventi pubblici di
 Annibale, divisi per periodo (Puglia / Bollenti Spiriti, Roma / Agenzia Italiana
 per la Gioventù, Milano / Comune di Milano e altri interventi) e in ordine
 cronologico quando la data è disponibile.
@@ -127,9 +127,16 @@ cronologico quando la data è disponibile.
 - L'icona in alto a destra di ogni scheda apre lo stesso video su YouTube.
 - Serve la connessione a internet: i video stanno su YouTube.
 
+### La playlist
+
+Il terzo pulsante dell'intestazione apre **Playlist**: gli stessi interventi
+della pagina Video, uno dopo l'altro e in ordine cronologico. Si sceglie un
+titolo dall'elenco e il video parte nell'area grande a sinistra, senza cambiare
+pagina.
+
 ### I crediti
 
-Il terzo pulsante dell'intestazione apre **Crediti**, la pagina con le persone
+Il quarto pulsante dell'intestazione apre **Crediti**, la pagina con le persone
 che hanno immaginato e costruito il sito: l'idea è di Mariella Stella e Danilo
 Di Cuia, con i contributi di Alessandro Tartaglia, Andrea Di Benedetto e
 Claudio De Leo.
@@ -143,7 +150,10 @@ condividilo** apre direttamente il modulo per lasciare un pensiero.
 ```
 index.html                ← la presentazione (è questa che si apre)
 video.html                ← la pagina dei video
+playlist.html             ← gli stessi video, uno dopo l'altro
 credits.html              ← la pagina dei crediti
+assets/                   ← il motivo a X e gli stili condivisi
+assets/site-theme.css     ← colori, caratteri e impaginazione del sito
 home.jpg / home.webp      ← la foto del frontespizio
 data/posts.jsonl          ← i testi dei messaggi
 data/media/               ← tutte le foto (una cartella per ricordo)

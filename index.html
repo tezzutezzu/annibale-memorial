@@ -4,413 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Per Annibale D'Elia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Nunito Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        stone: {
-                            50: '#ffffff',
-                            100: '#494949',
-                            200: '#565656',
-                            300: '#646464',
-                            400: '#6b6b6b',
-                            500: '#626262',
-                            600: '#565656',
-                            700: '#484848',
-                            800: '#383838',
-                            900: '#303030',
-                        },
-                        accent: {
-                            50: '#fff1f6',
-                            100: '#ffe1eb',
-                            200: '#ffb8d0',
-                            300: '#ff8db5',
-                            400: '#ff4e8d',
-                            500: '#f8327b',
-                            600: '#dd1d65',
-                            700: '#bb124f',
-                            800: '#971043',
-                            900: '#720f36',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html, body { height: 100%; }
-        body {
-            background-color: #fff;
-            background-image: radial-gradient(rgba(70, 70, 70, 0.26) 1.25px, transparent 1.25px);
-            background-size: 112px 112px;
-            overflow: hidden;
-            color: #565656;
-        }
-
-        #figure { display: flex; flex-direction: column; position: relative; overflow: hidden; }
-        #photo-controls[hidden] { display: none; }
-        #photo-frame { touch-action: pan-y pinch-zoom; }
-        .photo {
-            position: absolute; inset: 0; margin: auto;
-            width: auto; height: auto; max-width: 100%; max-height: 100%;
-            object-fit: contain;
-            box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.55);
-            user-select: none;
-            -webkit-user-drag: none;
-            pointer-events: none;
-        }
-
-        .quote, #results, #frontispiece .cover-scroll {
-            scrollbar-width: thin;
-            scrollbar-color: #c4c4c4 transparent;
-        }
-        .quote::-webkit-scrollbar, #results::-webkit-scrollbar,
-        #frontispiece .cover-scroll::-webkit-scrollbar { width: 6px; }
-        .quote::-webkit-scrollbar-thumb, #results::-webkit-scrollbar-thumb,
-        #frontispiece .cover-scroll::-webkit-scrollbar-thumb {
-            background: #c4c4c4; border-radius: 9999px;
-        }
-
-        #results {
-            position: absolute; top: calc(100% + 0.5rem); right: 0;
-            width: min(26rem, 86vw); overflow-x: hidden;
-            background-color: #fff;
-        }
-        #results mark {
-            background: #ffe1eb; color: #971043;
-            border-radius: 0.15rem; padding: 0 0.1rem;
-        }
-        #results [aria-selected="true"] { background: rgba(248, 50, 123, 0.12); }
-        #search::-webkit-search-cancel-button { cursor: pointer; }
-
-        #frontispiece[hidden] { display: none; }
-        .cover-open .page { visibility: hidden; }
-        #frontispiece .cover-scroll {
-            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent);
-            mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent);
-        }
-        #frontispiece.is-leaving { animation: frontispiece-out 420ms ease forwards; }
-        @keyframes frontispiece-out { to { opacity: 0; visibility: hidden; } }
-        @media (prefers-reduced-motion: reduce) {
-            #frontispiece.is-leaving { animation: none; }
-        }
-        main:focus { outline: none; }
-
-        @media (max-width: 767px) {
-            .no-image #figure { display: none; }
-            #results {
-                left: 0;
-                right: 0;
-                width: auto;
-            }
-        }
-        @media (min-width: 768px) {
-            .no-image { grid-template-columns: 0px 1fr !important; }
-            .no-image #card { width: 100%; max-width: 46rem; margin-inline: auto; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/site-theme.css">
     <noscript><style>
         #frontispiece { display: none; }
-        .cover-open .page { visibility: visible; }
-        @media (max-width: 1023px) {
-            #site-nav { display: flex; grid-column: 1 / -1; justify-content: center; margin-top: 0.5rem; }
-            #menu-toggle { display: none; }
-        }
+        .cover-open .page > :not(.topbar) { visibility: visible; }
     </style></noscript>
 </head>
-<body class="font-sans text-stone-200 antialiased cover-open">
+<body class="cover-open">
 
-    <div class="page h-full flex flex-col">
+    <div class="page">
 
-        <!-- Header: on wide screens title left, section selector centred, search
-             and counter right. Narrower screens stack: title/counter, selector,
-             then the full-width search. -->
-        <header class="relative shrink-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 pt-5 md:pt-8 pb-2
-                       grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center
-                       gap-x-4 gap-y-2">
-            <p class="col-start-1 row-start-1 text-stone-400 uppercase tracking-[0.2em] text-[0.7rem] md:text-xs">
-                PER <span class="text-accent-500">ANNIBALE</span>
-            </p>
+        <header class="topbar">
+            <div class="topbar__inner">
+                <a class="site-brand" href="index.html" aria-label="Per Annibale — Ricordi">
+                    <span class="brand-cover">per <b>ANNIBALE</b><span class="surname">D'Elia</span></span>
+                    <span class="brand-tag">Per Annibale</span>
+                </a>
 
-            <nav id="site-nav" aria-label="Sezioni del sito"
-                 class="col-span-2 row-start-2 hidden items-center justify-center gap-1.5 text-[0.72rem]
-                        lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex">
-                <a href="index.html" aria-current="page"
-                   class="rounded-full border border-accent-400/40 bg-accent-100 px-2.5 py-1 text-accent-800">Ricordi</a>
-                <a href="video.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
-                          hover:bg-stone-900/5 hover:text-stone-200">Video</a>
-                <a href="credits.html"
-                   class="rounded-full border border-transparent px-2.5 py-1 text-stone-500 transition-colors
-                          hover:bg-stone-900/5 hover:text-stone-200">Crediti</a>
-                <!-- Hidden until a Tally form URL is configured (see the script
-                     at the end of the page): a button that opens nothing is
-                     worse than no button. -->
-                <button type="button" id="leave-thought"
-                        class="hidden items-center gap-1.5 rounded-full border border-stone-900/15 bg-stone-900/5
-                               px-2.5 py-1 text-stone-300 transition-colors
-                               hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M16.5 3.75a2.121 2.121 0 013 3L7.5 18.75l-4.5 1.5 1.5-4.5L16.5 3.75z" />
-                    </svg>
-                    <span class="sm:hidden">Pensiero</span>
-                    <span class="hidden sm:inline">Lascia un pensiero</span>
-                </button>
-            </nav>
-
-            <!-- Below lg the sections above move into this panel; the button
-                 takes the place of the memory counter. -->
-            <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
-                    aria-controls="mobile-menu"
-                    class="col-start-2 row-start-1 justify-self-end flex h-9 w-9 items-center justify-center
-                           rounded-full border border-stone-900/15 bg-stone-900/5 text-stone-300 transition-colors
-                           hover:border-stone-900/30 hover:bg-stone-900/10 hover:text-stone-100
-                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300 lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-open h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon-close hidden h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-
-            <div id="mobile-menu-backdrop" class="fixed inset-0 z-[64] hidden lg:hidden"></div>
-            <div id="mobile-menu" class="absolute right-4 md:right-10 top-full z-[65] hidden w-60 lg:hidden">
-                <nav aria-label="Sezioni del sito"
-                     class="max-h-[70vh] overflow-y-auto rounded-2xl border border-stone-900/10 bg-white p-1.5
-                            shadow-2xl shadow-black/15">
-                    <a href="index.html" aria-current="page"
-                       class="block rounded-xl bg-accent-100 px-3 py-2 text-sm text-accent-800">Ricordi</a>
-                    <a href="video.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Video</a>
-                    <a href="credits.html"
-                       class="block rounded-xl px-3 py-2 text-sm text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">Crediti</a>
-                    <button type="button" id="menu-thoughts"
-                            class="hidden w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm
-                                   text-stone-300 transition-colors hover:bg-stone-900/5 hover:text-stone-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M16.5 3.75a2.121 2.121 0 013 3L7.5 18.75l-4.5 1.5 1.5-4.5L16.5 3.75z" />
-                        </svg>
-                        Lascia un pensiero
-                    </button>
+                <nav id="site-nav" aria-label="Sezioni del sito">
+                    <a href="index.html" aria-current="page">Ricordi</a>
+                    <a href="video.html">Video</a>
+                    <a href="playlist.html">Playlist</a>
+                    <a href="credits.html">Crediti</a>
+                    <!-- Hidden until a Tally form URL is configured: a button that
+                         opens nothing is worse than no button. -->
+                    <button type="button" id="leave-thought" class="hidden">Lascia un pensiero</button>
                 </nav>
-            </div>
 
-            <!-- `contents` lets the counter join the narrow grid, while on a wide
-                 screen the two sit together in the right-hand column. -->
-            <div class="contents lg:col-start-3 lg:row-start-1 lg:flex lg:items-center lg:justify-self-end lg:gap-4">
-                <!-- Fuzzy search over the posts -->
-                <div id="search-wrap" class="relative col-span-2 row-start-2 w-full lg:w-auto shrink-0">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-500 pointer-events-none"
-                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
-                    <input id="search" type="search" autocomplete="off" spellcheck="false"
-                           placeholder="Cerca un ricordo…"
-                           aria-label="Cerca tra i ricordi, per testo o autore"
-                           class="w-full lg:w-72 bg-stone-900/5 border border-stone-900/10 rounded-full pl-9 pr-3 py-1.5
-                                  text-sm text-stone-200 placeholder:text-stone-500 outline-none
-                                  focus:border-accent-500 focus:bg-accent-50 transition-colors" />
-                    <div id="results" role="listbox" aria-label="Risultati"
-                         class="hidden z-50 max-h-[62vh] overflow-y-auto rounded-xl border border-stone-900/10
-                                shadow-2xl shadow-black/15"></div>
+                <div class="topbar__right">
+                    <div id="search-wrap">
+                        <input id="search" type="search" autocomplete="off" spellcheck="false"
+                               placeholder="Cerca un ricordo…"
+                               aria-label="Cerca tra i ricordi, per testo o autore">
+                        <div id="results" role="listbox" aria-label="Risultati" class="hidden"></div>
+                    </div>
+
+                    <p id="counter"></p>
+
+                    <button type="button" id="menu-toggle" aria-label="Apri il menu" aria-expanded="false"
+                            aria-controls="mobile-menu">
+                        <svg class="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                        </svg>
+                        <svg class="menu-icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="butt" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
 
-                <p id="counter" class="col-start-2 row-start-1 hidden justify-self-end text-stone-500 text-sm tabular-nums whitespace-nowrap lg:block"></p>
+                <div id="mobile-menu-backdrop" class="hidden"></div>
+                <div id="mobile-menu" class="hidden">
+                    <nav aria-label="Sezioni del sito">
+                        <a href="index.html" aria-current="page">Ricordi</a>
+                        <a href="video.html">Video</a>
+                        <a href="playlist.html">Playlist</a>
+                        <a href="credits.html">Crediti</a>
+                        <button type="button" id="menu-thoughts" class="hidden">Lascia un pensiero</button>
+                    </nav>
+                </div>
             </div>
         </header>
 
-        <!-- Post -->
-        <main tabindex="-1" class="flex-1 min-h-0 w-full max-w-[1600px] mx-auto px-4 md:px-10 p-6">
-            <div id="grid" class="h-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-stretch">
+        <main tabindex="-1">
+            <div id="grid" class="memory">
 
-                <!-- Image, left -->
-                <figure id="figure" class="relative h-full min-h-[38vh] md:min-h-0">
-                    <div id="photo-frame" class="relative flex-1 min-h-0 w-full">
+                <figure id="figure">
+                    <div id="photo-frame">
                         <img id="photo" class="photo" alt="">
                     </div>
                     <figcaption id="photo-controls" hidden
-                                class="shrink-0 flex items-center justify-center gap-4 pt-2"
                                 role="group" aria-label="Foto di questo ricordo">
-                        <button id="photo-prev" type="button" aria-label="Foto precedente" aria-controls="photo"
-                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-900/10
-                                       bg-stone-900/5 text-stone-300 hover:bg-stone-900/10 focus-visible:outline focus-visible:outline-2
-                                       focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        <button id="photo-prev" type="button" aria-label="Foto precedente" aria-controls="photo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
-                        <span id="photo-counter" class="text-sm text-stone-400 tabular-nums" aria-live="polite" aria-atomic="true"></span>
-                        <button id="photo-next" type="button" aria-label="Foto successiva" aria-controls="photo"
-                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-stone-900/10
-                                       bg-stone-900/5 text-stone-300 hover:bg-stone-900/10 focus-visible:outline focus-visible:outline-2
-                                       focus-visible:outline-stone-300 disabled:opacity-25 disabled:cursor-default">
-                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+                        <span id="photo-counter" aria-live="polite" aria-atomic="true"></span>
+                        <button id="photo-next" type="button" aria-label="Foto successiva" aria-controls="photo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="m9 5 7 7-7 7" />
                             </svg>
                         </button>
                     </figcaption>
                 </figure>
 
-                <!-- Text, right -->
-                <article id="card" class="h-full min-h-0 flex flex-col">
-                    <blockquote id="text"
-                        class="quote font-sans text-base md:text-xl leading-relaxed text-stone-200 whitespace-pre-line my-auto overflow-y-auto pr-4 md:pr-8"></blockquote>
+                <article id="card">
+                    <blockquote id="text"></blockquote>
 
-                    <div class="mt-6 md:mt-8 pt-4 border-t border-stone-900/10 flex items-center justify-between gap-4">
-                        <div class="min-w-0">
-                            <a id="author-link" href="#" target="_blank" rel="noopener noreferrer"
-                               class="font-medium text-stone-100 hover:text-stone-400 transition-colors duration-200 truncate block">
-                                <span id="author"></span>
-                            </a>
-                            <span id="date" class="block text-[0.7rem] text-stone-500 mt-1 uppercase tracking-wider"></span>
-                        </div>
-                        <div class="shrink-0 flex items-center gap-3">
+                    <div class="memory-meta">
+                        <a id="author-link" href="#" target="_blank" rel="noopener noreferrer">
+                            <span id="author"></span>
+                        </a>
+                        <div class="memory-actions">
                             <button id="share" type="button"
-                                    class="text-stone-600 hover:text-stone-300 transition-colors cursor-pointer"
                                     title="Copia il link a questo ricordo"
                                     aria-label="Copia il link a questo ricordo">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2"
                                           d="M13.828 10.172a4 4 0 015.656 0l1.415 1.414a4 4 0 01-5.657 5.657l-1.414-1.414M10.172 13.828a4 4 0 01-5.657 0l-1.414-1.414a4 4 0 015.657-5.657l1.414 1.414M9 15l6-6" />
                                 </svg>
                             </button>
                             <a id="permalink" href="#" target="_blank" rel="noopener noreferrer"
-                               class="text-stone-600 hover:text-stone-300 transition-colors"
-                               title="Apri il post originale">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                               title="Apri il post originale" aria-label="Apri il post originale">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                 </svg>
                             </a>
                         </div>
                     </div>
+                    <span id="date" class="hidden"></span>
                 </article>
             </div>
         </main>
 
-        <!-- Footer: the two arrows, side by side and centred. -->
-        <footer class="shrink-0 w-full py-2 md:py-4 px-4 md:px-6">
-            <div class="mx-auto flex w-full max-w-[1600px] items-center justify-center gap-4">
-                <button id="prev" type="button" aria-label="Ricordo precedente"
-                        class="flex h-12 w-12 md:h-10 md:w-10 shrink-0 cursor-pointer items-center justify-center
-                               rounded-full border border-stone-900/10 bg-stone-900/5 text-stone-300 transition-colors
-                               hover:border-stone-900/25 hover:bg-stone-900/10 hover:text-stone-100
-                               active:bg-stone-900/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-stone-900/10 disabled:hover:bg-stone-900/5">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
+        <footer class="memory-footer">
+            <div class="memory-footer__inner">
+                <button id="prev" type="button" aria-label="Ricordo precedente">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
-
-                <button id="next" type="button" aria-label="Ricordo successivo"
-                        class="flex h-12 w-12 md:h-10 md:w-10 shrink-0 cursor-pointer items-center justify-center
-                               rounded-full border border-stone-900/10 bg-stone-900/5 text-stone-300 transition-colors
-                               hover:border-stone-900/25 hover:bg-stone-900/10 hover:text-stone-100
-                               active:bg-stone-900/20 disabled:cursor-default disabled:opacity-25 disabled:hover:border-stone-900/10 disabled:hover:bg-stone-900/5">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
+                <button id="next" type="button" aria-label="Ricordo successivo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
             </div>
         </footer>
     </div>
 
-    <!-- A shared memory link is already selected behind the first-visit cover. -->
-    <section id="frontispiece" class="fixed inset-0 z-[80] flex flex-col"
-             role="dialog" aria-modal="true"
+    <section id="frontispiece" tabindex="-1" role="dialog" aria-modal="true"
              aria-labelledby="frontispiece-title" aria-describedby="frontispiece-quote">
-        <div class="cover-scroll min-h-0 flex-1 overflow-y-auto px-6 py-10 md:px-10">
-            <div class="mx-auto flex min-h-full w-full max-w-5xl items-center justify-center">
-                <div class="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
-                    <figure class="mx-auto w-full max-w-[15rem] sm:max-w-xs lg:max-w-none">
-                        <picture>
-                            <source srcset="home.webp" type="image/webp">
-                            <img src="home.jpg" width="1079" height="1080" decoding="async"
-                                 alt="Annibale D'Elia sorride accanto ad altre persone durante un incontro"
-                                 class="w-full object-cover shadow-2xl shadow-black/60
-                                        outline outline-1 -outline-offset-1 outline-stone-900/10">
-                        </picture>
-                    </figure>
-                    <div class="text-center lg:text-left">
-                        <p id="frontispiece-title" class="text-stone-400 uppercase tracking-[0.28em] text-[0.65rem] md:text-xs">Per Annibale</p>
-                        <blockquote id="frontispiece-quote"
-                                    class="mt-4 font-sans text-lg leading-relaxed text-stone-200 lg:mt-5 lg:text-2xl lg:leading-relaxed">Annibale era un’anima antica, e per questo molto potente. Ha guidato la speranza prima ancora del cambiamento, perché senza speranza nessuna comunità può innescare cambiamenti, soprattutto se rivoluzionari. Amava i bollenti spiriti: le persone inquiete, curiose, che non si accontentano. A loro ha dedicato spazio, fiducia e lavoro.
-<br><br>
-La speranza che ha costruito in ognuno dei giovani che ha aiutato, nei progetti generativi che ha sostenuto, nelle persone che lo amavano e che lui amava, oggi è viva in tutti noi. E riparte da qui.
-<br><br>
-Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E c'è una raccolta aperta di testi e immagini, in gran parte recuperati dalla marea di messaggi che hanno attraversato la rete. Tutti e tutte possono contribuire e farla crescere. </blockquote>
+        <div class="cover-scroll">
+            <div class="cover-grid">
+                <figure class="cover-photo">
+                    <picture>
+                        <source srcset="home.webp" type="image/webp">
+                        <img src="home.jpg" width="1079" height="1080" decoding="async"
+                             alt="Annibale D'Elia sorride accanto ad altre persone durante un incontro">
+                    </picture>
+                </figure>
+
+                <div class="cover-copy">
+                    <p id="frontispiece-kicker">un ricordo collettivo</p>
+                    <h1 id="frontispiece-title"><span>Per</span><span>Annibale</span></h1>
+                    <blockquote id="frontispiece-quote" class="cover-quote">
+                        <p>Annibale era un’anima antica, e per questo molto potente. Ha guidato la speranza prima
+                        ancora del cambiamento, perché senza speranza nessuna comunità può innescare cambiamenti,
+                        soprattutto se rivoluzionari. Amava i <strong>bollenti spiriti</strong>: le persone inquiete,
+                        curiose, che non si accontentano. A loro ha dedicato spazio, fiducia e lavoro.</p>
+                        <p>La speranza che ha costruito in ognuno dei giovani che ha aiutato, nei progetti generativi
+                        che ha sostenuto, nelle persone che lo amavano e che lui amava, oggi è viva in tutti noi.
+                        E riparte da qui.</p>
+                    </blockquote>
+
+                    <nav class="cover-nav" aria-label="Sezioni del sito">
+                        <a href="index.html" aria-current="page">Ricordi</a>
+                        <a href="video.html">Video</a>
+                        <a href="playlist.html">Playlist</a>
+                        <a href="credits.html">Crediti</a>
+                        <button type="button" id="cover-thoughts" class="nav-pensiero">
+                            <span class="nav-label-long">Lascia un pensiero</span>
+                            <span class="nav-label-short">Pensiero</span>
+                        </button>
+                    </nav>
+
+                    <div class="cover-cta">
+                        <button id="frontispiece-enter" type="button">
+                            Entra
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="butt" stroke-linejoin="miter" stroke-width="2" d="M4 12h16M13 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        <p class="cover-note">i video dei suoi interventi · una raccolta aperta di testi e immagini</p>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="shrink-0 pb-10 text-center md:pb-14">
-            <button id="frontispiece-enter" type="button"
-                    class="inline-flex items-center gap-2 rounded-full border border-stone-900/15 bg-stone-900/5 px-5 py-2.5
-                           text-sm text-stone-200 transition-colors hover:border-stone-900/30 hover:bg-stone-900/10
-                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-300">
-                Entra
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-        </div>
     </section>
 
-    <!-- Confirmation for "copy link" -->
-    <div id="toast" aria-live="polite"
-         class="pointer-events-none fixed inset-x-0 bottom-16 z-[60] flex justify-center
-                opacity-0 transition-opacity duration-200">
-        <span class="rounded-full border border-stone-900/10 bg-stone-900/10 px-3 py-1.5 text-xs
-                     text-stone-200 shadow-lg shadow-black/10 backdrop-blur"></span>
-    </div>
+    <div id="toast" aria-live="polite"><span></span></div>
 
-    <!-- Lascia un pensiero: the form lives on Tally and is embedded here.
-         Nothing is requested from tally.so until the button is pressed. -->
-    <div id="thoughts" class="fixed inset-0 z-[70] hidden" role="dialog" aria-modal="true"
+    <div id="thoughts" class="hidden" role="dialog" aria-modal="true"
          aria-labelledby="thoughts-title" aria-describedby="thoughts-note">
-        <div id="thoughts-backdrop" class="absolute inset-0"></div>
+        <div id="thoughts-backdrop"></div>
 
-        <div class="relative mx-auto mt-[5vh] flex h-[min(88vh,720px)] w-[min(94vw,44rem)] flex-col
-                    overflow-hidden rounded-2xl border border-stone-900/10 bg-white
-                    shadow-2xl shadow-black/15">
-            <div class="flex shrink-0 items-center justify-between gap-4 border-b border-stone-900/10 px-4 py-3 md:px-5">
-                <h2 id="thoughts-title" class="font-sans text-lg text-stone-100">Lascia un pensiero</h2>
-                <button type="button" id="thoughts-close" aria-label="Chiudi il modulo"
-                        class="flex h-8 w-8 items-center justify-center rounded-full text-stone-500
-                               transition-colors hover:bg-stone-900/10 hover:text-stone-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+        <div class="thoughts__panel">
+            <div class="thoughts__head">
+                <h2 id="thoughts-title">Lascia un pensiero</h2>
+                <button type="button" id="thoughts-close" aria-label="Chiudi il modulo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path stroke-linecap="butt" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <div class="min-h-0 flex-1 bg-white overflow-hidden px-4 pb-4 pt-3 md:px-5 md:pb-5">
+            <div class="thoughts__body">
                 <iframe id="thoughts-frame" title="Modulo per lasciare un pensiero ad Annibale"
-                        class="block h-full w-full border-0" loading="lazy"></iframe>
+                        loading="lazy"></iframe>
             </div>
 
-            <p id="thoughts-note"
-               class="shrink-0 border-t border-stone-900/10 px-4 py-3 text-[0.7rem] leading-relaxed text-stone-500 md:px-5">
+            <p id="thoughts-note">
                 Nome e messaggio saranno pubblicati sul sito dopo una revisione. L'email, se la
                 lasci, resta privata e serve solo a ricontattarti.
             </p>
@@ -705,9 +508,9 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             const bubble = els.toast.firstElementChild;
             if (!bubble) return;
             bubble.textContent = message;
-            els.toast.classList.remove('opacity-0');
+            els.toast.classList.add('is-visible');
             clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => els.toast.classList.add('opacity-0'), 1900);
+            toastTimer = setTimeout(() => els.toast.classList.remove('is-visible'), 1900);
         }
 
         async function copyCurrentLink() {
@@ -895,7 +698,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             }
 
             if (!hits.length) {
-                box.innerHTML = `<div class="px-4 py-3 text-sm text-stone-500">Nessun ricordo per «${esc(query)}»</div>`;
+                box.innerHTML = `<div class="results__empty">Nessun ricordo per «${esc(query)}»</div>`;
                 box.classList.remove('hidden');
                 activeResult = -1;
                 return;
@@ -903,24 +706,21 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
 
             box.innerHTML = hits.slice(0, SEARCH_MAX).map(({ rec }) => {
                 const thumb = rec.image
-                    ? `<img src="${esc(rec.image)}" alt="" loading="lazy"
-                            class="h-11 w-11 rounded-md object-cover shrink-0 bg-stone-50">`
-                    : `<span class="h-11 w-11 rounded-md shrink-0 bg-stone-900/5 border border-stone-900/10"></span>`;
+                    ? `<img src="${esc(rec.image)}" alt="" loading="lazy" class="result__thumb">`
+                    : `<span class="result__thumb result__thumb--empty"></span>`;
                 return `
-                    <button type="button" role="option" data-i="${rec.i}" aria-selected="false"
-                            class="w-full text-left px-3 py-2.5 flex gap-3 items-start border-b border-stone-900/5 last:border-0
-                                   hover:bg-stone-900/5 focus:outline-none transition-colors">
+                    <button type="button" role="option" data-i="${rec.i}" aria-selected="false" class="result">
                         ${thumb}
-                        <span class="min-w-0 flex-1">
-                            <span class="flex items-baseline gap-2">
-                                <span class="text-stone-100 text-sm font-medium truncate">${esc(rec.rawAuthor)}</span>
-                                ${rec.date ? `<span class="text-[0.6rem] text-stone-500 uppercase tracking-wider truncate max-w-[45%]">${esc(rec.date)}</span>` : ''}
+                        <span class="result__body">
+                            <span class="result__top">
+                                <span class="result__author">${esc(rec.rawAuthor)}</span>
+                                ${rec.date ? `<span class="result__date">${esc(rec.date)}</span>` : ''}
                             </span>
-                            <span class="mt-1 block text-[0.78rem] leading-snug text-stone-400">${highlighted(snippetFor(rec.raw))}</span>
+                            <span class="result__snippet">${highlighted(snippetFor(rec.raw))}</span>
                         </span>
                     </button>`;
             }).join('') + (hits.length > SEARCH_MAX
-                ? `<div class="px-4 py-2 text-[0.7rem] text-stone-500">altri ${hits.length - SEARCH_MAX} ricordi</div>`
+                ? `<div class="results__more">altri ${hits.length - SEARCH_MAX} ricordi</div>`
                 : '');
 
             box.classList.remove('hidden');
@@ -1050,7 +850,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         function showMessage(html) {
             els.text.textContent = '';
             els.card.innerHTML =
-                `<div class="my-auto text-stone-400 text-sm leading-relaxed">${html}</div>`;
+                `<div class="card__message">${html}</div>`;
         }
 
         async function init() {
@@ -1070,10 +870,10 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             } catch (err) {
                 // file:// blocks fetch(); say so instead of showing a blank page.
                 showMessage(`
-                    <strong class="block mb-2 text-stone-100">Impossibile caricare ${DATA_URL}</strong>
+                    <strong>Impossibile caricare ${DATA_URL}</strong>
                     ${err.message}<br><br>
                     Apri questa pagina da un server locale, non con doppio clic:
-                    <code class="block mt-2 p-3 bg-stone-900/5 rounded select-all">python3 -m http.server 8899</code>
+                    <code>python3 -m http.server 8899</code>
                     poi vai su <code>http://localhost:8899/</code>.
                 `);
             }
@@ -1118,8 +918,11 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             console.warn('Could not read the frontispiece preference from localStorage.', error);
         }
 
-        page.inert = true;
-        enter.focus({ preventScroll: true });
+        const mainEl = page.querySelector('main');
+        const footEl = page.querySelector('footer');
+        if (mainEl) mainEl.inert = true;
+        if (footEl) footEl.inert = true;
+        cover.focus({ preventScroll: true });
 
         function finish() {
             if (!open) return;
@@ -1128,9 +931,9 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
             cover.hidden = true;
             cover.classList.remove('is-leaving');
             document.body.classList.remove('cover-open');
-            page.inert = false;
-            const main = document.querySelector('main');
-            if (main) main.focus({ preventScroll: true });
+            if (mainEl) mainEl.inert = false;
+            if (footEl) footEl.inert = false;
+            if (mainEl) mainEl.focus({ preventScroll: true });
         }
 
         function close() {
@@ -1153,11 +956,9 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
 
         document.addEventListener('keydown', (event) => {
             if (!open) return;
-            if (event.key === 'Tab') {
-                event.preventDefault();   // the button is the only stop
-                enter.focus();
-                return;
-            }
+            // Enter on a link must follow the link, not merely dismiss the cover.
+            const link = event.target && event.target.closest && event.target.closest('a[href]');
+            if (link) return;
             if (['Enter', ' ', 'Escape', 'ArrowRight', 'ArrowDown'].includes(event.key)) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -1187,6 +988,7 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         const THOUGHTS_CONTACT = '';
 
         const button = document.getElementById('leave-thought');
+        const coverButton = document.getElementById('cover-thoughts');
         const modal = document.getElementById('thoughts');
         const frame = document.getElementById('thoughts-frame');
         const closeButton = document.getElementById('thoughts-close');
@@ -1235,6 +1037,14 @@ Il sito ha due sezioni. Ci sono i video dei suoi interventi, per riascoltarlo. E
         button.classList.add('inline-flex');
 
         button.addEventListener('click', open);
+        if (coverButton) {
+            coverButton.classList.remove('hidden');
+            // The cover closes on any click: this one must only open the form.
+            coverButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                open();
+            });
+        }
         closeButton.addEventListener('click', close);
         backdrop.addEventListener('click', close);
         document.addEventListener('keydown', (event) => {

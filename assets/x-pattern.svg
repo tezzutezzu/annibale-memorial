@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="245" height="96" viewBox="0 0 245 96">
+  <!-- Motivo: reticolo 49 x 48, due righe da cinque, colori sfalsati di due. -->
+  <defs>
+    <g id="motif">
+      <rect x="-9.5" y="-25" width="19" height="50" rx="9.5" transform="rotate(45)"/>
+      <rect x="-9.5" y="-25" width="19" height="50" rx="9.5" transform="rotate(-45)"/>
+    </g>
+    <pattern id="stripes" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1.4" height="4" fill="#fff"/>
+    </pattern>
+    <mask id="motif-mask">
+      <g fill="#fff">
+    <use href="#motif" transform="translate(24.5 24)" fill="#fff"/>
+    <use href="#motif" transform="translate(73.5 24)" fill="#fff"/>
+    <use href="#motif" transform="translate(122.5 24)" fill="#fff"/>
+    <use href="#motif" transform="translate(171.5 24)" fill="#fff"/>
+    <use href="#motif" transform="translate(220.5 24)" fill="#fff"/>
+    <use href="#motif" transform="translate(24.5 72)" fill="#fff"/>
+    <use href="#motif" transform="translate(73.5 72)" fill="#fff"/>
+    <use href="#motif" transform="translate(122.5 72)" fill="#fff"/>
+    <use href="#motif" transform="translate(171.5 72)" fill="#fff"/>
+    <use href="#motif" transform="translate(220.5 72)" fill="#fff"/>
+      </g>
+    </mask>
+  </defs>
+  <g opacity=".12">
+    <use href="#motif" transform="translate(24.5 24)" fill="#7ab648"/>
+    <use href="#motif" transform="translate(73.5 24)" fill="#e5553a"/>
+    <use href="#motif" transform="translate(122.5 24)" fill="#f39a2b"/>
+    <use href="#motif" transform="translate(171.5 24)" fill="#a0509c"/>
+    <use href="#motif" transform="translate(220.5 24)" fill="#3db4e0"/>
+    <use href="#motif" transform="translate(24.5 72)" fill="#f39a2b"/>
+    <use href="#motif" transform="translate(73.5 72)" fill="#a0509c"/>
+    <use href="#motif" transform="translate(122.5 72)" fill="#3db4e0"/>
+    <use href="#motif" transform="translate(171.5 72)" fill="#7ab648"/>
+    <use href="#motif" transform="translate(220.5 72)" fill="#e5553a"/>
+  </g>
+  <rect width="245" height="96" fill="url(#stripes)" mask="url(#motif-mask)" opacity=".22"/>
+</svg>
