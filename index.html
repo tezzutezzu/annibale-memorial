@@ -76,6 +76,10 @@
                 <figure id="figure">
                     <div id="photo-frame">
                         <img id="photo" class="photo" alt="">
+                        <span id="photo-badge" class="photo-badge" aria-hidden="true" data-ready="false">
+                            <span class="photo-badge__bar photo-badge__bar--back"></span>
+                            <span class="photo-badge__bar photo-badge__bar--front"></span>
+                        </span>
                     </div>
                     <figcaption id="photo-controls" hidden
                                 role="group" aria-label="Foto di questo ricordo">
@@ -230,6 +234,7 @@
             figure: document.getElementById('figure'),
             photo: document.getElementById('photo'),
             photoFrame: document.getElementById('photo-frame'),
+            photoBadge: document.getElementById('photo-badge'),
             photoControls: document.getElementById('photo-controls'),
             photoPrev: document.getElementById('photo-prev'),
             photoNext: document.getElementById('photo-next'),
@@ -331,14 +336,50 @@
             if (image) new Image().src = image.src;
         }
 
+        // Le coppie di colori vengono dalla prima fila del motivo a X: due
+        // colori vicini, come si vedono nello sfondo. Ogni ricordo tiene la sua.
+        const BADGE_PAIRS = [
+            ['#7ab648', '#e5553a'], // verde su rosso
+            ['#e5553a', '#f39a2b'], // rosso su arancio
+            ['#a0509c', '#f39a2b'], // viola su arancio
+            ['#3db4e0', '#a0509c'], // blu su viola
+            ['#7ab648', '#3db4e0'], // verde su blu
+        ];
+
+        function badgePair(post) {
+            const id = String(post && post.id != null ? post.id : '');
+            let hash = 0;
+            for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+            return BADGE_PAIRS[hash % BADGE_PAIRS.length];
+        }
+
+        // The badge sits on the corner of the photo, not of its frame: the photo
+        // is letterboxed inside the frame, so only the image box is right.
+        function placeBadge() {
+            const badge = els.photoBadge;
+            if (!badge || !els.photo.offsetWidth) return;
+            badge.style.left = els.photo.offsetLeft + 'px';
+            badge.style.top = els.photo.offsetTop + 'px';
+            badge.style.setProperty('--badge-length', (els.photo.offsetWidth * 0.12).toFixed(1) + 'px');
+            badge.dataset.ready = 'true';
+        }
+
         function renderPhoto() {
             const post = state.posts[state.i];
             if (!post) return;
             const image = post.images[state.photoIndex];
             els.grid.classList.toggle('no-image', !image);
+
+            const pair = badgePair(post);
+            els.photoBadge.dataset.ready = 'false';
+            els.photoBadge.style.setProperty('--badge-front', pair[0]);
+            els.photoBadge.style.setProperty('--badge-back', pair[1]);
+
             if (image) {
                 els.photo.src = image.src;
                 els.photo.alt = image.alt;
+                // A cached image may paint before `load` fires: measure after layout.
+                if (els.photo.complete && els.photo.naturalWidth) requestAnimationFrame(placeBadge);
             } else {
                 els.photo.removeAttribute('src');
                 els.photo.alt = '';
@@ -360,6 +401,11 @@
             state.photoIndex = next;
             renderPhoto();
         }
+
+        els.photo.addEventListener('load', placeBadge);
+        window.addEventListener('resize', placeBadge);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) placeBadge(); });
+        if ('ResizeObserver' in window) new ResizeObserver(placeBadge).observe(els.photoFrame);
 
         els.photoPrev.addEventListener('click', () => goPhoto(state.photoIndex - 1));
         els.photoNext.addEventListener('click', () => goPhoto(state.photoIndex + 1));

@@ -29,7 +29,6 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    border-radius: 0 !important;
 }
 
 html {
@@ -42,7 +41,7 @@ body {
     min-height: 100%;
     background-color: var(--paper);
     background-image: url("x-pattern.svg");
-    background-size: 90vw auto;
+    background-size: 40vw auto;
     background-repeat: repeat;
     background-attachment: fixed;
     color: var(--ink);
@@ -50,6 +49,13 @@ body {
     font-size: 1rem;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Sul telefono il motivo a 80vw diventa troppo rado: si stringe un po'. */
+@media (max-width: 899px) {
+    body {
+        background-size: 500px auto;
+    }
 }
 
 a {
@@ -793,6 +799,11 @@ button {
     min-height: 0;
 }
 
+main:focus-visible {
+    outline: none;
+}
+
+
 .memory {
     display: flex;
     flex: 1 1 auto;
@@ -838,6 +849,44 @@ button {
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+}
+
+/* Segno a X nell'angolo della foto: due nastri incrociati come il motivo
+   dello sfondo. Ancora di 0x0 sul punto d'angolo, riempita dal JS. */
+#photo-badge {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#photo-badge[data-ready="true"] {
+    opacity: 1;
+}
+
+.photo-badge__bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--badge-length, 0px);
+    height: calc(var(--badge-length, 0px) / 3);
+    margin-left: calc(var(--badge-length, 0px) / -2);
+    margin-top: calc(var(--badge-length, 0px) / -6);
+    border-radius: 200px;
+    opacity: 0.8;
+}
+
+.photo-badge__bar--back {
+    background: var(--badge-back, var(--motif-orange));
+    transform: rotate(45deg);
+}
+
+.photo-badge__bar--front {
+    background: var(--badge-front, var(--motif-purple));
+    transform: rotate(-45deg);
 }
 
 #photo-controls {
@@ -1102,7 +1151,6 @@ button {
     margin: 0;
     padding: 0.1em 0.22em;
     color: var(--ink);
-    background: #fff;
     font-family: "Space Mono", monospace;
     font-size: clamp(1.35rem, 3.6vw, 2rem);
     line-height: 1.15;
@@ -1409,7 +1457,6 @@ button {
 
 .credits-list li {
     padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(20, 20, 20, 0.15);
     font-size: 1rem;
 }
 

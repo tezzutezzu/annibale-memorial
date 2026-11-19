@@ -79,6 +79,10 @@ Su smartphone e tablet puoi anche **scorrere il dito sulla foto**: verso sinistr
 per la foto successiva, verso destra per la precedente. Il testo continua a
 scorrere verticalmente nella propria area.
 
+Nell'angolo in alto a sinistra di ogni foto c'è un piccolo segno a X, come il
+motivo dello sfondo: i due nastri prendono due colori del motivo e restano
+gli stessi per tutto il ricordo.
+
 Puoi usare anche la tastiera: premi <kbd>Tab</kbd> per raggiungere le frecce
 delle foto, poi <kbd>←</kbd> e <kbd>→</kbd> per sfogliarle. Fuori da questi
 comandi, le frecce della tastiera continuano a cambiare ricordo.
