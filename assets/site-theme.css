@@ -922,7 +922,6 @@ button {
     gap: 1.5rem;
     margin-top: 2rem;
     padding-top: 1.1rem;
-    border-top: 1px solid var(--ink);
 }
 
 #author-link {
@@ -1102,8 +1101,8 @@ button {
     display: inline-block;
     margin: 0;
     padding: 0.1em 0.22em;
-    background: var(--ink);
-    color: #fff;
+    color: var(--ink);
+    background: #fff;
     font-family: "Space Mono", monospace;
     font-size: clamp(1.35rem, 3.6vw, 2rem);
     line-height: 1.15;
@@ -1119,8 +1118,7 @@ button {
 
 .sheet h2 {
     margin: 0 0 1.1rem;
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid var(--ink);
+    padding-top: 0.55rem;
     color: var(--ink);
     font-family: "Space Mono", monospace;
     font-size: 0.74rem;
@@ -1337,8 +1335,8 @@ button {
 }
 
 .playlist__item[aria-current="true"] {
-    background: var(--ink);
-    color: #fff;
+    color:var(--ink);
+    background:  #fff;
 }
 
 .playlist__index {
@@ -1370,9 +1368,6 @@ button {
     text-transform: uppercase;
 }
 
-.playlist__item[aria-current="true"] .playlist__artist {
-    color: rgba(255, 255, 255, 0.72);
-}
 
 .playlist__time {
     flex: none;
