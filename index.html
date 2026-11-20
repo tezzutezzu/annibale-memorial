@@ -19,7 +19,7 @@
 
         <header class="topbar">
             <div class="topbar__inner">
-                <a class="site-brand" href="index.html" aria-label="Per Annibale — Ricordi">
+                <a class="site-brand" href="index.html?frontespizio=1" aria-label="Per Annibale — frontespizio">
                     <span class="brand-tag">Per Annibale</span>
                 </a>
 
@@ -937,36 +937,75 @@
 
         const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
         const seenKey = 'per-annibale-frontispiece-seen';
+        const params = new URLSearchParams(location.search);
+        const mainEl = page.querySelector('main');
+        const footEl = page.querySelector('footer');
         let open = true;
         let closing = false;
 
-        window.fbFrontispiece = { isOpen: () => open };
+        function setPageInert(inert) {
+            if (mainEl) mainEl.inert = inert;
+            if (footEl) footEl.inert = inert;
+        }
+
+        // The brand tag brings the cover back, on this page and from the others
+        // (they link to index.html?frontespizio=1).
+        function cleanUrl() {
+            if (!params.has('frontespizio')) return;
+            params.delete('frontespizio');
+            const query = params.toString();
+            history.replaceState(null, '', location.pathname + (query ? '?' + query : '') + location.hash);
+        }
+
+        function show() {
+            if (open) return;
+            open = true;
+            closing = false;
+            cover.hidden = false;
+            cover.classList.remove('is-leaving');
+            document.body.classList.add('cover-open');
+            setPageInert(true);
+            cover.focus({ preventScroll: true });
+            cleanUrl();
+        }
+
+        window.fbFrontispiece = { isOpen: () => open, show };
+
+        const brand = document.querySelector('.site-brand');
+        if (brand) {
+            brand.addEventListener('click', (event) => {
+                // Modified clicks keep their usual meaning (new tab, download…).
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                show();
+            });
+        }
+
+        // ?frontespizio riapre il frontespizio anche a chi l'ha già visto.
+        const asked = params.has('frontespizio');
+        let wanted = true;
 
         // Arriving from "Se hai un ricordo, condividilo": the visitor already
         // chose to write, so the cover must not stand in the way.
-        if (new URLSearchParams(location.search).has('pensiero')) {
+        if (params.has('pensiero') && !asked) {
+            wanted = false;
+        } else {
+            try {
+                if (!asked && localStorage.getItem(seenKey) === '1') wanted = false;
+            } catch (error) {
+                console.warn('Could not read the frontispiece preference from localStorage.', error);
+            }
+        }
+
+        if (wanted) {
+            setPageInert(true);
+            cover.focus({ preventScroll: true });
+            cleanUrl();
+        } else {
             open = false;
             cover.hidden = true;
             document.body.classList.remove('cover-open');
-            return;
         }
-
-        try {
-            if (localStorage.getItem(seenKey) === '1') {
-                open = false;
-                cover.hidden = true;
-                document.body.classList.remove('cover-open');
-                return;
-            }
-        } catch (error) {
-            console.warn('Could not read the frontispiece preference from localStorage.', error);
-        }
-
-        const mainEl = page.querySelector('main');
-        const footEl = page.querySelector('footer');
-        if (mainEl) mainEl.inert = true;
-        if (footEl) footEl.inert = true;
-        cover.focus({ preventScroll: true });
 
         function finish() {
             if (!open) return;

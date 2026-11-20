@@ -59,7 +59,8 @@ un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
 
 Il frontespizio compare solo alla prima visita: dopo aver premuto **Entra** (o
 un tasto per proseguire), la scelta viene salvata nel browser e le visite
-successive saltano la pagina iniziale. Se l'indirizzo contiene già un ricordo
+successive saltano la pagina iniziale. Per rivederlo basta toccare il marchio
+**Per Annibale** in alto a sinistra, in qualunque pagina. Se l'indirizzo contiene già un ricordo
 (`.../#fb_...`), alla prima visita si arriva a quel ricordo dopo l'ingresso;
 nelle visite successive il collegamento apre direttamente quel ricordo.
 
