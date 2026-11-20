@@ -29,8 +29,8 @@ comandi da copiare e incollare.
 
    **http://localhost:8899/**
 
-La presentazione è partita. Quando hai finito, torna nel Terminale e premi
-<kbd>Ctrl</kbd>+<kbd>C</kbd> per chiuderla.
+Si apre il frontespizio: il pulsante **Entra** porta ai ricordi. Quando hai
+finito, torna nel Terminale e premi <kbd>Ctrl</kbd>+<kbd>C</kbd> per chiuderla.
 
 > Se il Mac chiede di installare gli "strumenti da riga di comando", accetta e
 > riprova: è una cosa normale, serve solo a far funzionare il comando qui sopra.
@@ -53,16 +53,15 @@ La presentazione è partita. Quando hai finito, torna nel Terminale e premi
 
 ### Il frontespizio
 
-Aprendo il sito compare una pagina iniziale con un pensiero su Annibale: non è
-un ricordo e non entra nel conteggio. Si entra con il pulsante **Entra**, con
-<kbd>Invio</kbd>, <kbd>Spazio</kbd> o <kbd>→</kbd> (anche <kbd>Esc</kbd>).
+Aprendo il sito si arriva al frontespizio (`index.html`): una pagina con una
+fotografia di Annibale e un pensiero su di lui. Non è un ricordo e non entra nel
+conteggio; il pulsante **Entra** porta ai ricordi (`ricordi.html`).
 
-Il frontespizio compare solo alla prima visita: dopo aver premuto **Entra** (o
-un tasto per proseguire), la scelta viene salvata nel browser e le visite
-successive saltano la pagina iniziale. Per rivederlo basta toccare il marchio
-**Per Annibale** in alto a sinistra, in qualunque pagina. Se l'indirizzo contiene già un ricordo
-(`.../#fb_...`), alla prima visita si arriva a quel ricordo dopo l'ingresso;
-nelle visite successive il collegamento apre direttamente quel ricordo.
+Il frontespizio è una pagina come le altre: si apre sempre, non solo alla prima
+visita, e non lascia niente salvato nel browser. Per tornare al frontespizio da
+qualunque altra pagina basta toccare il marchio **Per Annibale** in alto a
+sinistra. I link ai singoli ricordi hanno la forma `ricordi.html#fb_...` e si
+aprono direttamente sulla presentazione.
 
 Il frontespizio condivide lo sfondo chiaro con motivo a X della presentazione.
 
@@ -105,7 +104,7 @@ Ogni ricordo ha il suo indirizzo. Guarda la barra degli indirizzi: è qualcosa
 tipo
 
 ```
-https://tezzutezzu.github.io/annibale-memorial/#fb_122107332044579405
+https://tezzutezzu.github.io/annibale-memorial/ricordi.html#fb_122107332044579405
 ```
 
 L'indirizzo cambia da solo mentre scorri, quindi basta copiarlo per condividere
@@ -159,7 +158,8 @@ condividilo** apre direttamente il modulo per lasciare un pensiero.
 ## 3. Cosa c'è nella cartella
 
 ```
-index.html                ← la presentazione (è questa che si apre)
+index.html                ← il frontespizio (è questa che si apre)
+ricordi.html              ← la presentazione con tutti i ricordi
 video.html                ← la pagina dei video
 playlist.html             ← la playlist Spotify «Gli elefanti gentili»
 credits.html              ← la pagina dei crediti
@@ -172,9 +172,9 @@ data/posts.csv            ← la stessa roba in forma di foglio di calcolo
 data/excluded.json        ← i post tolti di proposito (non devono tornare)
 ```
 
-La cartella si può copiare dove vuoi (anche su una chiavetta), ma
-`index.html` deve restare dentro la cartella insieme a `data/`:
-se lo sposti da solo, le foto non si trovano più.
+La cartella si può copiare dove vuoi (anche su una chiavetta), ma le pagine
+devono restare dentro la cartella insieme a `data/`: se sposti `ricordi.html`
+da sola, le foto non si trovano più.
 
 Le altre cose (`console/`, `import_console_dump.py`, `import_thoughts.py`,
 `fbstore.py`, `remove_posts.py`, `requirements.txt`) servono solo se un giorno si
@@ -210,9 +210,9 @@ ricarica con <kbd>Cmd</kbd>+<kbd>R</kbd>.
 
 Chi visita la presentazione può scrivere il proprio ricordo senza avere un
 account: in alto, accanto a **Ricordi** e **Video**, c'è **Lascia un pensiero**.
-Il modulo si apre anche da un indirizzo diretto, `index.html?pensiero=1`, che
-salta il frontespizio: è il link usato da **Se hai un ricordo, condividilo**
-nella pagina dei crediti.
+Il modulo si apre anche da un indirizzo diretto, `ricordi.html?pensiero=1`, che
+porta ai ricordi con il modulo già aperto: è il link usato da **Se hai un
+ricordo, condividilo** nella pagina dei crediti.
 
 1. Si compila il modulo: nome, pensiero, una foto se si vuole, email
    facoltativa.
@@ -239,11 +239,11 @@ nella pagina dei crediti.
 2. Nelle impostazioni del modulo: notifica via email a ogni risposta, tema scuro,
    “Prevent duplicate submissions”.
 3. Copiare il link di incorporamento (Share → Embed) e incollarlo nella costante
-   `FORM_URL` in fondo a `index.html`, aggiungendo in coda
+   `FORM_URL` in fondo a `ricordi.html`, aggiungendo in coda
    `?hideTitle=1&transparentBackground=1&alignLeft=1`. Finché è vuota, il
    pulsante resta nascosto e nessun dato esce dal sito.
 4. Se vuoi indicare un indirizzo a cui chiedere la rimozione di un pensiero,
-   scrivilo in `THOUGHTS_CONTACT`, sempre in fondo a `index.html`.
+   scrivilo in `THOUGHTS_CONTACT`, sempre in fondo a `ricordi.html`.
 
 Per esportare solo i pensieri approvati: nel pannello Tally si scelgono le
 risposte e si esporta il CSV (oppure si usa l'integrazione con Google Sheets e si

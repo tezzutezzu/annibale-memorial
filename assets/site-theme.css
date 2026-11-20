@@ -108,11 +108,6 @@ button {
     }
 }
 
-/* Il frontespizio lascia il logo e il menu sopra di sé. */
-.cover-open .topbar {
-    z-index: 90;
-}
-
 .site-brand {
     display: inline-flex;
     align-items: baseline;
@@ -144,15 +139,8 @@ button {
     justify-self: center;
 }
 
-.cover-open #site-nav {
-    grid-column: 3;
-    justify-self: end;
-}
-
 #site-nav a,
 #site-nav button,
-.cover-nav a,
-.cover-nav button,
 #mobile-menu a,
 #mobile-menu button {
     position: relative;
@@ -171,33 +159,28 @@ button {
     cursor: pointer;
 }
 
-#site-nav a[href="index.html"],
-.cover-nav a[href="index.html"],
-#mobile-menu a[href="index.html"] {
+#site-nav a[href="ricordi.html"],
+#mobile-menu a[href="ricordi.html"] {
     background: var(--ricordi);
 }
 
 #site-nav a[href="video.html"],
-.cover-nav a[href="video.html"],
 #mobile-menu a[href="video.html"] {
     background: var(--video);
 }
 
 #site-nav a[href="playlist.html"],
-.cover-nav a[href="playlist.html"],
 #mobile-menu a[href="playlist.html"] {
     background: var(--playlist);
 }
 
 #site-nav a[href="credits.html"],
-.cover-nav a[href="credits.html"],
 #mobile-menu a[href="credits.html"] {
     background: var(--crediti);
 }
 
 #site-nav #leave-thought,
 #site-nav .nav-pensiero,
-.cover-nav .nav-pensiero,
 #mobile-menu #menu-thoughts,
 #mobile-menu .nav-pensiero {
     background: var(--pensiero);
@@ -205,15 +188,12 @@ button {
 
 #site-nav a:hover,
 #site-nav button:hover,
-.cover-nav a:hover,
-.cover-nav button:hover,
 #mobile-menu a:hover,
 #mobile-menu button:hover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.14));
 }
 
 #site-nav [aria-current="page"]::after,
-.cover-nav [aria-current="page"]::after,
 #mobile-menu [aria-current="page"]::after {
     content: "";
     position: absolute;
@@ -241,11 +221,6 @@ button {
     align-items: center;
     justify-self: end;
     gap: 1.875rem;
-}
-
-.cover-open #search-wrap,
-.cover-open #counter {
-    display: none;
 }
 
 #search-wrap {
@@ -465,24 +440,16 @@ button {
 }
 
 /* =========================================================================
-   Frontespizio
+   Frontespizio (index.html)
    ========================================================================= */
 
 #frontispiece {
-    position: fixed;
-    inset: 0;
-    z-index: 80;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
+    width: 100%;
+    min-height: 0;
     overflow: hidden;
-}
-
-#frontispiece[hidden] {
-    display: none;
-}
-
-.cover-open .page > :not(.topbar) {
-    visibility: hidden;
 }
 
 .cover-scroll {
@@ -510,7 +477,7 @@ button {
     max-width: 1065px;
     min-height: 100%;
     margin: 0 auto;
-    padding: 5.5rem 0 1rem;
+    padding: 1.5rem 0 2rem;
 }
 
 .cover-photo {
@@ -591,7 +558,6 @@ button {
     flex-direction: column;
     gap: 0.85rem;
     width: 100%;
-    margin-top: 0;
     padding-top: 1rem;
 }
 
@@ -610,7 +576,7 @@ button {
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.06em;
-    cursor: pointer;
+    text-decoration: none;
 }
 
 #frontispiece-enter:hover {
@@ -622,84 +588,13 @@ button {
     height: 15px;
 }
 
-.cover-note {
-    display: none;
-    margin: 0;
-    max-width: 26rem;
-    color: var(--muted);
-    font-family: "Space Mono", monospace;
-    font-size: 0.7rem;
-    line-height: 1.45;
-}
-
-/* Il menu del frontespizio: solo su schermo stretto, sopra "Entra". */
-.cover-nav {
-    display: flex;
-    width: 100%;
-    margin-top: auto;
-    padding-top: 1.5rem;
-}
-
-.cover-nav a,
-.cover-nav button {
-    flex: 1 1 0;
-    padding: 0.62rem 0.2rem;
-    font-size: 0.66rem;
-}
-
-.cover-nav .nav-label-long {
-    display: none;
-}
-
-.cover-nav .nav-label-short {
-    display: inline;
-}
-
-#frontispiece.is-leaving {
-    animation: frontispiece-out 420ms ease forwards;
-}
-
-@keyframes frontispiece-out {
-    to {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #frontispiece.is-leaving {
-        animation: none;
-    }
-}
-
 @media (max-width: 899px) {
     #frontispiece-kicker {
         display: none;
     }
 
-    .cover-grid {
-        padding: 5rem 0 2rem;
-    }
-
     .cover-quote {
-        display: -webkit-box;
-        -webkit-line-clamp: 7;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
         margin-top: 1.5rem;
-    }
-
-    .cover-nav {
-        justify-content: flex-start;
-        gap: 1px;
-        padding-top: 1rem;
-    }
-
-    .cover-nav a,
-    .cover-nav button {
-        flex: 0 0 auto;
-        padding: 0.5rem 0.44rem;
-        font-size: 0.75rem;
     }
 
     #frontispiece-enter {
@@ -717,7 +612,7 @@ button {
     .cover-scroll {
         display: flex;
         align-items: center;
-        padding-bottom: 11.5vh;
+        padding-bottom: 6vh;
     }
 
     .cover-grid {
@@ -742,7 +637,6 @@ button {
         align-items: flex-start;
         gap: 1.1rem;
         width: auto;
-        margin-top: 0;
         padding-top: 1.3rem;
     }
 
@@ -751,14 +645,6 @@ button {
         min-width: 108px;
         min-height: 39px;
         padding: 0 0.9rem;
-    }
-
-    .cover-note {
-        display: block;
-    }
-
-    .cover-nav {
-        display: none;
     }
 }
 
@@ -1584,7 +1470,8 @@ main:focus-visible {
         padding: 16px 21px 0;
     }
 
-    .cover-open .topbar__inner {
+    /* Il frontespizio ha solo il marchio in alto: una riga basta. */
+    .page--frontespizio .topbar__inner {
         grid-template-rows: auto;
     }
 
@@ -1658,11 +1545,24 @@ main:focus-visible {
         background-image: none;
     }
 
-    #frontispiece,
     #toast,
     #thoughts,
-    .topbar,
     .memory-footer {
         display: none !important;
+    }
+
+    /* Nella presentazione la stampa mostra solo il ricordo. */
+    body.page--ricordi .topbar {
+        display: none !important;
+    }
+
+    /* Il frontespizio si stampa intero, senza riquadro di scorrimento. */
+    body.page--frontespizio .page {
+        height: auto;
+    }
+
+    body.page--frontespizio #frontispiece,
+    body.page--frontespizio .cover-scroll {
+        overflow: visible;
     }
 }
